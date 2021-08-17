@@ -28,6 +28,7 @@
     "copy-custom-config": "cp ./config/config.custom.yaml ./config/config.yaml"
   },
   "dependencies": {
+    "@elrondnetwork/transaction-processor": "^0.1.14",
     "@nestjs/common": "^8.0.6",
     "@nestjs/config": "^1.0.1",
     "@nestjs/core": "^8.0.6",
