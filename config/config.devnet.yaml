@@ -6,3 +6,5 @@ urls:
 api:
   public: true
   private: true
+security:
+  jwtSecret: ''

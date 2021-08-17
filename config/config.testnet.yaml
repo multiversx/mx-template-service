@@ -1,2 +1,10 @@
 urls:
-  api: 'https://testnet-api.elrond.com'
+  api:
+    - 'https://testnet-microservice.elrond.com'
+    - 'https://devnet-microservice.elrond.com'
+    - 'https://microservice.elrond.com'
+api:
+  public: true
+  private: true
+security:
+  jwtSecret: ''

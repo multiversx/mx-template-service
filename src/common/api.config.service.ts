@@ -31,4 +31,13 @@ export class ApiConfigService {
 
     return isApiActive;
   }
+
+  getJwtSecret(): string {
+    const jwtSecret = this.configService.get<string>('security.jwtSecret');
+    if (!jwtSecret) {
+      throw new Error('No jwtSecret present');
+    }
+
+    return jwtSecret;
+  }
 }
