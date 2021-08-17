@@ -32,22 +32,40 @@ export class ApiConfigService {
     return redisUrl;
   }
 
-  getIsPublicApiActive(): boolean {
-    let isApiActive = this.configService.get<boolean>('api.public');
+  getIsPublicApiFeatureActive(): boolean {
+    let isApiActive = this.configService.get<boolean>('features.publicApi');
     if (isApiActive === undefined) {
-      throw new Error('No api.public flag present');
+      throw new Error('No public api feature flag present');
     }
 
     return isApiActive;
   }
 
-  getIsPrivateApiActive(): boolean {
-    let isApiActive = this.configService.get<boolean>('api.private');
+  getIsPrivateApiFeatureActive(): boolean {
+    let isApiActive = this.configService.get<boolean>('features.privateApi');
     if (isApiActive === undefined) {
-      throw new Error('No api.private flag present');
+      throw new Error('No private api feature flag present');
     }
 
     return isApiActive;
+  }
+
+  getIsCacheWarmerFeatureActive(): boolean {
+    let isCacheWarmerActive = this.configService.get<boolean>('features.cacheWarmer');
+    if (isCacheWarmerActive === undefined) {
+      throw new Error('No cache warmer feature flag present');
+    }
+
+    return isCacheWarmerActive;
+  }
+
+  getIsTransactionProcessorFeatureActive(): boolean {
+    let isTransactionProcessorActive = this.configService.get<boolean>('features.transactionProcessor');
+    if (isTransactionProcessorActive === undefined) {
+      throw new Error('No transaction processor feature flag present');
+    }
+
+    return isTransactionProcessorActive;
   }
 
   getJwtSecret(): string {

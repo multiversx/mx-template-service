@@ -3,7 +3,7 @@ import { ApiConfigService } from "./api.config.service";
 const { promisify } = require('util');
 import { createClient } from 'redis';
 import { Cache } from "cache-manager";
-import { Constants } from "./helpers/constants";
+import { Constants } from "./utils/constants";
 import { ApiService } from "./api.service";
 
 @Injectable()

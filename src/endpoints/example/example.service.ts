@@ -1,10 +1,16 @@
 import { Injectable } from "@nestjs/common";
+import { CachingService } from "src/common/caching.service";
 import { QueryPagination } from "src/common/entities/query.paginations";
+import { Constants } from "src/common/utils/constants";
 import { Example } from "./entities/example";
 import { ExampleFilter } from "./entities/example.filter";
 
 @Injectable()
 export class ExampleService {
+  constructor(
+    private readonly cachingService: CachingService
+  ) {}
+
   async getExamples(pagination: QueryPagination, filter: ExampleFilter): Promise<Example[]> {
     let examples = await this.getAllExamples();
 
@@ -24,6 +30,14 @@ export class ExampleService {
   }
 
   async getAllExamples(): Promise<Example[]> {
+    return this.cachingService.getOrSetCache(
+      'examples',
+      async () => await this.getAllExamplesRaw(),
+      Constants.oneHour()
+    );
+  }
+
+  async getAllExamplesRaw(): Promise<Example[]> {
     return new Promise(resolve => {
       resolve([
         {

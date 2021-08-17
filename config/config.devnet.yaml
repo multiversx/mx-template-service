@@ -5,8 +5,10 @@ urls:
     - 'https://testnet-microservice.elrond.com'
     - 'https://microservice.elrond.com'
   redis: '127.0.0.1'
-api:
-  public: true
-  private: true
+features:
+  publicApi: true
+  privateApi: true
+  cacheWarmer: true
+  transactionProcessor: true
 security:
   jwtSecret: ''

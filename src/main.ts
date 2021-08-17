@@ -2,6 +2,7 @@ import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { readFileSync } from 'fs';
 import { join } from 'path';
+import { CacheWarmerModule } from './cache.warmer.module';
 import { ApiConfigService } from './common/api.config.service';
 import { CachingService } from './common/caching.service';
 import { CachingInterceptor } from './common/interceptors/caching.interceptor';
@@ -40,13 +41,18 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(publicApp, config);
   SwaggerModule.setup('', publicApp, document);
 
-  if (apiConfigService.getIsPublicApiActive()) {
+  if (apiConfigService.getIsPublicApiFeatureActive()) {
     await publicApp.listen(3000);
   }
 
-  if (apiConfigService.getIsPrivateApiActive()) {
+  if (apiConfigService.getIsPrivateApiFeatureActive()) {
     const privateApp = await NestFactory.create(PrivateAppModule);
     await privateApp.listen(4000);
+  }
+
+  if (apiConfigService.getIsCacheWarmerFeatureActive()) {
+    const cacheWarmerApp = await NestFactory.create(CacheWarmerModule);
+    await cacheWarmerApp.listen(5000);
   }
 }
 

@@ -43,7 +43,7 @@ import { MetricsService } from './endpoints/metrics/metrics.service';
     ExampleService, ApiConfigService, MetricsService, CachingService, ApiService
   ],
   exports: [
-    ApiConfigService, MetricsService
+    ApiConfigService, MetricsService, CachingService, ExampleService
   ],
 })
 export class PublicAppModule {}
