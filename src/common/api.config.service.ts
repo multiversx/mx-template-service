@@ -5,13 +5,31 @@ import { ConfigService } from "@nestjs/config";
 export class ApiConfigService {
   constructor(private readonly configService: ConfigService) {}
 
-  getApiUrls(): string[] {
-    const apiUrls = this.configService.get<string[]>('urls.api');
-    if (!apiUrls) {
-      throw new Error('No API urls present');
+  getApiUrl(): string {
+    const apiUrl = this.configService.get<string>('urls.api');
+    if (!apiUrl) {
+      throw new Error('No API url present');
     }
 
-    return apiUrls;
+    return apiUrl;
+  }
+
+  getSwaggerUrls(): string[] {
+    const swaggerUrls = this.configService.get<string[]>('urls.swagger');
+    if (!swaggerUrls) {
+      throw new Error('No swagger urls present');
+    }
+
+    return swaggerUrls;
+  }
+
+  getRedisUrl(): string {
+    const redisUrl = this.configService.get<string>('urls.redis');
+    if (!redisUrl) {
+      throw new Error('No redisUrl present');
+    }
+
+    return redisUrl;
   }
 
   getIsPublicApiActive(): boolean {

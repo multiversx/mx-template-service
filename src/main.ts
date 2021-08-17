@@ -1,14 +1,26 @@
-import { NestFactory } from '@nestjs/core';
+import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 import { ApiConfigService } from './common/api.config.service';
+import { CachingService } from './common/caching.service';
+import { CachingInterceptor } from './common/interceptors/caching.interceptor';
+import { LoggingInterceptor } from './common/interceptors/logging.interceptor';
+import { MetricsService } from './endpoints/metrics/metrics.service';
 import { PrivateAppModule } from './private.app.module';
 import { PublicAppModule } from './public.app.module';
 
 async function bootstrap() {
   const publicApp = await NestFactory.create(PublicAppModule);
   let apiConfigService = publicApp.get<ApiConfigService>(ApiConfigService);
+  let metricsService = publicApp.get<MetricsService>(MetricsService);
+  let cachingService = publicApp.get<CachingService>(CachingService);
+  let httpAdapterHostService = publicApp.get<HttpAdapterHost>(HttpAdapterHost);
+
+  publicApp.useGlobalInterceptors(
+    new LoggingInterceptor(metricsService), 
+    new CachingInterceptor(cachingService, httpAdapterHostService, metricsService),
+  );
 
   const description = readFileSync(join(__dirname, '..', 'docs', 'swagger.md'), 'utf8');
 
@@ -18,7 +30,7 @@ async function bootstrap() {
     .setVersion('1.0.0')
     .setExternalDoc('Elrond Docs', 'https://docs.elrond.com');
 
-  let apiUrls = apiConfigService.getApiUrls();
+  let apiUrls = apiConfigService.getSwaggerUrls();
   for (let apiUrl of apiUrls) {
     documentBuilder = documentBuilder.addServer(apiUrl);
   }

@@ -1,8 +1,10 @@
 urls:
-  api:
+  api: 'https://devnet-api.elrond.com'
+  swagger:
     - 'https://devnet-microservice.elrond.com'
     - 'https://testnet-microservice.elrond.com'
     - 'https://microservice.elrond.com'
+  redis: '127.0.0.1'
 api:
   public: true
   private: true
