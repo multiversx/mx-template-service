@@ -1,0 +1,5 @@
+urls:
+  api:
+    - 'https://devnet-microservice.elrond.com'
+    - 'https://testnet-microservice.elrond.com'
+    - 'https://microservice.elrond.com'
