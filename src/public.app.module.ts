@@ -20,7 +20,7 @@ import { MetricsService } from './endpoints/metrics/metrics.service';
     CacheModule.register(),
     WinstonModule.forRoot({
       level: 'verbose',
-      format: winston.format.combine(winston.format.timestamp(), winston.format.json()),
+      format: winston.format.combine(winston.format.timestamp(), winston.format.simple()),
       transports: [
         new winston.transports.Console({ level: 'info' }),
         new DailyRotateFile({
@@ -31,7 +31,8 @@ import { MetricsService } from './endpoints/metrics/metrics.service';
           maxFiles: '14d',
           createSymlink: true,
           dirname: 'dist/logs',
-          symlinkName: 'application.log'
+          symlinkName: 'application.log',
+          format: winston.format.json()
         }),
       ]
     }),
