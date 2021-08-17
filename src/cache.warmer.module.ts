@@ -3,7 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { ClientOptions, ClientProxyFactory, Transport } from '@nestjs/microservices';
 import { ScheduleModule } from '@nestjs/schedule';
 import configuration from 'config/configuration';
-import { CacheWarmerService } from './crons/cache.warmer.service';
+import { CacheWarmerCron } from './crons/cache.warmer.cron';
 import { ApiConfigService } from './common/api.config.service';
 import { PublicAppModule } from './public.app.module';
 
@@ -17,7 +17,7 @@ import { PublicAppModule } from './public.app.module';
   ],
   controllers: [],
   providers: [
-    CacheWarmerService,
+    CacheWarmerCron,
     {
       provide: 'PUBSUB_SERVICE',
       useFactory: (apiConfigService: ApiConfigService) => {

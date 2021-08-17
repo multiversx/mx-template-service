@@ -7,8 +7,7 @@ import { Locker } from "src/common/utils/locker";
 import { Constants } from "src/common/utils/constants";
 
 @Injectable()
-export class CacheWarmerService {
-
+export class CacheWarmerCron {
   constructor(
     private readonly cachingService: CachingService,
     @Inject('PUBSUB_SERVICE') private clientProxy: ClientProxy,
