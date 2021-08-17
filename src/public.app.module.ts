@@ -7,6 +7,7 @@ import configuration from '../config/configuration';
 import { ApiConfigService } from './common/api.config.service';
 import { ExampleController } from './endpoints/example/example.controller';
 import { ExampleService } from './endpoints/example/example.service';
+import { MetricsService } from './endpoints/metrics/metrics.service';
 
 @Module({
   imports: [
@@ -36,9 +37,10 @@ import { ExampleService } from './endpoints/example/example.service';
     ExampleController
   ],
   providers: [
-    ExampleService, ApiConfigService
+    ExampleService, ApiConfigService, MetricsService
   ],
   exports: [
+    ApiConfigService, MetricsService
   ],
 })
 export class PublicAppModule {}

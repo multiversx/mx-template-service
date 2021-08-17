@@ -13,4 +13,22 @@ export class ApiConfigService {
 
     return apiUrls;
   }
+
+  getIsPublicApiActive(): boolean {
+    let isApiActive = this.configService.get<boolean>('api.public');
+    if (isApiActive === undefined) {
+      throw new Error('No api.public flag present');
+    }
+
+    return isApiActive;
+  }
+
+  getIsPrivateApiActive(): boolean {
+    let isApiActive = this.configService.get<boolean>('api.private');
+    if (isApiActive === undefined) {
+      throw new Error('No api.private flag present');
+    }
+
+    return isApiActive;
+  }
 }

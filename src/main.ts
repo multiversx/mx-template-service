@@ -3,6 +3,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 import { ApiConfigService } from './common/api.config.service';
+import { PrivateAppModule } from './private.app.module';
 import { PublicAppModule } from './public.app.module';
 
 async function bootstrap() {
@@ -25,10 +26,16 @@ async function bootstrap() {
   const config = documentBuilder.build();
 
   const document = SwaggerModule.createDocument(publicApp, config);
-  SwaggerModule.setup('docs', publicApp, document);
   SwaggerModule.setup('', publicApp, document);
 
-  await publicApp.listen(3000);
+  if (apiConfigService.getIsPublicApiActive()) {
+    await publicApp.listen(3000);
+  }
+
+  if (apiConfigService.getIsPrivateApiActive()) {
+    const privateApp = await NestFactory.create(PrivateAppModule);
+    await privateApp.listen(4000);
+  }
 }
 
 bootstrap();

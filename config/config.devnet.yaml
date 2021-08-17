@@ -3,3 +3,6 @@ urls:
     - 'https://devnet-microservice.elrond.com'
     - 'https://testnet-microservice.elrond.com'
     - 'https://microservice.elrond.com'
+api:
+  public: true
+  private: true
