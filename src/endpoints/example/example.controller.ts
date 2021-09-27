@@ -1,4 +1,4 @@
-import { Controller, DefaultValuePipe, Get, NotFoundException, ParseIntPipe, Query } from "@nestjs/common";
+import { Controller, DefaultValuePipe, Get, NotFoundException, Param, ParseIntPipe, Query } from "@nestjs/common";
 import { ApiQuery, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { Example } from "./entities/example";
 import { ExampleService } from "./example.service";
@@ -35,7 +35,7 @@ export class ExampleController {
 		type: Example,
 	})
   async getExample(
-    @Query('id') id: string,
+    @Param('id') id: string,
 	): Promise<Example> {
     let result = await this.exampleService.getExample(id);
     if (!result) {
