@@ -132,8 +132,10 @@ export class CachingService {
     return await this.asyncDel(key);
   }
 
-  async getKeys(pattern: string): Promise<string[]> {
-    return await this.asyncKeys(pattern);
+  public async getKeys(key: string | undefined) {
+    if (key) {
+      return await this.asyncKeys(key);
+    }
   }
 
   async getCacheMultiple<T>(keys: string[]): Promise<{ [key: string]: T }> {
