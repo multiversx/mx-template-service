@@ -5,6 +5,7 @@ import { MetricsModule } from './common/metrics/metrics.module';
 import { ApiConfigModule } from './common/api-config/api.config.module';
 import { MicroserviceModule } from './common/microservice/microservice.module';
 import { CacheController } from './common/caching/cache.controller';
+import { HealthCheckController } from './endpoints/health-check/health.check.controller';
 
 
 @Module({
@@ -16,7 +17,8 @@ import { CacheController } from './common/caching/cache.controller';
   ],
   controllers: [
     MetricsController,
-    CacheController
+    CacheController,
+    HealthCheckController
   ],
 })
 export class PrivateAppModule {}
