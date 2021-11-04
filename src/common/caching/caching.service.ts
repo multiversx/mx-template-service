@@ -2,7 +2,7 @@ import { CACHE_MANAGER, Inject, Injectable, Logger } from "@nestjs/common";
 const { promisify } = require('util');
 import { createClient } from 'redis';
 import { Cache } from "cache-manager";
-import { Constants } from "../utils/constants";
+import { Constants } from "../../utils/constants";
 import { ApiConfigService } from "../api-config/api.config.service";
 import { ApiService } from "../network/api.service";
 

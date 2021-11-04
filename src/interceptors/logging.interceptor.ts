@@ -2,6 +2,7 @@ import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from "@nes
 import { Observable } from "rxjs";
 import { tap } from 'rxjs/operators';
 import { MetricsService } from "src/common/metrics/metrics.service";
+import { PerformanceProfiler } from "src/utils/performance.profiler";
 
 @Injectable()
 export class LoggingInterceptor implements NestInterceptor {

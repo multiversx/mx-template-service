@@ -1,7 +1,7 @@
 import { Injectable, Logger } from "@nestjs/common";
 import axios from "axios";
 import { MetricsService } from "src/common/metrics/metrics.service";
-import { PerformanceProfiler } from "../utils/performance.profiler";
+import { PerformanceProfiler } from "../../utils/performance.profiler";
 
 @Injectable()
 export class ApiService {
