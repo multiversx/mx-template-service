@@ -1,8 +1,7 @@
 import { forwardRef, Module } from "@nestjs/common";
 import { MetricsModule } from "src/common/metrics/metrics.module";
-import { ApiConfigModule } from "../../../../api.elrond.com/src/common/api-config/api.config.module";
-import { ApiService } from "../../../../api.elrond.com/src/common/network/api.service";
-
+import { ApiConfigModule } from "../api-config/api.config.module";
+import { ApiService } from "./api.service";
 
 @Module({
   imports: [
