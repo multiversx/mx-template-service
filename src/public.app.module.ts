@@ -4,13 +4,13 @@ import { WinstonModule } from 'nest-winston';
 import winston from 'winston';
 import DailyRotateFile from 'winston-daily-rotate-file';
 import configuration from '../config/configuration';
-import { ApiConfigService } from './common/api.config.service';
-import { ApiService } from './common/api.service';
+import { ApiConfigService } from './common/api-config/api.config.service';
+import { ApiService } from './common/network/api.service';
 import { CachingService } from './common/caching.service';
 import { AuthController } from './endpoints/auth/auth.controller';
 import { ExampleController } from './endpoints/example/example.controller';
 import { ExampleService } from './endpoints/example/example.service';
-import { MetricsService } from './endpoints/metrics/metrics.service';
+import { MetricsService } from './common/metrics/metrics.service';
 
 @Module({
   imports: [

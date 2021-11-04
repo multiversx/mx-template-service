@@ -1,10 +1,10 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { Cron } from "@nestjs/schedule";
-import { CachingService } from "src/common/caching.service";
 import { ClientProxy } from "@nestjs/microservices";
 import { ExampleService } from "src/endpoints/example/example.service";
 import { Locker } from "src/common/utils/locker";
 import { Constants } from "src/common/utils/constants";
+import { CachingService } from "src/common/caching/caching.service";
 
 @Injectable()
 export class CacheWarmerCron {

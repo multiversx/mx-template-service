@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { MetricsController } from './endpoints/metrics/metrics.controller';
+import { MetricsController } from './common/metrics/metrics.controller';
 import { PublicAppModule } from './public.app.module';
 
 @Module({

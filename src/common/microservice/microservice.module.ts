@@ -1,23 +1,19 @@
-import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { forwardRef, Module } from '@nestjs/common';
 import { ClientOptions, ClientProxyFactory, Transport } from '@nestjs/microservices';
-import { ScheduleModule } from '@nestjs/schedule';
-import configuration from 'config/configuration';
-import { ApiConfigService } from './common/api-config/api.config.service';
-import { PublicAppModule } from './public.app.module';
-import { TransactionProcessorCron } from './crons/transaction.processor.cron';
+import { ApiConfigModule } from '../api-config/api.config.module';
+import { ApiConfigService } from '../api-config/api.config.service';
+import { CachingModule } from '../caching/caching.module';
+import { MicroserviceController } from './microservice.controller';
 
 @Module({
   imports: [
-    ScheduleModule.forRoot(),
-    ConfigModule.forRoot({
-      load: [configuration]
-    }),
-    PublicAppModule,
+    ApiConfigModule,
+    forwardRef(() => CachingModule),
   ],
-  controllers: [],
+  controllers: [
+    MicroserviceController,
+  ],
   providers: [
-    TransactionProcessorCron, 
     {
       provide: 'PUBSUB_SERVICE',
       useFactory: (apiConfigService: ApiConfigService) => {
@@ -38,5 +34,6 @@ import { TransactionProcessorCron } from './crons/transaction.processor.cron';
       inject: [ ApiConfigService ]
     }
   ],
+  exports: [ 'PUBSUB_SERVICE' ]
 })
-export class TransactionProcessorModule {}
+export class MicroserviceModule {}

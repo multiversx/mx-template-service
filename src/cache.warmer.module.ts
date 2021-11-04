@@ -4,7 +4,7 @@ import { ClientOptions, ClientProxyFactory, Transport } from '@nestjs/microservi
 import { ScheduleModule } from '@nestjs/schedule';
 import configuration from 'config/configuration';
 import { CacheWarmerCron } from './crons/cache.warmer.cron';
-import { ApiConfigService } from './common/api.config.service';
+import { ApiConfigService } from './common/api-config/api.config.service';
 import { PublicAppModule } from './public.app.module';
 
 @Module({
