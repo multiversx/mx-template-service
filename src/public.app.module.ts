@@ -1,50 +1,22 @@
-import { CacheModule, Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
-import { WinstonModule } from 'nest-winston';
-import winston from 'winston';
-import DailyRotateFile from 'winston-daily-rotate-file';
-import configuration from '../config/configuration';
-import { ApiConfigService } from './common/api-config/api.config.service';
-import { ApiService } from './common/network/api.service';
-import { CachingService } from './common/caching.service';
-import { AuthController } from './endpoints/auth/auth.controller';
-import { ExampleController } from './endpoints/example/example.controller';
-import { ExampleService } from './endpoints/example/example.service';
-import { MetricsService } from './common/metrics/metrics.service';
+import { forwardRef, Module } from '@nestjs/common';
+import "./utils/extensions/array.extensions";
+import "./utils/extensions/date.extensions";
+import "./utils/extensions/number.extensions";
+import { CommonModule } from './common/common.module';
+import { LoggingModule } from './common/logging/logging.module';
+import { EndpointsServicesModule } from './endpoints/endpoints.services.module';
+import { EndpointsControllersModule } from './endpoints/endpoints.controller';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      load: [configuration]
-    }),
-    CacheModule.register(),
-    WinstonModule.forRoot({
-      level: 'verbose',
-      format: winston.format.combine(winston.format.timestamp(), winston.format.simple()),
-      transports: [
-        new winston.transports.Console({ level: 'info' }),
-        new DailyRotateFile({
-          filename: 'application-%DATE%.log',
-          datePattern: 'YYYY-MM-DD-HH',
-          zippedArchive: true,
-          maxSize: '20m',
-          maxFiles: '14d',
-          createSymlink: true,
-          dirname: 'dist/logs',
-          symlinkName: 'application.log',
-          format: winston.format.json()
-        }),
-      ]
-    }),
-  ],
-  controllers: [
-    ExampleController, AuthController
-  ],
-  providers: [
-    ExampleService, ApiConfigService, MetricsService, CachingService, ApiService
+    LoggingModule,
+    forwardRef(() => CommonModule),
+    forwardRef(() => EndpointsServicesModule),
+    EndpointsControllersModule,
   ],
   exports: [
-    ApiConfigService, MetricsService, CachingService, ExampleService
-  ],
+    CommonModule,
+    EndpointsServicesModule,
+  ]
 })
-export class PublicAppModule {}
+export class PublicAppModule { }
