@@ -80,7 +80,7 @@ export class ApiConfigService {
   getCacheWarmerFeaturePort(): number {
     let featurePort = this.configService.get<number>('features.cacheWarmer.port');
     if (featurePort === undefined) {
-      throw new Error('No cahe warmer port present');
+      throw new Error('No cache warmer port present');
     }
 
     return featurePort;
@@ -95,7 +95,6 @@ export class ApiConfigService {
     return isTransactionProcessorActive;
   }
 
-
   getTransactionProcessorFeaturePort(): number {
     let featurePort = this.configService.get<number>('features.transactionProcessor.port');
     if (featurePort === undefined) {
@@ -103,6 +102,15 @@ export class ApiConfigService {
     }
 
     return featurePort;
+  }
+
+  getTransactionProcessorMaxLookBehind(): number {
+    let maxLookBehind = this.configService.get<number>('features.transactionProcessor.maxLookBehind');
+    if (maxLookBehind === undefined) {
+      throw new Error('No transaction processor max look behind present');
+    }
+
+    return maxLookBehind;
   }
 
   getJwtSecret(): string {

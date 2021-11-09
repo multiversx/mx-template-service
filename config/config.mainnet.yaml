@@ -18,6 +18,7 @@ features:
   transactionProcessor:
     enabled: true
     port: 5202
+    maxLookBehind: 1000
 security:
   jwtSecret: ''
   admins:
