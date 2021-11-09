@@ -6,10 +6,19 @@ urls:
     - 'https://microservice.elrond.com'
   redis: '127.0.0.1'
 features:
-  publicApi: true
-  privateApi: true
-  cacheWarmer: true
-  transactionProcessor: true
+  publicApi:
+    enabled: true
+    port: 3000
+  privateApi:
+    enabled: true
+    port: 4000
+  cacheWarmer:
+    enabled: true
+    port: 5201
+  transactionProcessor:
+    enabled: true
+    port: 5202
+    maxLookBehind: 100
 security:
   jwtSecret: ''
   admins:

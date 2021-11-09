@@ -24,6 +24,7 @@ export class TransactionProcessorService {
     Locker.lock('newTransactions', async () => {
       await this.transactionProcessor.start({
         gatewayUrl: this.apiConfigService.getApiUrl(),
+        maxLookBehind: this.apiConfigService.getTransactionProcessorMaxLookBehind(),
         onTransactionsReceived: async (shardId, nonce, transactions, statistics) => {
           this.logger.log(`Received ${transactions.length} transactions on shard ${shardId} and nonce ${nonce}. Time left: ${statistics.secondsLeft}`);
         },

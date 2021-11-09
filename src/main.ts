@@ -49,22 +49,22 @@ async function bootstrap() {
   SwaggerModule.setup('', publicApp, document);
 
   if (apiConfigService.getIsPublicApiFeatureActive()) {
-    await publicApp.listen(3000);
+    await publicApp.listen(apiConfigService.getPublicApiFeaturePort());
   }
 
   if (apiConfigService.getIsPrivateApiFeatureActive()) {
     const privateApp = await NestFactory.create(PrivateAppModule);
-    await privateApp.listen(4000);
+    await privateApp.listen(apiConfigService.getPrivateApiFeaturePort());
   }
 
   if (apiConfigService.getIsCacheWarmerFeatureActive()) {
     const cacheWarmerApp = await NestFactory.create(CacheWarmerModule);
-    await cacheWarmerApp.listen(5201);
+    await cacheWarmerApp.listen(apiConfigService.getCacheWarmerFeaturePort());
   }
 
   if (apiConfigService.getIsTransactionProcessorFeatureActive()) {
     const transactionProcessorApp = await NestFactory.create(TransactionProcessorModule);
-    await transactionProcessorApp.listen(5202);
+    await transactionProcessorApp.listen(apiConfigService.getTransactionProcessorFeaturePort());
   }
 }
 
