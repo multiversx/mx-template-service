@@ -10,6 +10,7 @@ features:
   privateApi: true
   cacheWarmer: true
   transactionProcessor: true
+  queueWorker: true
 security:
   jwtSecret: ''
   admins:

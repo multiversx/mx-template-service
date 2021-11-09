@@ -68,6 +68,15 @@ export class ApiConfigService {
     return isTransactionProcessorActive;
   }
 
+  getIsQueueWorkerFeatureActive(): boolean {
+    let isQueueWorkerActive = this.configService.get<boolean>('features.queueWorker');
+    if (isQueueWorkerActive === undefined) {
+      throw new Error('No queue worker feature flag present');
+    }
+
+    return isQueueWorkerActive;
+  }
+
   getJwtSecret(): string {
     const jwtSecret = this.configService.get<string>('security.jwtSecret');
     if (!jwtSecret) {
