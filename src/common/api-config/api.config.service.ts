@@ -80,7 +80,7 @@ export class ApiConfigService {
   getCacheWarmerFeaturePort(): number {
     let featurePort = this.configService.get<number>('features.cacheWarmer.port');
     if (featurePort === undefined) {
-      throw new Error('No cahe warmer port present');
+      throw new Error('No cache warmer port present');
     }
 
     return featurePort;
