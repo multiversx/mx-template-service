@@ -1,10 +1,10 @@
 import { CACHE_MANAGER, Inject, Injectable, Logger } from "@nestjs/common";
-import { ApiConfigService } from "./api.config.service";
 const { promisify } = require('util');
 import { createClient } from 'redis';
 import { Cache } from "cache-manager";
-import { Constants } from "./utils/constants";
-import { ApiService } from "./api.service";
+import { Constants } from "../../utils/constants";
+import { ApiConfigService } from "../api-config/api.config.service";
+import { ApiService } from "../network/api.service";
 
 @Injectable()
 export class CachingService {
@@ -94,6 +94,15 @@ export class CachingService {
     return value;
   }
 
+  async refreshCacheLocal<T>(key: string, ttl: number = Constants.oneSecond() * 6): Promise<T | undefined> {
+    let value = await this.getCacheRemote<T>(key);
+    if (value) {
+      await this.setCacheLocal<T>(key, value, ttl);
+    }
+
+    return value;
+  }
+
   async deleteInCacheLocal(key: string) {
     await CachingService.cache.del(key);
   }
@@ -123,8 +132,10 @@ export class CachingService {
     return await this.asyncDel(key);
   }
 
-  async getKeys(pattern: string): Promise<string[]> {
-    return await this.asyncKeys(pattern);
+  public async getKeys(key: string | undefined) {
+    if (key) {
+      return await this.asyncKeys(key);
+    }
   }
 
   async getCacheMultiple<T>(keys: string[]): Promise<{ [key: string]: T }> {

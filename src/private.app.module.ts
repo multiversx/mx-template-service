@@ -1,16 +1,24 @@
 import { Module } from '@nestjs/common';
-import { MetricsController } from './endpoints/metrics/metrics.controller';
-import { PublicAppModule } from './public.app.module';
+import { CachingModule } from './common/caching/caching.module';
+import { MetricsController } from './common/metrics/metrics.controller';
+import { MetricsModule } from './common/metrics/metrics.module';
+import { ApiConfigModule } from './common/api-config/api.config.module';
+import { MicroserviceModule } from './common/microservice/microservice.module';
+import { CacheController } from './common/caching/cache.controller';
+import { HealthCheckController } from './endpoints/health-check/health.check.controller';
+
 
 @Module({
   imports: [
-    PublicAppModule
+    ApiConfigModule,
+    CachingModule,
+    MetricsModule,
+    MicroserviceModule,
   ],
   controllers: [
-    MetricsController
-  ],
-  providers: [
-    
+    MetricsController,
+    CacheController,
+    HealthCheckController
   ],
 })
 export class PrivateAppModule {}

@@ -1,23 +1,19 @@
-import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { forwardRef, Module } from '@nestjs/common';
 import { ClientOptions, ClientProxyFactory, Transport } from '@nestjs/microservices';
-import { ScheduleModule } from '@nestjs/schedule';
-import configuration from 'config/configuration';
-import { CacheWarmerCron } from './crons/cache.warmer.cron';
-import { ApiConfigService } from './common/api.config.service';
-import { PublicAppModule } from './public.app.module';
+import { ApiConfigModule } from '../api-config/api.config.module';
+import { ApiConfigService } from '../api-config/api.config.service';
+import { CachingModule } from '../caching/caching.module';
+import { MicroserviceController } from './microservice.controller';
 
 @Module({
   imports: [
-    ScheduleModule.forRoot(),
-    ConfigModule.forRoot({
-      load: [configuration]
-    }),
-    PublicAppModule
+    ApiConfigModule,
+    forwardRef(() => CachingModule),
   ],
-  controllers: [],
+  controllers: [
+    MicroserviceController,
+  ],
   providers: [
-    CacheWarmerCron,
     {
       provide: 'PUBSUB_SERVICE',
       useFactory: (apiConfigService: ApiConfigService) => {
@@ -38,5 +34,6 @@ import { PublicAppModule } from './public.app.module';
       inject: [ ApiConfigService ]
     }
   ],
+  exports: [ 'PUBSUB_SERVICE' ]
 })
-export class CacheWarmerModule {}
+export class MicroserviceModule {}

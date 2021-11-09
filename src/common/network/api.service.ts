@@ -1,7 +1,7 @@
 import { Injectable, Logger } from "@nestjs/common";
 import axios from "axios";
-import { MetricsService } from "src/endpoints/metrics/metrics.service";
-import { PerformanceProfiler } from "./utils/performance.profiler";
+import { MetricsService } from "src/common/metrics/metrics.service";
+import { PerformanceProfiler } from "../../utils/performance.profiler";
 
 @Injectable()
 export class ApiService {
@@ -18,7 +18,7 @@ export class ApiService {
     
     try {
       return await axios.get(url);
-    } catch(error) {
+    } catch (error: any) {
       this.logger.error({
         method: 'GET',
         path: url,
@@ -40,7 +40,7 @@ export class ApiService {
       let result = await axios.post(url, data);
 
       return result.data;
-    } catch(error) {
+    } catch (error: any) {
       this.logger.error({
         method: 'POST',
         url,
@@ -60,7 +60,7 @@ export class ApiService {
 
     try {
       return await axios.head(url);
-    } catch(error) {
+    } catch (error: any) {
       this.logger.error({
         method: 'HEAD',
         url,

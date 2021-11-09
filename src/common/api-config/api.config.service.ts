@@ -76,4 +76,13 @@ export class ApiConfigService {
 
     return jwtSecret;
   }
+
+  getSecurityAdmins(): string[] {
+    let admins = this.configService.get<string[]>('security.admins');
+    if (admins === undefined) {
+      throw new Error('No security admins value present');
+    }
+
+    return admins;
+  }
 }

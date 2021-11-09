@@ -3,16 +3,16 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { readFileSync } from 'fs';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 import { join } from 'path';
-import { CacheWarmerModule } from './cache.warmer.module';
-import { ApiConfigService } from './common/api.config.service';
-import { CachingService } from './common/caching.service';
-import { CachingInterceptor } from './common/interceptors/caching.interceptor';
-import { LoggingInterceptor } from './common/interceptors/logging.interceptor';
-import { MetricsService } from './endpoints/metrics/metrics.service';
+import { CacheWarmerModule } from './crons/cache.warmer.module';
+import { ApiConfigService } from './common/api-config/api.config.service';
+import { CachingInterceptor } from './interceptors/caching.interceptor';
+import { MetricsService } from './common/metrics/metrics.service';
 import { PrivateAppModule } from './private.app.module';
 import { PublicAppModule } from './public.app.module';
-import { TransactionProcessorModule } from './transaction.processor.module';
+import { TransactionProcessorModule } from './crons/transaction.processor.module';
 import * as bodyParser from 'body-parser';
+import { CachingService } from './common/caching/caching.service';
+import { LoggingInterceptor } from './interceptors/logging.interceptor';
 
 async function bootstrap() {
   const publicApp = await NestFactory.create(PublicAppModule);
@@ -59,12 +59,12 @@ async function bootstrap() {
 
   if (apiConfigService.getIsCacheWarmerFeatureActive()) {
     const cacheWarmerApp = await NestFactory.create(CacheWarmerModule);
-    await cacheWarmerApp.listen(5000);
+    await cacheWarmerApp.listen(5201);
   }
 
   if (apiConfigService.getIsTransactionProcessorFeatureActive()) {
     const transactionProcessorApp = await NestFactory.create(TransactionProcessorModule);
-    await transactionProcessorApp.listen(6000);
+    await transactionProcessorApp.listen(5202);
   }
 }
 

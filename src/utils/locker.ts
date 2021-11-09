@@ -7,7 +7,7 @@ export class Locker {
   static async lock(key: string, func: () => Promise<void>, log: boolean = false) {
     let logger = new Logger('Lock');
 
-    if (Locker.lockArray.includes(key)) {
+    if (Locker.lockArray.includes(key) && log) {
       logger.log(`${key} is already running`);
       return;
     }

@@ -2,13 +2,13 @@
 import { TransactionProcessor } from "@elrondnetwork/transaction-processor";
 import { Injectable, Logger } from "@nestjs/common";
 import { Cron } from "@nestjs/schedule";
-import { ApiConfigService } from "src/common/api.config.service";
-import { CachingService } from "src/common/caching.service";
-import { Constants } from "src/common/utils/constants";
-import { Locker } from "src/common/utils/locker";
+import { ApiConfigService } from "src/common/api-config/api.config.service";
+import { CachingService } from "src/common/caching/caching.service";
+import { Constants } from "src/utils/constants";
+import { Locker } from "src/utils/locker";
 
 @Injectable()
-export class TransactionProcessorCron {
+export class TransactionProcessorService {
   private transactionProcessor: TransactionProcessor = new TransactionProcessor();
   private readonly logger: Logger
 
@@ -16,7 +16,7 @@ export class TransactionProcessorCron {
     private readonly apiConfigService: ApiConfigService,
     private readonly cachingService: CachingService
   ) {
-    this.logger = new Logger(TransactionProcessorCron.name);
+    this.logger = new Logger(TransactionProcessorService.name);
   }
 
   @Cron('*/1 * * * * *')
