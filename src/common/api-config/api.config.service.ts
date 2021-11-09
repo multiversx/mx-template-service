@@ -33,7 +33,7 @@ export class ApiConfigService {
   }
 
   getIsPublicApiFeatureActive(): boolean {
-    let isApiActive = this.configService.get<boolean>('features.publicApi');
+    let isApiActive = this.configService.get<boolean>('features.publicApi.enabled');
     if (isApiActive === undefined) {
       throw new Error('No public api feature flag present');
     }
@@ -41,8 +41,17 @@ export class ApiConfigService {
     return isApiActive;
   }
 
+  getPublicApiFeaturePort(): number {
+    let featurePort = this.configService.get<number>('features.publicApi.port');
+    if (featurePort === undefined) {
+      throw new Error('No public api port present');
+    }
+
+    return featurePort;
+  }
+
   getIsPrivateApiFeatureActive(): boolean {
-    let isApiActive = this.configService.get<boolean>('features.privateApi');
+    let isApiActive = this.configService.get<boolean>('features.privateApi.enabled');
     if (isApiActive === undefined) {
       throw new Error('No private api feature flag present');
     }
@@ -50,8 +59,17 @@ export class ApiConfigService {
     return isApiActive;
   }
 
+  getPrivateApiFeaturePort(): number {
+    let featurePort = this.configService.get<number>('features.privateApi.port');
+    if (featurePort === undefined) {
+      throw new Error('No private api port present');
+    }
+
+    return featurePort;
+  }
+
   getIsCacheWarmerFeatureActive(): boolean {
-    let isCacheWarmerActive = this.configService.get<boolean>('features.cacheWarmer');
+    let isCacheWarmerActive = this.configService.get<boolean>('features.cacheWarmer.enabled');
     if (isCacheWarmerActive === undefined) {
       throw new Error('No cache warmer feature flag present');
     }
@@ -59,13 +77,32 @@ export class ApiConfigService {
     return isCacheWarmerActive;
   }
 
+  getCacheWarmerFeaturePort(): number {
+    let featurePort = this.configService.get<number>('features.cacheWarmer.port');
+    if (featurePort === undefined) {
+      throw new Error('No cahe warmer port present');
+    }
+
+    return featurePort;
+  }
+
   getIsTransactionProcessorFeatureActive(): boolean {
-    let isTransactionProcessorActive = this.configService.get<boolean>('features.transactionProcessor');
+    let isTransactionProcessorActive = this.configService.get<boolean>('features.transactionProcessor.enabled');
     if (isTransactionProcessorActive === undefined) {
       throw new Error('No transaction processor feature flag present');
     }
 
     return isTransactionProcessorActive;
+  }
+
+
+  getTransactionProcessorFeaturePort(): number {
+    let featurePort = this.configService.get<number>('features.transactionProcessor.port');
+    if (featurePort === undefined) {
+      throw new Error('No transaction processor port present');
+    }
+
+    return featurePort;
   }
 
   getJwtSecret(): string {
