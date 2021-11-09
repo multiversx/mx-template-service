@@ -58,13 +58,13 @@ async function bootstrap() {
   }
 
   if (apiConfigService.getIsCacheWarmerFeatureActive()) {
-    const cacheWarmerApp = await NestFactory.create(CacheWarmerModule);
-    await cacheWarmerApp.listen(5000);
+    const cacheWarmerApp = await NestFactory.createMicroservice(CacheWarmerModule);
+    await cacheWarmerApp.listen();
   }
 
   if (apiConfigService.getIsTransactionProcessorFeatureActive()) {
-    const transactionProcessorApp = await NestFactory.create(TransactionProcessorModule);
-    await transactionProcessorApp.listen(6000);
+    const transactionProcessorApp = await NestFactory.createMicroservice(TransactionProcessorModule);
+    await transactionProcessorApp.listen();
   }
 }
 
