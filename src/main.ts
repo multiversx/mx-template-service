@@ -13,6 +13,9 @@ import { TransactionProcessorModule } from './crons/transaction.processor.module
 import * as bodyParser from 'body-parser';
 import { CachingService } from './common/caching/caching.service';
 import { LoggingInterceptor } from './interceptors/logging.interceptor';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+import { PubSubModule } from './websockets/pub.sub.module';
+import { SocketAdapter } from './websockets/socket.adapter';
 
 async function bootstrap() {
   const publicApp = await NestFactory.create(PublicAppModule);
@@ -66,6 +69,24 @@ async function bootstrap() {
     const transactionProcessorApp = await NestFactory.create(TransactionProcessorModule);
     await transactionProcessorApp.listen(apiConfigService.getTransactionProcessorFeaturePort());
   }
+
+  const pubSubApp = await NestFactory.createMicroservice<MicroserviceOptions>(
+    PubSubModule,
+    {
+      transport: Transport.REDIS,
+      options: {
+        url: `redis://${apiConfigService.getRedisUrl()}:6379`,
+        retryAttempts: 100,
+        retryDelay: 1000,
+        retry_strategy: function (_: any) {
+          return 1000;
+        },
+      }
+    },
+  );
+  pubSubApp.useWebSocketAdapter(new SocketAdapter(pubSubApp));
+
+  await pubSubApp.listen();
 }
 
 bootstrap();

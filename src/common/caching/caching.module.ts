@@ -7,7 +7,7 @@ import { CachingService } from "./caching.service";
   imports: [
     CacheModule.register(),
     ApiConfigModule,
-    ApiModule
+    ApiModule,
   ],
   providers: [
     CachingService,

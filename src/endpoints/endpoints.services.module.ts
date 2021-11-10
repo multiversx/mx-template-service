@@ -1,13 +1,14 @@
-import { forwardRef, Module } from "@nestjs/common";
+import { Module } from "@nestjs/common";
 import { ExampleModule } from "./example/example.module";
-
+import { TestModule } from "./test/test.module";
 
 @Module({
   imports: [
-    forwardRef(() => ExampleModule), 
+    ExampleModule, 
+    TestModule,
   ],
   exports: [
-    ExampleModule,
+    ExampleModule, TestModule,
   ]
 })
 export class EndpointsServicesModule { }

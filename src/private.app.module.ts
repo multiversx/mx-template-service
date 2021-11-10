@@ -3,9 +3,11 @@ import { CachingModule } from './common/caching/caching.module';
 import { MetricsController } from './common/metrics/metrics.controller';
 import { MetricsModule } from './common/metrics/metrics.module';
 import { ApiConfigModule } from './common/api-config/api.config.module';
-import { MicroserviceModule } from './common/microservice/microservice.module';
 import { CacheController } from './common/caching/cache.controller';
 import { HealthCheckController } from './endpoints/health-check/health.check.controller';
+import { MicroserviceModule } from './common/microservice/microservice.module';
+import { TestController } from './endpoints/test/test.controller';
+import { TestModule } from './endpoints/test/test.module';
 
 
 @Module({
@@ -14,11 +16,13 @@ import { HealthCheckController } from './endpoints/health-check/health.check.con
     CachingModule,
     MetricsModule,
     MicroserviceModule,
+    TestModule,
   ],
   controllers: [
     MetricsController,
     CacheController,
-    HealthCheckController
+    HealthCheckController,
+    TestController,
   ],
 })
 export class PrivateAppModule {}
