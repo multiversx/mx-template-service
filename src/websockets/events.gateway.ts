@@ -14,11 +14,6 @@ export class EventsGateway {
   @WebSocketServer()
   webSocketServer: Server | undefined
 
-  onBatchUpdated(address: string, batchId: string, txHashes: string[]) {
-    this.logger.log(`publishing websocket event batchUpdated:${batchId} with txHashes ${txHashes}`);
-    this.webSocketServer?.emit(`batchUpdated:${address}`, { batchId, txHashes }); 
-  }
-
   onTest(payload: any) {
     this.logger.log(`Received onTest event with payload '${JSON.stringify(payload)}'`);
     this.webSocketServer?.emit('test', payload);

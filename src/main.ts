@@ -86,7 +86,7 @@ async function bootstrap() {
   );
   pubSubApp.useWebSocketAdapter(new SocketAdapter(pubSubApp));
 
-  pubSubApp.listen();
+  await pubSubApp.listen();
 }
 
 bootstrap();
