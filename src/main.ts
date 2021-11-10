@@ -15,6 +15,9 @@ import { CachingService } from './common/caching/caching.service';
 import { LoggingInterceptor } from './interceptors/logging.interceptor';
 import { Logger } from '@nestjs/common';
 import { QueueWorkerModule } from './workers/queue.worker.module';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+import { PubSubModule } from './websockets/pub.sub.module';
+import { SocketAdapter } from './websockets/socket.adapter';
 
 async function bootstrap() {
   const publicApp = await NestFactory.create(PublicAppModule);
@@ -80,6 +83,24 @@ async function bootstrap() {
   logger.log(`Transaction processor active: ${apiConfigService.getIsTransactionProcessorFeatureActive()}`);
   logger.log(`Cache warmer active: ${apiConfigService.getIsCacheWarmerFeatureActive()}`);
   logger.log(`Queue worker active: ${apiConfigService.getIsQueueWorkerFeatureActive()}`);
+
+  const pubSubApp = await NestFactory.createMicroservice<MicroserviceOptions>(
+    PubSubModule,
+    {
+      transport: Transport.REDIS,
+      options: {
+        url: `redis://${apiConfigService.getRedisUrl()}:6379`,
+        retryAttempts: 100,
+        retryDelay: 1000,
+        retry_strategy: function (_: any) {
+          return 1000;
+        },
+      }
+    },
+  );
+  pubSubApp.useWebSocketAdapter(new SocketAdapter(pubSubApp));
+
+  await pubSubApp.listen();
 }
 
 bootstrap();
