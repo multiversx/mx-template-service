@@ -2,14 +2,14 @@ import { forwardRef, Module } from "@nestjs/common";
 import { ClientOptions, ClientProxyFactory, Transport } from "@nestjs/microservices";
 import { ApiConfigService } from "src/common/api-config/api.config.service";
 import { CommonModule } from "src/common/common.module";
-import { TestService } from "./test.service";
+import { TestSocketService } from "./test.socket.service";
 
 @Module({
   imports: [
     forwardRef(() => CommonModule),
   ],
   providers: [
-    TestService,
+    TestSocketService,
     {
       provide: 'PUBSUB_SERVICE',
       useFactory: (apiConfigService: ApiConfigService) => {
@@ -31,7 +31,7 @@ import { TestService } from "./test.service";
     }
   ],
   exports: [
-    TestService
+    TestSocketService
   ]
 })
-export class TestModule { }
+export class TestSocketModule { }
