@@ -9,11 +9,7 @@ import { ApiConfigService } from "../api-config/api.config.service";
       imports: [ApiConfigModule],
       useFactory: (apiConfigService: ApiConfigService) => ({  
           type: 'mysql',
-          host: apiConfigService.getDatabaseHost(),
-          port: apiConfigService.getDatabasePort(),
-          username: apiConfigService.getDatabaseUsername(),
-          password: apiConfigService.getDatabasePassword(),
-          database: apiConfigService.getDatabaseName(),
+          ...apiConfigService.getDatabaseConnection(),
           autoLoadEntities: true,
       }),
       inject: [ApiConfigService],

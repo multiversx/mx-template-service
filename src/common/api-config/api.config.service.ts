@@ -63,7 +63,6 @@ export class ApiConfigService {
     return databasePassword;
   }
 
-
   getDatabaseName(): string {
     const databaseName = this.configService.get<string>('database.name');
     if (!databaseName) {
@@ -71,6 +70,16 @@ export class ApiConfigService {
     }
 
     return databaseName;
+  }
+
+  getDatabaseConnection(): any {
+    return {
+      host: this.getDatabaseHost(),
+      port: this.getDatabasePort(),
+      username: this.getDatabaseUsername(),
+      password: this.getDatabasePassword(),
+      database: this.getDatabaseName(),
+    }
   }
 
   getIsPublicApiFeatureActive(): boolean {
