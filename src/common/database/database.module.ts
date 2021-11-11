@@ -20,4 +20,4 @@ import { ApiConfigService } from "../api-config/api.config.service";
     })
   ]
 })
-export class DatabseModule{}
+export class DatabaseModule{}
