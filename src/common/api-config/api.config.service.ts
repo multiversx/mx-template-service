@@ -32,6 +32,47 @@ export class ApiConfigService {
     return redisUrl;
   }
 
+  getDatabaseHost(): string {
+    const databaseHost = this.configService.get<string>('database.host');
+    if (!databaseHost) {
+      throw new Error('No database.host present');
+    }
+
+    return databaseHost;
+  }
+
+  getDatabasePort(): number {
+    const databasePort = this.configService.get<number>('database.port');
+    if (!databasePort) {
+      throw new Error('No database.port present');
+    }
+
+    return databasePort;
+  }
+
+
+  getDatabaseUsername(): string | undefined {
+    const databaseUsername = this.configService.get<string>('database.username');
+  
+    return databaseUsername;
+  }
+
+  getDatabasePassword(): string | undefined {
+    const databasePassword = this.configService.get<string>('database.password');
+
+    return databasePassword;
+  }
+
+
+  getDatabaseName(): string {
+    const databaseName = this.configService.get<string>('database.name');
+    if (!databaseName) {
+      throw new Error('No database.name present');
+    }
+
+    return databaseName;
+  }
+
   getIsPublicApiFeatureActive(): boolean {
     let isApiActive = this.configService.get<boolean>('features.publicApi.enabled');
     if (isApiActive === undefined) {
