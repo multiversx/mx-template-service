@@ -1,9 +1,23 @@
+import { BullModule } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
-import { ExampleQueueModule } from './queues/example.queue.module';
+import { ScheduleModule } from '@nestjs/schedule';
+import { BullQueueModule } from './bull.queue.module';
+import { QueueWorkerService } from './queue.worker.service';
+import { ExampleQueueService } from './queues/example.queue.service';
 
 @Module({
   imports: [
-    ExampleQueueModule,
+    ScheduleModule.forRoot(),
+    BullQueueModule,
+    BullModule.registerQueue({
+      name: 'exampleQueue',
+    }),
   ],
+  providers: [
+    QueueWorkerService, ExampleQueueService
+  ],
+  exports: [
+    QueueWorkerService, ExampleQueueService
+  ]
 })
 export class QueueWorkerModule {}
