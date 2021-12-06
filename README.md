@@ -28,7 +28,7 @@ This is used for scanning the transactions from Elrond Blockchain.
 
 ### `Queue Worker`
 
-This is used for bull module and concurrency processing worker queues.
+This is used for concurrently processing heavy jobs.
 
 ## Available Scripts
 
