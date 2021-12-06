@@ -113,6 +113,24 @@ export class ApiConfigService {
     return maxLookBehind;
   }
 
+  getIsQueueWorkerFeatureActive(): boolean {
+    let isQueueWorkerActive = this.configService.get<boolean>('features.queueWorker.enabled');
+    if (isQueueWorkerActive === undefined) {
+      throw new Error('No queue worker feature flag present');
+    }
+
+    return isQueueWorkerActive;
+  }
+
+  getQueueWorkerFeaturePort(): number {
+    let featurePort = this.configService.get<number>('features.queueWorker.port');
+    if (featurePort === undefined) {
+      throw new Error('No transaction processor port present');
+    }
+
+    return featurePort;
+  }
+
   getJwtSecret(): string {
     const jwtSecret = this.configService.get<string>('security.jwtSecret');
     if (!jwtSecret) {

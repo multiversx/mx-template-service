@@ -22,8 +22,8 @@ export class ApiService {
       this.logger.error({
         method: 'GET',
         path: url,
-        response: error.response.data,
-        status: error.response.status,
+        response: error.response?.data,
+        status: error.response?.status,
       });
 
       throw error;
@@ -44,8 +44,8 @@ export class ApiService {
       this.logger.error({
         method: 'POST',
         url,
-        response: error.response.data,
-        status: error.response.status,
+        response: error.response?.data,
+        status: error.response?.status,
       });
 
       throw error;
