@@ -5,6 +5,7 @@ import { register, Histogram, Gauge, collectDefaultMetrics } from 'prom-client';
 export class MetricsService {
   private static apiCallsHistogram: Histogram<string>;
   private static externalCallsHistogram: Histogram<string>;
+  private static pendingRequestsHistogram: Gauge<string>;
   private static apiResponseSizeHistogram: Histogram<string>;
   private static lastProcessedNonceGauge: Gauge<string>;
   private static pendingApiHitGauge: Gauge<string>;
@@ -16,8 +17,8 @@ export class MetricsService {
       MetricsService.apiCallsHistogram = new Histogram({
         name: 'api',
         help: 'API Calls',
-        labelNames: [ 'endpoint', 'code' ],
-        buckets: [ ]
+        labelNames: ['endpoint', 'code'],
+        buckets: []
       });
     }
 
@@ -25,8 +26,16 @@ export class MetricsService {
       MetricsService.externalCallsHistogram = new Histogram({
         name: 'external_apis',
         help: 'External Calls',
-        labelNames: [ 'system' ],
-        buckets: [ ]
+        labelNames: ['system'],
+        buckets: []
+      });
+    }
+
+    if (!MetricsService.pendingRequestsHistogram) {
+      MetricsService.pendingRequestsHistogram = new Gauge({
+        name: 'pending_requests',
+        help: 'Pending requests',
+        labelNames: ['endpoint'],
       });
     }
 
@@ -34,8 +43,8 @@ export class MetricsService {
       MetricsService.apiResponseSizeHistogram = new Histogram({
         name: 'api_response_size',
         help: 'API Response size',
-        labelNames: [ 'endpoint' ],
-        buckets: [ ]
+        labelNames: ['endpoint'],
+        buckets: []
       });
     }
 
@@ -43,7 +52,7 @@ export class MetricsService {
       MetricsService.pendingApiHitGauge = new Gauge({
         name: 'pending_api_hits',
         help: 'Number of hits for pending API calls',
-        labelNames: [ 'endpoint' ]
+        labelNames: ['endpoint']
       });
     }
 
@@ -51,7 +60,7 @@ export class MetricsService {
       MetricsService.cachedApiHitGauge = new Gauge({
         name: 'cached_api_hits',
         help: 'Number of hits for cached API calls',
-        labelNames: [ 'endpoint' ]
+        labelNames: ['endpoint']
       });
     }
 
@@ -64,6 +73,10 @@ export class MetricsService {
   setApiCall(endpoint: string, status: number, duration: number, responseSize: number) {
     MetricsService.apiCallsHistogram.labels(endpoint, status.toString()).observe(duration);
     MetricsService.apiResponseSizeHistogram.labels(endpoint).observe(responseSize);
+  }
+
+  setPendingRequestsCount(count: number) {
+    MetricsService.pendingRequestsHistogram.set(count);
   }
 
   setExternalCall(system: string, duration: number) {
