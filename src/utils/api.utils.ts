@@ -2,6 +2,7 @@ export class ApiUtils {
   static mergeObjects<T>(obj1: T, obj2: Object) {
     for (const key of Object.keys(obj2)) {
       if (key in obj1) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         obj1[key] = obj2[key];
       }
@@ -24,11 +25,13 @@ export class ApiUtils {
         }
 
         if (value === null || value === '' || value === undefined) {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           delete obj[key];
         }
 
         if (Array.isArray(value) && value.length === 0) {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           delete obj[key];
         }

@@ -50,6 +50,7 @@ export class CachingInterceptor implements NestInterceptor {
 
       let pendingRequestResolver: (value: unknown) => null;
       this.pendingRequestsDictionary[cacheKey] = new Promise((resolve) => {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         pendingRequestResolver = resolve;
       });
