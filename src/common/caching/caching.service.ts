@@ -1,4 +1,5 @@
 import { CACHE_MANAGER, Inject, Injectable, Logger } from "@nestjs/common";
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const { promisify } = require('util');
 import { createClient } from 'redis';
 import { Cache } from "cache-manager";
