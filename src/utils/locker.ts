@@ -5,7 +5,7 @@ export class Locker {
   private static lockArray: string[] = [];
 
   static async lock(key: string, func: () => Promise<void>, log: boolean = false) {
-    let logger = new Logger('Lock');
+    const logger = new Logger('Lock');
 
     if (Locker.lockArray.includes(key) && log) {
       logger.log(`${key} is already running`);
@@ -14,7 +14,7 @@ export class Locker {
 
     Locker.lockArray.push(key);
 
-    let profiler = new PerformanceProfiler();
+    const profiler = new PerformanceProfiler();
 
     try {
       await func();
@@ -23,7 +23,7 @@ export class Locker {
       logger.error(error);
     } finally {
       profiler.stop(`Running ${key}`, log);
-      let index = Locker.lockArray.indexOf(key);
+      const index = Locker.lockArray.indexOf(key);
       if (index >= 0) {
         Locker.lockArray.splice(index, 1);
       }

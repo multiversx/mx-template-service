@@ -7,10 +7,10 @@ import { UsersModule } from "./users/user.module";
   imports: [
     ExampleModule, 
     TestSocketModule,
-    UsersModule
+    UsersModule,
   ],
   exports: [
-    ExampleModule, TestSocketModule, UsersModule
-  ]
+    ExampleModule, TestSocketModule, UsersModule,
+  ],
 })
 export class EndpointsServicesModule { }

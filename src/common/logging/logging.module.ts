@@ -18,13 +18,13 @@ const DailyRotateFile = require('winston-daily-rotate-file');
           maxFiles: '14d',
           createSymlink: true,
           dirname: 'dist/logs',
-          symlinkName: 'application.log'
+          symlinkName: 'application.log',
         }),
-      ]
+      ],
     }),
   ],
   exports: [
     WinstonModule,
-  ]
+  ],
 })
 export class LoggingModule { }

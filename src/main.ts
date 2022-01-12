@@ -25,10 +25,10 @@ async function bootstrap() {
   publicApp.enableCors();
   publicApp.useLogger(publicApp.get(WINSTON_MODULE_NEST_PROVIDER));
   
-  let apiConfigService = publicApp.get<ApiConfigService>(ApiConfigService);
-  let metricsService = publicApp.get<MetricsService>(MetricsService);
-  let cachingService = publicApp.get<CachingService>(CachingService);
-  let httpAdapterHostService = publicApp.get<HttpAdapterHost>(HttpAdapterHost);
+  const apiConfigService = publicApp.get<ApiConfigService>(ApiConfigService);
+  const metricsService = publicApp.get<MetricsService>(MetricsService);
+  const cachingService = publicApp.get<CachingService>(CachingService);
+  const httpAdapterHostService = publicApp.get<HttpAdapterHost>(HttpAdapterHost);
 
   publicApp.useGlobalInterceptors(
     new LoggingInterceptor(metricsService), 
@@ -43,8 +43,8 @@ async function bootstrap() {
     .setVersion('1.0.0')
     .setExternalDoc('Elrond Docs', 'https://docs.elrond.com');
 
-  let apiUrls = apiConfigService.getSwaggerUrls();
-  for (let apiUrl of apiUrls) {
+  const apiUrls = apiConfigService.getSwaggerUrls();
+  for (const apiUrl of apiUrls) {
     documentBuilder = documentBuilder.addServer(apiUrl);
   }
 
@@ -77,7 +77,7 @@ async function bootstrap() {
     await queueWorkerApp.listen(8000);
   }
 
-  let logger = new Logger("Bootstrapper");
+  const logger = new Logger("Bootstrapper");
   logger.log(`Public API active: ${apiConfigService.getIsPrivateApiFeatureActive()}`);
   logger.log(`Private API active: ${apiConfigService.getIsPrivateApiFeatureActive()}`);
   logger.log(`Transaction processor active: ${apiConfigService.getIsTransactionProcessorFeatureActive()}`);
@@ -95,7 +95,7 @@ async function bootstrap() {
         retry_strategy: function (_: any) {
           return 1000;
         },
-      }
+      },
     },
   );
   pubSubApp.useWebSocketAdapter(new SocketAdapter(pubSubApp));

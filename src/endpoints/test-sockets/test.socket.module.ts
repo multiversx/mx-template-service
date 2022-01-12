@@ -13,7 +13,7 @@ import { TestSocketService } from "./test.socket.service";
     {
       provide: 'PUBSUB_SERVICE',
       useFactory: (apiConfigService: ApiConfigService) => {
-        let clientOptions: ClientOptions = {
+        const clientOptions: ClientOptions = {
           transport: Transport.REDIS,
           options: {
             url: `redis://${apiConfigService.getRedisUrl()}:6379`,
@@ -22,16 +22,16 @@ import { TestSocketService } from "./test.socket.service";
             retry_strategy: function(_: any) {
               return 1000;
             },
-          }
+          },
         };
 
         return ClientProxyFactory.create(clientOptions);
       },
-      inject: [ ApiConfigService ]
-    }
+      inject: [ ApiConfigService ],
+    },
   ],
   exports: [
-    TestSocketService
-  ]
+    TestSocketService,
+  ],
 })
 export class TestSocketModule { }

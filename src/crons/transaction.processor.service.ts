@@ -10,7 +10,7 @@ import { Locker } from "src/utils/locker";
 @Injectable()
 export class TransactionProcessorService {
   private transactionProcessor: TransactionProcessor = new TransactionProcessor();
-  private readonly logger: Logger
+  private readonly logger: Logger;
 
   constructor(
     private readonly apiConfigService: ApiConfigService,
@@ -33,7 +33,7 @@ export class TransactionProcessorService {
         },
         setLastProcessedNonce: async (shardId, nonce) => {
           await this.cachingService.setCacheRemote(`lastProcessedNonce:${shardId}`, nonce, Constants.oneMonth());
-        }
+        },
       });
     });
   }

@@ -3,7 +3,7 @@ import { ClientProxy } from "@nestjs/microservices";
 
 @Injectable()
 export class TestSocketService {
-  private readonly logger: Logger
+  private readonly logger: Logger;
 
   constructor(
     @Inject('PUBSUB_SERVICE') private clientProxy: ClientProxy,

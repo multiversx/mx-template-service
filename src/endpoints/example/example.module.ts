@@ -10,7 +10,7 @@ import { ExampleService } from "./example.service";
     ExampleService,
   ],
   exports: [
-    ExampleService
-  ]
+    ExampleService,
+  ],
 })
 export class ExampleModule { }

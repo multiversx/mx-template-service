@@ -18,7 +18,7 @@ export class MetricsService {
         name: 'api',
         help: 'API Calls',
         labelNames: ['endpoint', 'code'],
-        buckets: []
+        buckets: [],
       });
     }
 
@@ -27,7 +27,7 @@ export class MetricsService {
         name: 'external_apis',
         help: 'External Calls',
         labelNames: ['system'],
-        buckets: []
+        buckets: [],
       });
     }
 
@@ -44,7 +44,7 @@ export class MetricsService {
         name: 'api_response_size',
         help: 'API Response size',
         labelNames: ['endpoint'],
-        buckets: []
+        buckets: [],
       });
     }
 
@@ -52,7 +52,7 @@ export class MetricsService {
       MetricsService.pendingApiHitGauge = new Gauge({
         name: 'pending_api_hits',
         help: 'Number of hits for pending API calls',
-        labelNames: ['endpoint']
+        labelNames: ['endpoint'],
       });
     }
 
@@ -60,7 +60,7 @@ export class MetricsService {
       MetricsService.cachedApiHitGauge = new Gauge({
         name: 'cached_api_hits',
         help: 'Number of hits for cached API calls',
-        labelNames: ['endpoint']
+        labelNames: ['endpoint'],
       });
     }
 

@@ -17,7 +17,7 @@ export class PerformanceProfiler {
     this.duration = this.stopped - this.started;
 
     if (log) {
-      let logger = new Logger(PerformanceProfiler.name);
+      const logger = new Logger(PerformanceProfiler.name);
 
       logger.log(`${description ?? this.description}: ${this.duration}ms`);
     }

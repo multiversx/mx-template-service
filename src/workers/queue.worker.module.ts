@@ -14,10 +14,10 @@ import { ExampleQueueService } from './queues/example.queue.service';
     }),
   ],
   providers: [
-    QueueWorkerService, ExampleQueueService
+    QueueWorkerService, ExampleQueueService,
   ],
   exports: [
-    QueueWorkerService, ExampleQueueService
-  ]
+    QueueWorkerService, ExampleQueueService,
+  ],
 })
 export class QueueWorkerModule {}

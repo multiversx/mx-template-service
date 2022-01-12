@@ -15,7 +15,7 @@ export class MicroserviceController {
    async deleteCacheKey(keys: string[]) {
      this.logger.log(`Deleting cache keys ${keys}`);
  
-     for (let key of keys) {
+     for (const key of keys) {
        await this.cachingService.deleteInCacheLocal(key);
      }
    }

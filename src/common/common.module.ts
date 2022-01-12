@@ -13,6 +13,6 @@ import { ApiModule } from "./network/api.module";
   ],
   exports: [
     ApiConfigModule, CachingModule, ApiModule, MetricsModule,
-  ]
+  ],
 })
 export class CommonModule { }

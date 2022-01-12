@@ -5,7 +5,7 @@ import { PerformanceProfiler } from "../../utils/performance.profiler";
 
 @Injectable()
 export class ApiService {
-  private readonly logger: Logger
+  private readonly logger: Logger;
 
   constructor(
     private readonly metricsService: MetricsService
@@ -14,7 +14,7 @@ export class ApiService {
   }
 
   async get(url: string): Promise<any> {
-    let profiler = new PerformanceProfiler();
+    const profiler = new PerformanceProfiler();
     
     try {
       return await axios.get(url);
@@ -34,10 +34,10 @@ export class ApiService {
   }
 
   async post(url: string, data: any): Promise<any> {
-    let profiler = new PerformanceProfiler();
+    const profiler = new PerformanceProfiler();
     try {
 
-      let result = await axios.post(url, data);
+      const result = await axios.post(url, data);
 
       return result.data;
     } catch (error: any) {
@@ -56,7 +56,7 @@ export class ApiService {
   }
 
   async head(url: string): Promise<any> {
-    let profiler = new PerformanceProfiler();
+    const profiler = new PerformanceProfiler();
 
     try {
       return await axios.head(url);

@@ -11,6 +11,6 @@ import { MetricsService } from "./metrics.service";
   ],
   exports: [
     MetricsService,
-  ]
+  ],
 })
 export class MetricsModule { }

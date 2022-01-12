@@ -5,7 +5,7 @@ import { Job } from "bull";
 @Injectable()
 @Processor('exampleQueue')
 export class ExampleQueueService {
-  private readonly logger: Logger
+  private readonly logger: Logger;
 
   constructor() {
     this.logger = new Logger(ExampleQueueService.name);
