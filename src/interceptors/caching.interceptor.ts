@@ -10,7 +10,7 @@ import { Constants } from "src/utils/constants";
 
 @Injectable()
 export class CachingInterceptor implements NestInterceptor {
-  private pendingRequestsDictionary: { [key: string]: any; } = {};
+  private pendingRequestsDictionary: { [key: string]: unknown; } = {};
 
   constructor(
     private readonly cachingService: CachingService,
@@ -18,7 +18,7 @@ export class CachingInterceptor implements NestInterceptor {
     private readonly metricsService: MetricsService,
   ) { }
 
-  async intercept(context: ExecutionContext, next: CallHandler): Promise<Observable<any>> {
+  async intercept(context: ExecutionContext, next: CallHandler): Promise<Observable<unknown>> {
     const apiFunction = context.getClass().name + '.' + context.getHandler().name;
 
     const cachingMetadata = DecoratorUtils.getMethodDecorator(NoCacheOptions, context.getHandler());
@@ -48,8 +48,9 @@ export class CachingInterceptor implements NestInterceptor {
         return of(cachedValue);
       }
 
-      let pendingRequestResolver: (value: any) => null;
+      let pendingRequestResolver: (value: unknown) => null;
       this.pendingRequestsDictionary[cacheKey] = new Promise((resolve) => {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         pendingRequestResolver = resolve;
       });
@@ -57,7 +58,7 @@ export class CachingInterceptor implements NestInterceptor {
       return next
         .handle()
         .pipe(
-          tap(async (result: any) => {
+          tap(async (result: unknown) => {
             delete this.pendingRequestsDictionary[cacheKey ?? ''];
             pendingRequestResolver(result);
             this.metricsService.setPendingRequestsCount(Object.keys(this.pendingRequestsDictionary).length);

@@ -16,4 +16,4 @@ import { CacheWarmerService } from './cache.warmer.service';
     CacheWarmerService,
   ],
 })
-export class CacheWarmerModule {}
+export class CacheWarmerModule { }

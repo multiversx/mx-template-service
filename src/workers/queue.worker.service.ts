@@ -24,8 +24,8 @@ export class QueueWorkerService {
         delay: 30000,
         removeOnComplete: true,
       });
-  
-      this.logger.log({type: 'producer', jobId: job.id, identifier: job.data.identifier});
+
+      this.logger.log({ type: 'producer', jobId: job.id, identifier: job.data.identifier });
     }
   }
 }

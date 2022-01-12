@@ -6,7 +6,7 @@ import { ApiModule } from "./network/api.module";
 
 @Module({
   imports: [
-    forwardRef(() => ApiConfigModule), 
+    forwardRef(() => ApiConfigModule),
     forwardRef(() => CachingModule),
     forwardRef(() => ApiModule),
     forwardRef(() => MetricsModule),

@@ -19,7 +19,7 @@ import { TestSocketService } from "./test.socket.service";
             url: `redis://${apiConfigService.getRedisUrl()}:6379`,
             retryDelay: 1000,
             retryAttempts: 10,
-            retry_strategy: function(_: any) {
+            retry_strategy: function () {
               return 1000;
             },
           },
@@ -27,7 +27,7 @@ import { TestSocketService } from "./test.socket.service";
 
         return ClientProxyFactory.create(clientOptions);
       },
-      inject: [ ApiConfigService ],
+      inject: [ApiConfigService],
     },
   ],
   exports: [

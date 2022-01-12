@@ -17,4 +17,4 @@ import { PubSubController } from './pub.sub.controller';
     EventsGateway,
   ],
 })
-export class PubSubModule {}
+export class PubSubModule { }

@@ -5,7 +5,7 @@ import { UsersModule } from "./users/user.module";
 
 @Module({
   imports: [
-    ExampleModule, 
+    ExampleModule,
     TestSocketModule,
     UsersModule,
   ],

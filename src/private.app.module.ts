@@ -25,4 +25,4 @@ import { TestSocketModule } from './endpoints/test-sockets/test.socket.module';
     TestSocketController,
   ],
 })
-export class PrivateAppModule {}
+export class PrivateAppModule { }

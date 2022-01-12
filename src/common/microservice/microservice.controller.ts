@@ -9,14 +9,14 @@ export class MicroserviceController {
     private readonly cachingService: CachingService,
   ) {
     this.logger = new Logger(MicroserviceController.name);
-   }
+  }
 
-   @EventPattern('deleteCacheKeys')
-   async deleteCacheKey(keys: string[]) {
-     this.logger.log(`Deleting cache keys ${keys}`);
- 
-     for (const key of keys) {
-       await this.cachingService.deleteInCacheLocal(key);
-     }
-   }
+  @EventPattern('deleteCacheKeys')
+  async deleteCacheKey(keys: string[]) {
+    this.logger.log(`Deleting cache keys ${keys}`);
+
+    for (const key of keys) {
+      await this.cachingService.deleteInCacheLocal(key);
+    }
+  }
 }

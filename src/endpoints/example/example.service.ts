@@ -9,14 +9,14 @@ import { ExampleFilter } from "./entities/example.filter";
 export class ExampleService {
   constructor(
     private readonly cachingService: CachingService
-  ) {}
+  ) { }
 
   async getExamples(pagination: QueryPagination, filter: ExampleFilter): Promise<Example[]> {
     let examples = await this.getAllExamples();
 
     if (filter.search) {
       const search = filter.search.toLowerCase();
-      
+
       examples = examples.filter(x => x.description.toLowerCase().includes(search));
     }
 
