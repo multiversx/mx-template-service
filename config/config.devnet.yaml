@@ -10,7 +10,7 @@ database:
   port: 3306
   username: 'root'
   password: 'root'
-  name: 'api'
+  name: 'example'
 features:
   publicApi:
     enabled: true

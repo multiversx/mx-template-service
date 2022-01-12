@@ -1,15 +1,15 @@
 import { CACHE_MANAGER, Inject, Injectable, Logger } from "@nestjs/common";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { promisify } = require('util');
-import { createClient } from 'redis';
 import { Cache } from "cache-manager";
 import { Constants } from "../../utils/constants";
 import { ApiConfigService } from "../api-config/api.config.service";
 import { ApiService } from "../network/api.service";
+import Redis from 'ioredis';
 
 @Injectable()
 export class CachingService {
-  private client = createClient(6379, this.apiConfigService.getRedisUrl());
+  private client = new Redis(6379, this.apiConfigService.getRedisUrl());
   private asyncSet = promisify(this.client.set).bind(this.client);
   private asyncGet = promisify(this.client.get).bind(this.client);
   private asyncMGet = promisify(this.client.mget).bind(this.client);
