@@ -13,6 +13,6 @@ export class ExampleQueueService {
 
   @Process({ concurrency: 4 })
   async onNftCreated(job: Job<{ identifier: string }>) {
-    this.logger.log({type: 'consumer', jobId: job.id, identifier: job.data.identifier, attemptsMade: job.attemptsMade});
+    this.logger.log({ type: 'consumer', jobId: job.id, identifier: job.data.identifier, attemptsMade: job.attemptsMade });
   }
 }

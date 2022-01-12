@@ -20,4 +20,4 @@ import { ExampleQueueService } from './queues/example.queue.service';
     QueueWorkerService, ExampleQueueService,
   ],
 })
-export class QueueWorkerModule {}
+export class QueueWorkerModule { }

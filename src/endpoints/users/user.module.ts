@@ -3,8 +3,8 @@ import { DatabaseModule } from 'src/common/database/database.module';
 import { UsersService } from './user.service';
 
 @Module({
-  imports: [ DatabaseModule ],
+  imports: [DatabaseModule],
   providers: [UsersService],
   exports: [UsersService],
 })
-export class UsersModule {}
+export class UsersModule { }

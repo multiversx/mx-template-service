@@ -5,13 +5,13 @@ import { MetricsService } from "./metrics.service";
 export class MetricsController {
   constructor(
     private readonly metricsService: MetricsService
-  ) {}
-  
+  ) { }
+
   @Get("/metrics")
   async getMetrics(): Promise<string> {
     return this.metricsService.getMetrics();
   }
-  
+
   @Get("/hello")
   async getHello(): Promise<string> {
     return 'hello';

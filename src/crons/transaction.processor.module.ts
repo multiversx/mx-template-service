@@ -12,4 +12,4 @@ import { TransactionProcessorService } from './transaction.processor.service';
     TransactionProcessorService,
   ],
 })
-export class TransactionProcessorModule {}
+export class TransactionProcessorModule { }

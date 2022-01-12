@@ -12,9 +12,9 @@ import { ApiConfigService } from 'src/common/api-config/api.config.service';
           port: 6379,
         },
       }),
-      imports: [ ApiConfigModule ],
-      inject: [ ApiConfigService ],
+      imports: [ApiConfigModule],
+      inject: [ApiConfigService],
     }),
   ],
 })
-export class BullQueueModule {}
+export class BullQueueModule { }

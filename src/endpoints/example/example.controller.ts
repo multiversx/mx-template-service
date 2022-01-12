@@ -7,25 +7,25 @@ import { ExampleService } from "./example.service";
 @ApiTags('example')
 export class ExampleController {
 	constructor(
-    private readonly exampleService: ExampleService
-  ) {}
+		private readonly exampleService: ExampleService
+	) { }
 
 	@Get("/examples")
 	@ApiResponse({
 		status: 200,
 		description: 'Returns a list of examples',
 		type: Example,
-    isArray: true,
+		isArray: true,
 	})
-  @ApiQuery({ name: 'from', description: 'Numer of items to skip for the result set', required: false })
-  @ApiQuery({ name: 'size', description: 'Number of items to retrieve', required: false  })
+	@ApiQuery({ name: 'from', description: 'Numer of items to skip for the result set', required: false })
+	@ApiQuery({ name: 'size', description: 'Number of items to retrieve', required: false })
 	@ApiQuery({ name: 'search', description: 'Search by example description', required: false })
-  async getExamples(
-    @Query('from', new DefaultValuePipe(0), ParseIntPipe) from: number, 
-    @Query('size', new DefaultValuePipe(25), ParseIntPipe) size: number,
-    @Query('search') search?: string,
+	async getExamples(
+		@Query('from', new DefaultValuePipe(0), ParseIntPipe) from: number,
+		@Query('size', new DefaultValuePipe(25), ParseIntPipe) size: number,
+		@Query('search') search?: string,
 	): Promise<Example[]> {
-    return await this.exampleService.getExamples({ from, size }, { search });
+		return await this.exampleService.getExamples({ from, size }, { search });
 	}
 
 	@Get("/examples/:id")
@@ -34,14 +34,14 @@ export class ExampleController {
 		description: 'Returns one example',
 		type: Example,
 	})
-  async getExample(
-    @Param('id') id: string,
+	async getExample(
+		@Param('id') id: string,
 	): Promise<Example> {
-    const result = await this.exampleService.getExample(id);
-    if (!result) {
-      throw new NotFoundException('Example not found');
-    }
+		const result = await this.exampleService.getExample(id);
+		if (!result) {
+			throw new NotFoundException('Example not found');
+		}
 
-    return result;
+		return result;
 	}
 }
