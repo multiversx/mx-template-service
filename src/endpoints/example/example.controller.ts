@@ -15,7 +15,7 @@ export class ExampleController {
 		status: 200,
 		description: 'Returns a list of examples',
 		type: Example,
-    isArray: true
+    isArray: true,
 	})
   @ApiQuery({ name: 'from', description: 'Numer of items to skip for the result set', required: false })
   @ApiQuery({ name: 'size', description: 'Number of items to retrieve', required: false  })
@@ -37,7 +37,7 @@ export class ExampleController {
   async getExample(
     @Param('id') id: string,
 	): Promise<Example> {
-    let result = await this.exampleService.getExample(id);
+    const result = await this.exampleService.getExample(id);
     if (!result) {
       throw new NotFoundException('Example not found');
     }

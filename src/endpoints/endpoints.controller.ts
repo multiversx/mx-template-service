@@ -12,7 +12,7 @@ import { UsersController } from "./users/user.controller";
     EndpointsServicesModule,
   ],
   controllers: [
-    AuthController, ExampleController, HealthCheckController, UsersController
+    AuthController, ExampleController, HealthCheckController, UsersController,
   ],
 })
 export class EndpointsControllersModule { }

@@ -10,7 +10,7 @@ import { CacheWarmerService } from './cache.warmer.service';
     ScheduleModule.forRoot(),
     forwardRef(() => CommonModule),
     forwardRef(() => EndpointsServicesModule),
-    MicroserviceModule
+    MicroserviceModule,
   ],
   providers: [
     CacheWarmerService,

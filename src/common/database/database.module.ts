@@ -20,7 +20,7 @@ import { ApiConfigService } from "../api-config/api.config.service";
     TypeOrmModule.forFeature([User]),
   ],
   exports: [
-    TypeOrmModule.forFeature([User])
-  ]
+    TypeOrmModule.forFeature([User]),
+  ],
 })
 export class DatabaseModule{}

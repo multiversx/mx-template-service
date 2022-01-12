@@ -79,11 +79,11 @@ export class ApiConfigService {
       username: this.getDatabaseUsername(),
       password: this.getDatabasePassword(),
       database: this.getDatabaseName(),
-    }
+    };
   }
 
   getIsPublicApiFeatureActive(): boolean {
-    let isApiActive = this.configService.get<boolean>('features.publicApi.enabled');
+    const isApiActive = this.configService.get<boolean>('features.publicApi.enabled');
     if (isApiActive === undefined) {
       throw new Error('No public api feature flag present');
     }
@@ -92,7 +92,7 @@ export class ApiConfigService {
   }
 
   getPublicApiFeaturePort(): number {
-    let featurePort = this.configService.get<number>('features.publicApi.port');
+    const featurePort = this.configService.get<number>('features.publicApi.port');
     if (featurePort === undefined) {
       throw new Error('No public api port present');
     }
@@ -101,7 +101,7 @@ export class ApiConfigService {
   }
 
   getIsPrivateApiFeatureActive(): boolean {
-    let isApiActive = this.configService.get<boolean>('features.privateApi.enabled');
+    const isApiActive = this.configService.get<boolean>('features.privateApi.enabled');
     if (isApiActive === undefined) {
       throw new Error('No private api feature flag present');
     }
@@ -110,7 +110,7 @@ export class ApiConfigService {
   }
 
   getPrivateApiFeaturePort(): number {
-    let featurePort = this.configService.get<number>('features.privateApi.port');
+    const featurePort = this.configService.get<number>('features.privateApi.port');
     if (featurePort === undefined) {
       throw new Error('No private api port present');
     }
@@ -119,7 +119,7 @@ export class ApiConfigService {
   }
 
   getIsCacheWarmerFeatureActive(): boolean {
-    let isCacheWarmerActive = this.configService.get<boolean>('features.cacheWarmer.enabled');
+    const isCacheWarmerActive = this.configService.get<boolean>('features.cacheWarmer.enabled');
     if (isCacheWarmerActive === undefined) {
       throw new Error('No cache warmer feature flag present');
     }
@@ -128,7 +128,7 @@ export class ApiConfigService {
   }
 
   getCacheWarmerFeaturePort(): number {
-    let featurePort = this.configService.get<number>('features.cacheWarmer.port');
+    const featurePort = this.configService.get<number>('features.cacheWarmer.port');
     if (featurePort === undefined) {
       throw new Error('No cache warmer port present');
     }
@@ -137,7 +137,7 @@ export class ApiConfigService {
   }
 
   getIsTransactionProcessorFeatureActive(): boolean {
-    let isTransactionProcessorActive = this.configService.get<boolean>('features.transactionProcessor.enabled');
+    const isTransactionProcessorActive = this.configService.get<boolean>('features.transactionProcessor.enabled');
     if (isTransactionProcessorActive === undefined) {
       throw new Error('No transaction processor feature flag present');
     }
@@ -146,7 +146,7 @@ export class ApiConfigService {
   }
 
   getTransactionProcessorFeaturePort(): number {
-    let featurePort = this.configService.get<number>('features.transactionProcessor.port');
+    const featurePort = this.configService.get<number>('features.transactionProcessor.port');
     if (featurePort === undefined) {
       throw new Error('No transaction processor port present');
     }
@@ -155,7 +155,7 @@ export class ApiConfigService {
   }
 
   getTransactionProcessorMaxLookBehind(): number {
-    let maxLookBehind = this.configService.get<number>('features.transactionProcessor.maxLookBehind');
+    const maxLookBehind = this.configService.get<number>('features.transactionProcessor.maxLookBehind');
     if (maxLookBehind === undefined) {
       throw new Error('No transaction processor max look behind present');
     }
@@ -164,7 +164,7 @@ export class ApiConfigService {
   }
 
   getIsQueueWorkerFeatureActive(): boolean {
-    let isQueueWorkerActive = this.configService.get<boolean>('features.queueWorker.enabled');
+    const isQueueWorkerActive = this.configService.get<boolean>('features.queueWorker.enabled');
     if (isQueueWorkerActive === undefined) {
       throw new Error('No queue worker feature flag present');
     }
@@ -173,7 +173,7 @@ export class ApiConfigService {
   }
 
   getQueueWorkerFeaturePort(): number {
-    let featurePort = this.configService.get<number>('features.queueWorker.port');
+    const featurePort = this.configService.get<number>('features.queueWorker.port');
     if (featurePort === undefined) {
       throw new Error('No transaction processor port present');
     }
@@ -191,7 +191,7 @@ export class ApiConfigService {
   }
 
   getSecurityAdmins(): string[] {
-    let admins = this.configService.get<string[]>('security.admins');
+    const admins = this.configService.get<string[]>('security.admins');
     if (admins === undefined) {
       throw new Error('No security admins value present');
     }

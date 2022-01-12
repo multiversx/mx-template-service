@@ -11,9 +11,9 @@ export class LoggingInterceptor implements NestInterceptor {
   ) {}
 
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
-    let apiFunction = context.getClass().name + '.' + context.getHandler().name;
+    const apiFunction = context.getClass().name + '.' + context.getHandler().name;
 
-    let profiler = new PerformanceProfiler(apiFunction);
+    const profiler = new PerformanceProfiler(apiFunction);
 
     return next
       .handle()

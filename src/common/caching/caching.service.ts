@@ -19,7 +19,7 @@ export class CachingService {
 
   private static cache: Cache;
 
-  private readonly logger: Logger
+  private readonly logger: Logger;
 
   constructor(
     private readonly apiConfigService: ApiConfigService,
@@ -34,16 +34,16 @@ export class CachingService {
   async setCacheRemote<T>(key: string, value: T, ttl: number): Promise<T> {
     await this.asyncSet(key, JSON.stringify(value), 'EX', ttl);
     return value;
-  };
+  }
 
   async getCacheRemote<T>(key: string): Promise<T | undefined> {
-    let response = await this.asyncGet(key);
+    const response = await this.asyncGet(key);
     if (response === undefined || response === null) {
       return undefined;
     }
 
     return JSON.parse(response);
-  };
+  }
 
   async incrementRemote(key: string): Promise<number> {
     return await this.asyncIncr(key);
@@ -58,7 +58,7 @@ export class CachingService {
   }
 
   public async getCache<T>(key: string): Promise<T | undefined> {
-    let value = await this.getCacheLocal<T>(key);
+    const value = await this.getCacheLocal<T>(key);
     if (value) {
       return value;
     }
@@ -73,19 +73,19 @@ export class CachingService {
   }
 
   async getOrSetCache<T>(key: string, promise: () => Promise<T>, remoteTtl: number): Promise<T> {
-    let cachedValue = await this.getCacheLocal<T>(key);
+    const cachedValue = await this.getCacheLocal<T>(key);
     if (cachedValue !== undefined) {
         return cachedValue;
     }
 
-    let cached = await this.getCacheRemote<T>(key);
+    const cached = await this.getCacheRemote<T>(key);
     if (cached !== undefined && cached !== null) {
       // we only set ttl to half because we don't know what the real ttl of the item is and we want it to work good in most scenarios
       await this.setCacheLocal<T>(key, cached, remoteTtl / 2);
       return cached;
     }
 
-    let value = await promise();
+    const value = await promise();
 
     if (remoteTtl > 0) {
       await this.setCacheLocal<T>(key, value, remoteTtl);
@@ -95,7 +95,7 @@ export class CachingService {
   }
 
   async refreshCacheLocal<T>(key: string, ttl: number = Constants.oneSecond() * 6): Promise<T | undefined> {
-    let value = await this.getCacheRemote<T>(key);
+    const value = await this.getCacheRemote<T>(key);
     if (value) {
       await this.setCacheLocal<T>(key, value, ttl);
     }
@@ -108,11 +108,11 @@ export class CachingService {
   }
 
   async deleteInCache(key: string): Promise<string[]> {
-    let invalidatedKeys = [];
+    const invalidatedKeys = [];
 
     if (key.includes('*')) {
-      let allKeys = await this.asyncKeys(key);
-      for (let key of allKeys) {
+      const allKeys = await this.asyncKeys(key);
+      for (const key of allKeys) {
         // this.logger.log(`Invalidating key ${key}`);
         await CachingService.cache.del(key);
         await this.asyncDel(key);
@@ -143,11 +143,11 @@ export class CachingService {
       return {};
     }
 
-    let values = await this.asyncMGet(keys);
+    const values = await this.asyncMGet(keys);
 
-    let result: { [key: string]: T } = {};
+    const result: { [key: string]: T } = {};
 
-    for (let [index, value] of values.entries()) {
+    for (const [index, value] of values.entries()) {
       if (value !== undefined && value !== null) {
         result[keys[index]] = JSON.parse(value);
       }
@@ -157,8 +157,8 @@ export class CachingService {
   }
 
   async getSecondsRemainingUntilNextRound(): Promise<number> {
-    let genesisTimestamp = await this.getGenesisTimestamp();
-    let currentTimestamp = Math.round(Date.now() / 1000);
+    const genesisTimestamp = await this.getGenesisTimestamp();
+    const currentTimestamp = Math.round(Date.now() / 1000);
 
     let result = 6 - (currentTimestamp - genesisTimestamp) % 6;
     if (result === 6) {
@@ -178,7 +178,7 @@ export class CachingService {
 
   private async getGenesisTimestampRaw(): Promise<number> {
     try {
-      let round = await this.apiService.get(`${this.apiConfigService.getApiUrl()}/rounds/0/1`);
+      const round = await this.apiService.get(`${this.apiConfigService.getApiUrl()}/rounds/0/1`);
       return round.timestamp;
     } catch (error) {
       this.logger.error(error);

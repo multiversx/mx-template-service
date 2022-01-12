@@ -11,10 +11,10 @@ import { PubSubController } from './pub.sub.controller';
     forwardRef(() => CachingModule),
   ],
   controllers: [
-    PubSubController, MicroserviceController
+    PubSubController, MicroserviceController,
   ],
   providers: [
     EventsGateway,
-  ]
+  ],
 })
 export class PubSubModule {}

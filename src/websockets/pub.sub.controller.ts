@@ -4,7 +4,7 @@ import { EventsGateway } from "./events.gateway";
 
 @Controller()
 export class PubSubController {
-  private readonly logger: Logger
+  private readonly logger: Logger;
 
   constructor(
     private readonly eventsGateway: EventsGateway,

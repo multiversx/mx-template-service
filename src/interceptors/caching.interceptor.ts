@@ -19,20 +19,20 @@ export class CachingInterceptor implements NestInterceptor {
   ) { }
 
   async intercept(context: ExecutionContext, next: CallHandler): Promise<Observable<any>> {
-    let apiFunction = context.getClass().name + '.' + context.getHandler().name;
+    const apiFunction = context.getClass().name + '.' + context.getHandler().name;
 
-    let cachingMetadata = DecoratorUtils.getMethodDecorator(NoCacheOptions, context.getHandler());
+    const cachingMetadata = DecoratorUtils.getMethodDecorator(NoCacheOptions, context.getHandler());
     if (cachingMetadata) {
       return next.handle();
     }
 
     this.metricsService.setPendingRequestsCount(Object.keys(this.pendingRequestsDictionary).length);
 
-    let cacheKey = this.getCacheKey(context);
+    const cacheKey = this.getCacheKey(context);
     if (cacheKey) {
-      let pendingRequest = this.pendingRequestsDictionary[cacheKey];
+      const pendingRequest = this.pendingRequestsDictionary[cacheKey];
       if (pendingRequest) {
-        let result = await pendingRequest;
+        const result = await pendingRequest;
         this.metricsService.incrementPendingApiHit(apiFunction);
 
         if (result instanceof HttpException) {
@@ -42,7 +42,7 @@ export class CachingInterceptor implements NestInterceptor {
         }
       }
 
-      let cachedValue = await this.cachingService.getCacheLocal(cacheKey);
+      const cachedValue = await this.cachingService.getCacheLocal(cacheKey);
       if (cachedValue) {
         this.metricsService.incrementCachedApiHit(apiFunction);
         return of(cachedValue);
@@ -62,7 +62,7 @@ export class CachingInterceptor implements NestInterceptor {
             pendingRequestResolver(result);
             this.metricsService.setPendingRequestsCount(Object.keys(this.pendingRequestsDictionary).length);
 
-            await this.cachingService.setCacheLocal(cacheKey!!, result, Constants.oneSecond() * 6);
+            await this.cachingService.setCacheLocal(cacheKey ?? '', result, Constants.oneSecond() * 6);
           }),
           catchError((err) => {
             delete this.pendingRequestsDictionary[cacheKey ?? ''];
