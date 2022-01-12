@@ -15,6 +15,7 @@ export class DecoratorUtils {
     };
   }
 
+  // eslint-disable-next-line @typescript-eslint/ban-types
   static getMethodDecorator<T>(type: Type<T>, target: Function): T | undefined {
     return this.getDecoratorOptions(type, target);
   }
@@ -23,6 +24,7 @@ export class DecoratorUtils {
     return this.getDecoratorOptions(type, target);
   }
 
+  // eslint-disable-next-line @typescript-eslint/ban-types
   private static getDecoratorOptions<T>(type: Type<T>, target: Object): T | undefined {
     const metadata = Reflect.getOwnMetadata(type.name, target);
     if (!metadata) {
