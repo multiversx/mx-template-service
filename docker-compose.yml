@@ -6,7 +6,17 @@ services:
     command: redis-server
 
     ports:
-     - "6379:6379"
+      - "6379:6379"
 
     environment:
-     - REDIS_REPLICATION_MODE=master
+      - REDIS_REPLICATION_MODE=master
+
+  database:
+    image: "mysql:latest"
+
+    ports:
+      - "3306:3306"
+
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=example
