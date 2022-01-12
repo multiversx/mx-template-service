@@ -2,13 +2,13 @@ import { Inject, Injectable, Logger } from "@nestjs/common";
 import { ClientProxy } from "@nestjs/microservices";
 
 @Injectable()
-export class TestService {
+export class TestSocketService {
   private readonly logger: Logger
 
   constructor(
     @Inject('PUBSUB_SERVICE') private clientProxy: ClientProxy,
   ) {
-    this.logger = new Logger(TestService.name);
+    this.logger = new Logger(TestSocketService.name);
   }
 
   async testSocket(): Promise<void> {

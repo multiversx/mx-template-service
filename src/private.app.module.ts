@@ -6,8 +6,8 @@ import { ApiConfigModule } from './common/api-config/api.config.module';
 import { CacheController } from './common/caching/cache.controller';
 import { HealthCheckController } from './endpoints/health-check/health.check.controller';
 import { MicroserviceModule } from './common/microservice/microservice.module';
-import { TestController } from './endpoints/test/test.controller';
-import { TestModule } from './endpoints/test/test.module';
+import { TestSocketController } from './endpoints/test-sockets/test.socket.controller';
+import { TestSocketModule } from './endpoints/test-sockets/test.socket.module';
 
 
 @Module({
@@ -16,13 +16,13 @@ import { TestModule } from './endpoints/test/test.module';
     CachingModule,
     MetricsModule,
     MicroserviceModule,
-    TestModule,
+    TestSocketModule,
   ],
   controllers: [
     MetricsController,
     CacheController,
     HealthCheckController,
-    TestController,
+    TestSocketController,
   ],
 })
 export class PrivateAppModule {}

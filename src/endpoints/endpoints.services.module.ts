@@ -1,14 +1,16 @@
 import { Module } from "@nestjs/common";
 import { ExampleModule } from "./example/example.module";
-import { TestModule } from "./test/test.module";
+import { TestSocketModule } from "./test-sockets/test.socket.module";
+import { UsersModule } from "./users/user.module";
 
 @Module({
   imports: [
     ExampleModule, 
-    TestModule,
+    TestSocketModule,
+    UsersModule
   ],
   exports: [
-    ExampleModule, TestModule,
+    ExampleModule, TestSocketModule, UsersModule
   ]
 })
 export class EndpointsServicesModule { }
