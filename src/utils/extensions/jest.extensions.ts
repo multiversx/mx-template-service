@@ -1,5 +1,5 @@
 expect.extend({
-    toHaveStructure(received: any, keys: string[]) {
+    toHaveStructure<T>(received: T, keys: string[]) {
         const objectSortedKeys = JSON.stringify(Object.keys(received).sort());
         const expectedKeys = JSON.stringify(keys.sort());
 
@@ -21,5 +21,5 @@ expect.extend({
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 interface Matchers<R> {
-    toHaveStructure(received: any, keys: string[]): R;
+    toHaveStructure<T>(received: T, keys: string[]): R;
 }

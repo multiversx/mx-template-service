@@ -13,11 +13,14 @@ export class ApiService {
     this.logger = new Logger(ApiService.name);
   }
 
-  async get(url: string): Promise<any> {
+  async get<T>(url: string): Promise<T> {
     const profiler = new PerformanceProfiler();
-    
+
     try {
-      return await axios.get(url);
+      const result = await axios.get<T>(url);
+
+      return result.data;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       this.logger.error({
         method: 'GET',
@@ -33,13 +36,14 @@ export class ApiService {
     }
   }
 
-  async post(url: string, data: any): Promise<any> {
+  async post<TInput, TOutput>(url: string, data: TInput): Promise<TOutput> {
     const profiler = new PerformanceProfiler();
     try {
 
       const result = await axios.post(url, data);
 
       return result.data;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       this.logger.error({
         method: 'POST',
@@ -55,11 +59,12 @@ export class ApiService {
     }
   }
 
-  async head(url: string): Promise<any> {
+  async head(url: string): Promise<{ headers: { [key: string]: string }, status: number }> {
     const profiler = new PerformanceProfiler();
 
     try {
       return await axios.head(url);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       this.logger.error({
         method: 'HEAD',

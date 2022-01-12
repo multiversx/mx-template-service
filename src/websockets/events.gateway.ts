@@ -14,7 +14,7 @@ export class EventsGateway {
   @WebSocketServer()
   webSocketServer: Server | undefined;
 
-  onTest(payload: any) {
+  onTest(payload: unknown) {
     this.logger.log(`Received onTest event with payload '${JSON.stringify(payload)}'`);
     this.webSocketServer?.emit('test', payload);
   }

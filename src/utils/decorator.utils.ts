@@ -2,15 +2,15 @@ import { Type } from "@nestjs/common";
 
 export class DecoratorUtils {
   static registerMethodDecorator<T>(type: Type<T>): (options?: T) => MethodDecorator {
-    return (options?: T): MethodDecorator => (_, __, descriptor: any) => {
-      Reflect.defineMetadata(type.name, Object.assign(new type(), options), descriptor.value);
+    return (options?: T): MethodDecorator => <T2>(_: unknown, __: unknown, descriptor: TypedPropertyDescriptor<T2>) => {
+      Reflect.defineMetadata(type.name, Object.assign(new type(), options), descriptor.value ?? '');
       return descriptor;
     };
   }
 
   static registerClassDecorator<T>(type: Type<T>): (options?: T) => MethodDecorator {
-    return (options?: T): MethodDecorator => (_, __, descriptor: any) => {
-      Reflect.defineMetadata(type.name, Object.assign(new type(), options), descriptor.value);
+    return (options?: T): MethodDecorator => <T2>(_: unknown, __: unknown, descriptor: TypedPropertyDescriptor<T2>) => {
+      Reflect.defineMetadata(type.name, Object.assign(new type(), options), descriptor.value ?? '');
       return descriptor;
     };
   }

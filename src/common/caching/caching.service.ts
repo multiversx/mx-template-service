@@ -75,7 +75,7 @@ export class CachingService {
   async getOrSetCache<T>(key: string, promise: () => Promise<T>, remoteTtl: number): Promise<T> {
     const cachedValue = await this.getCacheLocal<T>(key);
     if (cachedValue !== undefined) {
-        return cachedValue;
+      return cachedValue;
     }
 
     const cached = await this.getCacheRemote<T>(key);
@@ -128,8 +128,8 @@ export class CachingService {
     return invalidatedKeys;
   }
 
-  async delCache(key: string): Promise<any> {
-    return await this.asyncDel(key);
+  async delCache(key: string): Promise<void> {
+    await this.asyncDel(key);
   }
 
   public async getKeys(key: string | undefined) {
@@ -178,7 +178,7 @@ export class CachingService {
 
   private async getGenesisTimestampRaw(): Promise<number> {
     try {
-      const round = await this.apiService.get(`${this.apiConfigService.getApiUrl()}/rounds/0/1`);
+      const round: { timestamp: number } = await this.apiService.get(`${this.apiConfigService.getApiUrl()}/rounds/0/1`);
       return round.timestamp;
     } catch (error) {
       this.logger.error(error);

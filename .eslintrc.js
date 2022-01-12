@@ -15,7 +15,6 @@ module.exports = {
     jest: true,
   },
   rules: {
-    "@typescript-eslint/no-explicit-any": ["off"],
     "@typescript-eslint/ban-ts-comment": ["off"],
     "@typescript-eslint/no-empty-function": ["off"],
     "@typescript-eslint/ban-types": ["off"],

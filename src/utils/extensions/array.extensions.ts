@@ -44,7 +44,7 @@ Array.prototype.firstOrUndefined = function (predicate?: Function) {
 };
 
 Array.prototype.zip = function <TSecond, TResult>(second: TSecond[], predicate: Function): TResult[] {
-  return this.map((element: any, index: number) => predicate(element, second[index]));
+  return this.map((element: TSecond, index: number) => predicate(element, second[index]));
 };
 
 Array.prototype.remove = function <T>(element: T): number {
@@ -69,7 +69,7 @@ Array.prototype.findMissingElements = function <T>(second: T[]) {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 declare interface Array<T> {
-  groupBy(predicate: (item: T) => any): any;
+  groupBy(predicate: (item: T) => string): { [key: string]: T };
   selectMany<TOUT>(predicate: (item: T) => TOUT[]): TOUT[];
   firstOrUndefined(predicate?: (item: T) => boolean): T | undefined;
   zip<TSecond, TResult>(second: TSecond[], predicate: (first: T, second: TSecond) => TResult): TResult[];

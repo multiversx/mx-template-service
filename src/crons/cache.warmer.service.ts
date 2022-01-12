@@ -22,7 +22,7 @@ export class CacheWarmerService {
     }, true);
   }
 
-  private async invalidateKey(key: string, data: any, ttl: number) {
+  private async invalidateKey<T>(key: string, data: T, ttl: number) {
     await Promise.all([
       this.cachingService.setCache(key, data, ttl),
       this.deleteCacheKey(key),
@@ -30,6 +30,6 @@ export class CacheWarmerService {
   }
 
   private async deleteCacheKey(key: string) {
-    await this.clientProxy.emit('deleteCacheKeys', [ key ]);
+    await this.clientProxy.emit('deleteCacheKeys', [key]);
   }
 }

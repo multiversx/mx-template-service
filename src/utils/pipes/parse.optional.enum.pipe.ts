@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, PipeTransform } from "@nestjs/common";
 
-export class ParseOptionalEnumPipe<T extends { [name: string]: any }> implements PipeTransform<string | undefined, Promise<string | undefined>> {
+export class ParseOptionalEnumPipe<T extends { [name: string]: unknown }> implements PipeTransform<string | undefined, Promise<string | undefined>> {
   constructor(private readonly type: T) { }
 
   transform(value: string | undefined): Promise<string | undefined> {
@@ -19,7 +19,7 @@ export class ParseOptionalEnumPipe<T extends { [name: string]: any }> implements
   }
 
 
-  private getValues<T extends { [name: string]: any }>(value: T): string[] {
+  private getValues<T extends { [name: string]: unknown }>(value: T): string[] {
     return Object.keys(value).map(key => value[key]).filter(value => typeof value === 'string') as string[];
   }
 }

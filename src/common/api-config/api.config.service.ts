@@ -3,7 +3,7 @@ import { ConfigService } from "@nestjs/config";
 
 @Injectable()
 export class ApiConfigService {
-  constructor(private readonly configService: ConfigService) {}
+  constructor(private readonly configService: ConfigService) { }
 
   getApiUrl(): string {
     const apiUrl = this.configService.get<string>('urls.api');
@@ -51,14 +51,20 @@ export class ApiConfigService {
   }
 
 
-  getDatabaseUsername(): string | undefined {
+  getDatabaseUsername(): string {
     const databaseUsername = this.configService.get<string>('database.username');
-  
+    if (!databaseUsername) {
+      throw new Error('No database.username present');
+    }
+
     return databaseUsername;
   }
 
-  getDatabasePassword(): string | undefined {
+  getDatabasePassword(): string {
     const databasePassword = this.configService.get<string>('database.password');
+    if (!databasePassword) {
+      throw new Error('No database.password present');
+    }
 
     return databasePassword;
   }
@@ -72,7 +78,7 @@ export class ApiConfigService {
     return databaseName;
   }
 
-  getDatabaseConnection(): any {
+  getDatabaseConnection(): { host: string, port: number, username: string, password: string, database: string } {
     return {
       host: this.getDatabaseHost(),
       port: this.getDatabasePort(),
