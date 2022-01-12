@@ -1,26 +1,26 @@
-Array.prototype.groupBy = function(predicate: Function, asArray = false) {
-  let result = this.reduce(function(rv, x) {
-      (rv[predicate(x)] = rv[predicate(x)] || []).push(x);
-      return rv;
+Array.prototype.groupBy = function (predicate: Function, asArray = false) {
+  let result = this.reduce(function (rv, x) {
+    (rv[predicate(x)] = rv[predicate(x)] || []).push(x);
+    return rv;
   }, {});
 
   if (asArray === true) {
-      result = Object.keys(result).map(key => {
-          return {
-              key: key,
-              values: result[key],
-          };
-      });
+    result = Object.keys(result).map(key => {
+      return {
+        key: key,
+        values: result[key],
+      };
+    });
   }
 
   return result;
 };
 
-Array.prototype.selectMany = function(predicate: Function) {
+Array.prototype.selectMany = function (predicate: Function) {
   const result = [];
 
   for (const item of this) {
-      result.push(...predicate(item));
+    result.push(...predicate(item));
   }
 
   return result;
@@ -43,11 +43,11 @@ Array.prototype.firstOrUndefined = function (predicate?: Function) {
   return undefined;
 };
 
-Array.prototype.zip = function<TSecond, TResult>(second: TSecond[], predicate: Function): TResult[] {
+Array.prototype.zip = function <TSecond, TResult>(second: TSecond[], predicate: Function): TResult[] {
   return this.map((element: any, index: number) => predicate(element, second[index]));
 };
 
-Array.prototype.remove = function<T>(element: T): number {
+Array.prototype.remove = function <T>(element: T): number {
   const index = this.indexOf(element);
   if (index >= 0) {
     this.splice(index, 1);
@@ -56,7 +56,7 @@ Array.prototype.remove = function<T>(element: T): number {
   return index;
 };
 
-Array.prototype.findMissingElements = function<T>(second: T[]) {
+Array.prototype.findMissingElements = function <T>(second: T[]) {
   const missing: T[] = [];
   for (const item of this) {
     if (!second.includes(item)) {
@@ -67,6 +67,7 @@ Array.prototype.findMissingElements = function<T>(second: T[]) {
   return missing;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 declare interface Array<T> {
   groupBy(predicate: (item: T) => any): any;
   selectMany<TOUT>(predicate: (item: T) => TOUT[]): TOUT[];

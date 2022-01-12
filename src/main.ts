@@ -21,17 +21,17 @@ import { SocketAdapter } from './websockets/socket.adapter';
 
 async function bootstrap() {
   const publicApp = await NestFactory.create(PublicAppModule);
-  publicApp.use(bodyParser.json({limit: '1mb'}));
+  publicApp.use(bodyParser.json({ limit: '1mb' }));
   publicApp.enableCors();
   publicApp.useLogger(publicApp.get(WINSTON_MODULE_NEST_PROVIDER));
-  
+
   const apiConfigService = publicApp.get<ApiConfigService>(ApiConfigService);
   const metricsService = publicApp.get<MetricsService>(MetricsService);
   const cachingService = publicApp.get<CachingService>(CachingService);
   const httpAdapterHostService = publicApp.get<HttpAdapterHost>(HttpAdapterHost);
 
   publicApp.useGlobalInterceptors(
-    new LoggingInterceptor(metricsService), 
+    new LoggingInterceptor(metricsService),
     new CachingInterceptor(cachingService, httpAdapterHostService, metricsService),
   );
 
@@ -92,7 +92,7 @@ async function bootstrap() {
         url: `redis://${apiConfigService.getRedisUrl()}:6379`,
         retryAttempts: 100,
         retryDelay: 1000,
-        retry_strategy: function (_: any) {
+        retry_strategy: function () {
           return 1000;
         },
       },

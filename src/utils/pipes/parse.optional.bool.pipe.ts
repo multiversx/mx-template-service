@@ -1,7 +1,7 @@
-import { ArgumentMetadata, HttpException, HttpStatus, PipeTransform } from "@nestjs/common";
+import { HttpException, HttpStatus, PipeTransform } from "@nestjs/common";
 
 export class ParseOptionalBoolPipe implements PipeTransform<string | boolean, Promise<boolean | undefined>> {
-    transform(value: string | boolean, _: ArgumentMetadata): Promise<boolean | undefined> {
+    transform(value: string | boolean): Promise<boolean | undefined> {
         return new Promise(resolve => {
             if (value === true || value === 'true') {
                 return resolve(true);
