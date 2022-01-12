@@ -6,17 +6,15 @@ import { JwtAuthenticateGuard } from "src/utils/guards/jwt.authenticate.guard";
 @Controller()
 @ApiTags('auth')
 export class AuthController {
-	constructor() {}
-
 	@Get("/auth")
-  @UseGuards(JwtAuthenticateGuard)
+	@UseGuards(JwtAuthenticateGuard)
 	@ApiResponse({
 		status: 200,
 		description: 'Authorizes the user and returns the encoded address',
 	})
-  async authorize(
+	async authorize(
 		@Jwt('address') address: string
 	): Promise<string> {
-    return address;
+		return address;
 	}
 }
