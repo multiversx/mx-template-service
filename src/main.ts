@@ -13,6 +13,8 @@ import { TransactionProcessorModule } from './crons/transaction.processor.module
 import * as bodyParser from 'body-parser';
 import { CachingService } from './common/caching/caching.service';
 import { LoggingInterceptor } from './interceptors/logging.interceptor';
+import { Logger } from '@nestjs/common';
+import { QueueWorkerModule } from './workers/queue.worker.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { PubSubModule } from './websockets/pub.sub.module';
 import { SocketAdapter } from './websockets/socket.adapter';
@@ -69,6 +71,18 @@ async function bootstrap() {
     const transactionProcessorApp = await NestFactory.create(TransactionProcessorModule);
     await transactionProcessorApp.listen(apiConfigService.getTransactionProcessorFeaturePort());
   }
+
+  if (apiConfigService.getIsQueueWorkerFeatureActive()) {
+    const queueWorkerApp = await NestFactory.create(QueueWorkerModule);
+    await queueWorkerApp.listen(8000);
+  }
+
+  let logger = new Logger("Bootstrapper");
+  logger.log(`Public API active: ${apiConfigService.getIsPrivateApiFeatureActive()}`);
+  logger.log(`Private API active: ${apiConfigService.getIsPrivateApiFeatureActive()}`);
+  logger.log(`Transaction processor active: ${apiConfigService.getIsTransactionProcessorFeatureActive()}`);
+  logger.log(`Cache warmer active: ${apiConfigService.getIsCacheWarmerFeatureActive()}`);
+  logger.log(`Queue worker active: ${apiConfigService.getIsQueueWorkerFeatureActive()}`);
 
   const pubSubApp = await NestFactory.createMicroservice<MicroserviceOptions>(
     PubSubModule,

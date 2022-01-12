@@ -26,6 +26,10 @@ This is used to keep the application cache in sync with new updates.
 
 This is used for scanning the transactions from Elrond Blockchain.
 
+### `Queue Worker`
+
+This is used for concurrently processing heavy jobs.
+
 ## Available Scripts
 
 This is an Elrond project built on Nest.js framework.

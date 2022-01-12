@@ -25,6 +25,9 @@ features:
     enabled: true
     port: 5202
     maxLookBehind: 1000
+  queueWorker:
+    enabled: true
+    port: 8000
 security:
   jwtSecret: ''
   admins:
