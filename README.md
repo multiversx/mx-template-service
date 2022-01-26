@@ -11,7 +11,9 @@ REST API facade template for microservices that interacts with the Elrond blockc
 2. MySQL Server is required to be installed [docs](https://dev.mysql.com/doc/refman/8.0/en/installing.html).
 3. MongoDB Server is required to be installed [docs](https://docs.mongodb.com/).
 
-You can use `docker-compose up` in application directory to skip all these dependecies.
+You can use `docker-compose up` in a separate terminal to use a local docker container for all these dependencies.
+
+After running the sample, you can stop the Docker container with `docker-compose down`
 
 ## Available Features
 
