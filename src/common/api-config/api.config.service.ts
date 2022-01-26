@@ -88,6 +88,11 @@ export class ApiConfigService {
     };
   }
 
+
+  getNoSQLDatabaseConnection(): string {
+    return `mongodb://${this.getDatabaseHost()}:27017/${this.getDatabaseName()}`;
+  }
+
   getIsPublicApiFeatureActive(): boolean {
     const isApiActive = this.configService.get<boolean>('features.publicApi.enabled');
     if (isApiActive === undefined) {
