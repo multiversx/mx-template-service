@@ -33,7 +33,19 @@ export class JwtAuthenticateGuard implements CanActivate {
             reject(err);
           }
 
-          resolve(decoded?.user);
+          const userInfo = decoded?.user ?? {};
+
+          if (request.cookies) {
+            const impersonationAddress = request.cookies['Impersonate-Address'];
+            if (impersonationAddress) {
+              const admins = this.apiConfigService.getSecurityAdmins();
+              if (admins && admins.includes(userInfo.address)) {
+                userInfo.address = impersonationAddress;
+              }
+            }
+          }
+
+          resolve(userInfo);
         });
       });
 
