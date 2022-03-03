@@ -18,12 +18,14 @@ import { QueueWorkerModule } from './workers/queue.worker.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { PubSubModule } from './websockets/pub.sub.module';
 import { SocketAdapter } from './websockets/socket.adapter';
+import cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const publicApp = await NestFactory.create(PublicAppModule);
   publicApp.use(bodyParser.json({ limit: '1mb' }));
   publicApp.enableCors();
   publicApp.useLogger(publicApp.get(WINSTON_MODULE_NEST_PROVIDER));
+  publicApp.use(cookieParser());
 
   const apiConfigService = publicApp.get<ApiConfigService>(ApiConfigService);
   const metricsService = publicApp.get<MetricsService>(MetricsService);
