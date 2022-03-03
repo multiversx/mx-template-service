@@ -21,6 +21,7 @@
     "strict": true,
     // Import non-ES modules as default imports.
     "esModuleInterop": true,
+    "skipLibCheck": true,
     "alwaysStrict": true,
     "allowUnreachableCode": false,
     "noImplicitAny": true,

@@ -20,3 +20,13 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=example
+
+  mongodb:
+    image: mongo:latest
+
+    environment:
+      - MONGODB_DATABASE="example"
+
+    ports:
+      - 27017:27017
+
