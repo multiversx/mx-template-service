@@ -28,6 +28,12 @@ features:
   queueWorker:
     enabled: true
     port: 8000
+  keepAliveAgent:
+    enabled: true
 security:
   jwtSecret: ''
   admins:
+rateLimiterSecret:
+keepAliveTimeout:
+  downstream: 61000
+  upstream: 60000

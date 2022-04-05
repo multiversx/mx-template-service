@@ -209,4 +209,24 @@ export class ApiConfigService {
 
     return admins;
   }
+
+  getRateLimiterSecret(): string | undefined {
+    return this.configService.get<string>('rateLimiterSecret');
+  }
+
+  getAxiosTimeout(): number {
+    return this.configService.get<number>('keepAliveTimeout.downstream') ?? 61000;
+  }
+
+  getIsKeepAliveAgentFeatureActive(): boolean {
+    return this.configService.get<boolean>('keepAliveAgent.enabled') ?? true;
+  }
+
+  getServerTimeout(): number {
+    return this.configService.get<number>('keepAliveTimeout.upstream') ?? 60000;
+  }
+
+  getHeadersTimeout(): number {
+    return this.getServerTimeout() + 1000;
+  }
 }

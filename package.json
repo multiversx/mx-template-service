@@ -46,6 +46,7 @@
     "@nestjs/typeorm": "^8.0.3",
     "@nestjs/websockets": "^8.2.5",
     "@types/redis": "^4.0.11",
+    "agentkeepalive": "^4.2.1",
     "bull": "^4.2.0",
     "cache-manager": "^3.6.0",
     "cookie-parser": "^1.4.6",
