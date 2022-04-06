@@ -1,9 +1,9 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule, TypeOrmModuleOptions } from "@nestjs/typeorm";
-import { User } from "src/endpoints/users/entities/user.entity";
 import { ApiConfigModule } from "../../api-config/api.config.module";
 import { ApiConfigService } from "../../api-config/api.config.service";
-import { MongoDbService } from "./mongo.db.service";
+import { UserDb } from "./entities/user.db";
+import { MongoDbPersistenceService } from "./mongodb.persistence.service";
 
 @Module({
   imports: [
@@ -12,7 +12,7 @@ import { MongoDbService } from "./mongo.db.service";
       useFactory: (apiConfigService: ApiConfigService) => {
         const options: TypeOrmModuleOptions = {
           type: 'mongodb',
-          entities: [User],
+          entities: [UserDb],
           url: apiConfigService.getDatabaseUrl(),
           keepConnectionAlive: true,
           sslValidate: false,
@@ -25,9 +25,9 @@ import { MongoDbService } from "./mongo.db.service";
       },
       inject: [ApiConfigService],
     }),
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([UserDb]),
   ],
-  providers: [MongoDbService],
-  exports: [MongoDbService, TypeOrmModule.forFeature([User])],
+  providers: [MongoDbPersistenceService],
+  exports: [MongoDbPersistenceService, TypeOrmModule.forFeature([UserDb])],
 })
-export class MongoDbModule { }
+export class MongoDbPersistenceModule { }

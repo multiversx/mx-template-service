@@ -1,10 +1,10 @@
 import { DynamicModule, Global, Module, Type } from "@nestjs/common";
 import configuration from "config/configuration";
 import { MetricsModule } from "../metrics/metrics.module";
-import { DatabaseModule } from "./database/database.module";
-import { DatabaseService } from "./database/database.service";
-import { MongoDbModule } from "./mongodb/mongo.db.module";
-import { MongoDbService } from "./mongodb/mongo.db.service";
+import { MongoDbPersistenceModule } from "./mongodb/mongodb.persistence.module";
+import { MongoDbPersistenceService } from "./mongodb/mongodb.persistence.service";
+import { MysqlPersistenceModule } from "./mysql/mysql.persistence.module";
+import { MysqlPersistenceService } from "./mysql/mysql.persistence.service";
 import { PassThroughModule } from "./passthrough/pass.through.module";
 import { PassThroughService } from "./passthrough/pass.through.service";
 import { PersistenceInterface } from "./persistence.interface";
@@ -21,14 +21,14 @@ export class PersistenceModule {
     if (!isPassThrough) {
       const isMysql = !configuration().database?.type || configuration().database?.type === 'mysql';
       if (isMysql) {
-        persistenceModule = DatabaseModule;
-        persistenceInterface = DatabaseService;
+        persistenceModule = MysqlPersistenceModule;
+        persistenceInterface = MysqlPersistenceService;
       }
 
       const isMongoDb = configuration().database?.type === 'mongodb';
       if (isMongoDb) {
-        persistenceModule = MongoDbModule;
-        persistenceInterface = MongoDbService;
+        persistenceModule = MongoDbPersistenceModule;
+        persistenceInterface = MongoDbPersistenceService;
       }
     }
 

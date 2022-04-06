@@ -106,6 +106,7 @@ export class MetricsService {
   }
 
   setPersistenceDuration(action: string, duration: number) {
+    MetricsService.externalCallsHistogram.labels('persistence').observe(duration);
     MetricsService.persistenceDurationHistogram.labels(action).observe(duration);
   }
 

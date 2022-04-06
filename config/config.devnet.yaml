@@ -12,6 +12,9 @@ database:
   username: 'root'
   password: 'root'
   name: 'example'
+# database:
+#   type: 'mongodb'
+#   url: 'mongodb://root:password@localhost:27017'
 features:
   publicApi:
     enabled: true

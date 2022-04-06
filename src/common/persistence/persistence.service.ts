@@ -1,4 +1,5 @@
 import { Inject, Injectable } from "@nestjs/common";
+import { CreateUserDto } from "src/endpoints/users/entities/dto/create.user.dto";
 import { User } from "src/endpoints/users/entities/user.entity";
 import { PerformanceProfiler } from "src/utils/performance.profiler";
 import { MetricsService } from "../metrics/metrics.service";
@@ -20,13 +21,12 @@ export class PersistenceService implements PersistenceInterface {
     } finally {
       profiler.stop();
 
-      this.metricsService.setExternalCall('persistence', profiler.duration);
       this.metricsService.setPersistenceDuration(key, profiler.duration);
     }
   }
 
-  async createUser(user: User): Promise<User> {
-    return await this.execute('createUser', this.persistenceInterface.createUser(user));
+  async createUser(createUserDto: CreateUserDto): Promise<User> {
+    return await this.execute('createUser', this.persistenceInterface.createUser(createUserDto));
   }
 
   async findAllUsers(): Promise<User[]> {
