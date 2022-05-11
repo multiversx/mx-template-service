@@ -32,6 +32,10 @@ async function bootstrap() {
   const cachingService = publicApp.get<CachingService>(CachingService);
   const httpAdapterHostService = publicApp.get<HttpAdapterHost>(HttpAdapterHost);
 
+  const httpServer = httpAdapterHostService.httpAdapter.getHttpServer();
+  httpServer.keepAliveTimeout = apiConfigService.getServerTimeout();
+  httpServer.headersTimeout = apiConfigService.getHeadersTimeout(); //`keepAliveTimeout + server's expected response time`
+
   publicApp.useGlobalInterceptors(
     new LoggingInterceptor(metricsService),
     new CachingInterceptor(cachingService, httpAdapterHostService, metricsService),
