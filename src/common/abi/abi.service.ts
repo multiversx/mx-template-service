@@ -1,13 +1,17 @@
-import { AbiRegistry, Address, Interaction, IProvider, NetworkConfig, ProxyProvider, QueryResponseBundle, SmartContractAbi } from "@elrondnetwork/erdjs/out";
+import { AbiRegistry, Address, Interaction, SmartContractAbi, TypedOutcomeBundle } from "@elrondnetwork/erdjs/out";
+import { ContractQueryResponse, ProxyNetworkProvider } from "@elrondnetwork/erdjs-network-providers";
 import { Logger } from "@nestjs/common";
 import { SmartContractProfiler } from "src/utils/interactions/smartcontract.profiler";
+import { ResultsParser } from "@elrondnetwork/erdjs";
+import * as fs from "fs";
 
 export class AbiService {
-  private readonly proxy: IProvider;
+  private readonly proxy: ProxyNetworkProvider;
   private readonly logger: Logger;
   private readonly abiPath: string;
   private readonly contractInterface: string;
   private contract: SmartContractProfiler | undefined;
+  private readonly parser: ResultsParser = new ResultsParser();
 
   constructor(
     apiUrl: string,
@@ -16,21 +20,23 @@ export class AbiService {
   ) {
     this.logger = new Logger(AbiService.name);
 
-    this.proxy = new ProxyProvider(apiUrl);
+    this.proxy = new ProxyNetworkProvider(apiUrl);
 
     this.abiPath = abiPath;
     this.contractInterface = contractInterface;
   }
-  public getProxy(): IProvider {
+  public getProxy(): ProxyNetworkProvider {
     return this.proxy;
   }
 
   async getContract(contractAddress: string): Promise<SmartContractProfiler> {
     if (!this.contract) {
       try {
-        const abiRegistry = await AbiRegistry.load({
-          files: [this.abiPath],
-        });
+        // Load from files
+        const jsonContent: string = await fs.promises.readFile(this.abiPath, { encoding: "utf8" });
+        const json = JSON.parse(jsonContent);
+
+        const abiRegistry = AbiRegistry.create(json);
 
         const abi = new SmartContractAbi(abiRegistry, [this.contractInterface]);
 
@@ -48,16 +54,15 @@ export class AbiService {
     return this.contract;
   }
 
-  async runQuery(contract: SmartContractProfiler, interaction: Interaction): Promise<QueryResponseBundle> {
+  async runQuery(contract: SmartContractProfiler, interaction: Interaction): Promise<TypedOutcomeBundle> {
     try {
-      await NetworkConfig.getDefault().sync(this.proxy);
 
-      const queryResponse = await contract.runQuery(
+      const queryResponse: ContractQueryResponse = await contract.runQuery(
         this.proxy,
         interaction.buildQuery()
       );
 
-      return interaction.interpretQueryResponse(queryResponse);
+      return this.parser.parseQueryResponse(queryResponse, interaction.getEndpoint());
     } catch (error) {
       this.logger.log(`Unexpected error when running query '${interaction.buildQuery().func}' to sc '${contract.getAddress().bech32()}' `);
       this.logger.error(error);

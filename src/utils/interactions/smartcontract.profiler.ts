@@ -1,37 +1,18 @@
 import {
-  Address,
-  Balance,
-  ContractFunction,
-  IProvider,
-  QueryResponse,
+  Query,
   SmartContract,
-  TypedValue,
 } from '@elrondnetwork/erdjs/out';
+import { ContractQueryResponse, ProxyNetworkProvider } from "@elrondnetwork/erdjs-network-providers";
 import { PerformanceProfiler } from '../performance.profiler';
 
 export class SmartContractProfiler extends SmartContract {
-  runQuery(
-    provider: IProvider,
-    {
-      func,
-      args,
-      value,
-      caller,
-    }: {
-      func: ContractFunction;
-      args?: TypedValue[];
-      value?: Balance;
-      caller?: Address;
-    },
-  ): Promise<QueryResponse> {
+  async runQuery(
+    provider: ProxyNetworkProvider,
+    query: Query,
+  ): Promise<ContractQueryResponse> {
     const profiler = new PerformanceProfiler();
 
-    const result = super.runQuery(provider, {
-      func,
-      args,
-      value,
-      caller,
-    });
+    const response = await provider.queryContract(query);
 
     profiler.stop();
 
@@ -41,6 +22,6 @@ export class SmartContractProfiler extends SmartContract {
     //   profiler.duration,
     // );
 
-    return result;
+    return response;
   }
 }
