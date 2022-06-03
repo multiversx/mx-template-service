@@ -30,27 +30,30 @@ export class AbiService {
   }
 
   async getContract(contractAddress: string): Promise<SmartContractProfiler> {
-    if (!this.contract) {
-      try {
-        // Load from files
-        const jsonContent: string = await fs.promises.readFile(this.abiPath, { encoding: "utf8" });
-        const json = JSON.parse(jsonContent);
-
-        const abiRegistry = AbiRegistry.create(json);
-
-        const abi = new SmartContractAbi(abiRegistry, [this.contractInterface]);
-
-        this.contract = new SmartContractProfiler({
-          address: new Address(contractAddress),
-          abi: abi,
-        });
-      } catch (error) {
-        this.logger.log(`Unexpected error when trying to create smart contract from abi`);
-        this.logger.error(error);
-
-        throw new Error('Error when creating contract from abi');
-      }
+    if (this.contract) {
+      return this.contract;
     }
+
+    try {
+      // Load from files
+      const jsonContent: string = await fs.promises.readFile(this.abiPath, { encoding: "utf8" });
+      const json = JSON.parse(jsonContent);
+
+      const abiRegistry = AbiRegistry.create(json);
+
+      const abi = new SmartContractAbi(abiRegistry, [this.contractInterface]);
+
+      this.contract = new SmartContractProfiler({
+        address: new Address(contractAddress),
+        abi: abi,
+      });
+    } catch (error) {
+      this.logger.log(`Unexpected error when trying to create smart contract from abi`);
+      this.logger.error(error);
+
+      throw new Error('Error when creating contract from abi');
+    }
+
     return this.contract;
   }
 
