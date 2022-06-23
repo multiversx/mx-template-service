@@ -32,6 +32,8 @@
     "copy-custom-config": "cp ./config/config.custom.yaml ./config/config.yaml"
   },
   "dependencies": {
+    "@elrondnetwork/erdjs": "^10.2.5",
+    "@elrondnetwork/erdjs-network-providers": "^0.1.5",
     "@elrondnetwork/transaction-processor": "^0.1.20",
     "@nestjs/bull": "^0.5.4",
     "@nestjs/common": "^8.2.5",
