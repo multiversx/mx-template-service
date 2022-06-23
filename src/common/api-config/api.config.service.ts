@@ -229,4 +229,8 @@ export class ApiConfigService {
   getHeadersTimeout(): number {
     return this.getServerTimeout() + 1000;
   }
+
+  getUseCachingInterceptor(): boolean {
+    return this.configService.get<boolean>('useCachingInterceptor') ?? false;
+  }
 }

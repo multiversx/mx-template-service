@@ -13,7 +13,7 @@ import { TransactionProcessorModule } from './crons/transaction.processor.module
 import * as bodyParser from 'body-parser';
 import { CachingService } from './common/caching/caching.service';
 import { LoggingInterceptor } from './interceptors/logging.interceptor';
-import { Logger } from '@nestjs/common';
+import { Logger, NestInterceptor } from '@nestjs/common';
 import { QueueWorkerModule } from './workers/queue.worker.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { PubSubModule } from './websockets/pub.sub.module';
@@ -36,10 +36,13 @@ async function bootstrap() {
   httpServer.keepAliveTimeout = apiConfigService.getServerTimeout();
   httpServer.headersTimeout = apiConfigService.getHeadersTimeout(); //`keepAliveTimeout + server's expected response time`
 
-  publicApp.useGlobalInterceptors(
-    new LoggingInterceptor(metricsService),
-    new CachingInterceptor(cachingService, httpAdapterHostService, metricsService),
-  );
+  const globalInterceptors: NestInterceptor[] = [new LoggingInterceptor(metricsService)];
+
+  if (apiConfigService.getUseCachingInterceptor()) {
+    globalInterceptors.push(new CachingInterceptor(cachingService, httpAdapterHostService, metricsService));
+  }
+
+  publicApp.useGlobalInterceptors(...globalInterceptors);
 
   const description = readFileSync(join(__dirname, '..', 'docs', 'swagger.md'), 'utf8');
 
