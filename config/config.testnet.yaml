@@ -37,3 +37,5 @@ rateLimiterSecret:
 keepAliveTimeout:
   downstream: 61000
   upstream: 60000
+useCachingInterceptor: false
+
