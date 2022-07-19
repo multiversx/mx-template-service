@@ -1,12 +1,12 @@
-import { forwardRef, Module } from "@nestjs/common";
+import { Module } from "@nestjs/common";
 import { ClientOptions, ClientProxyFactory, Transport } from "@nestjs/microservices";
+import { ApiConfigModule } from "src/common/api-config/api.config.module";
 import { ApiConfigService } from "src/common/api-config/api.config.service";
-import { CommonModule } from "src/common/common.module";
 import { TestSocketService } from "./test.socket.service";
 
 @Module({
   imports: [
-    forwardRef(() => CommonModule),
+    ApiConfigModule,
   ],
   providers: [
     TestSocketService,

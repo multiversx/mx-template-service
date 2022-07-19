@@ -1,25 +1,26 @@
 import { Module } from '@nestjs/common';
-import { CachingModule } from './common/caching/caching.module';
-import { MetricsController } from './common/metrics/metrics.controller';
-import { MetricsModule } from './common/metrics/metrics.module';
-import { ApiConfigModule } from './common/api-config/api.config.module';
-import { CacheController } from './common/caching/cache.controller';
 import { HealthCheckController } from './endpoints/health-check/health.check.controller';
-import { MicroserviceModule } from './common/microservice/microservice.module';
 import { TestSocketController } from './endpoints/test-sockets/test.socket.controller';
 import { TestSocketModule } from './endpoints/test-sockets/test.socket.module';
-
+import { CacheController } from './endpoints/caching/cache.controller';
+import { ApiMetricsController } from './common/metrics/api.metrics.controller';
+import { DynamicModuleUtils } from './utils/dynamic.module.utils';
+import { LoggingModule } from '@elrondnetwork/erdnest';
+import { ApiMetricsModule } from './common/metrics/api.metrics.module';
 
 @Module({
   imports: [
-    ApiConfigModule,
-    CachingModule,
-    MetricsModule,
-    MicroserviceModule,
+    ApiMetricsModule,
+    DynamicModuleUtils.getCachingModule(),
+    LoggingModule,
     TestSocketModule,
   ],
+  providers: [
+    DynamicModuleUtils.getNestJsApiConfigService(),
+    DynamicModuleUtils.getPubSubService(),
+  ],
   controllers: [
-    MetricsController,
+    ApiMetricsController,
     CacheController,
     HealthCheckController,
     TestSocketController,

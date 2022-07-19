@@ -3,7 +3,7 @@ import {
   SmartContract,
 } from '@elrondnetwork/erdjs/out';
 import { ContractQueryResponse, ProxyNetworkProvider } from "@elrondnetwork/erdjs-network-providers";
-import { PerformanceProfiler } from '../performance.profiler';
+import { PerformanceProfiler } from '@elrondnetwork/erdnest';
 
 export class SmartContractProfiler extends SmartContract {
   async runQuery(

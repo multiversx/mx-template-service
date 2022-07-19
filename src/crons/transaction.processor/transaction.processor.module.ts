@@ -1,12 +1,14 @@
-import { forwardRef, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { ScheduleModule } from '@nestjs/schedule';
-import { CommonModule } from 'src/common/common.module';
+import { ApiConfigModule } from 'src/common/api-config/api.config.module';
+import { DynamicModuleUtils } from 'src/utils/dynamic.module.utils';
 import { TransactionProcessorService } from './transaction.processor.service';
 
 @Module({
   imports: [
     ScheduleModule.forRoot(),
-    forwardRef(() => CommonModule),
+    ApiConfigModule,
+    DynamicModuleUtils.getCachingModule(),
   ],
   providers: [
     TransactionProcessorService,

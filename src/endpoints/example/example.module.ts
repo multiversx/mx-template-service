@@ -1,10 +1,12 @@
-import { forwardRef, Module } from "@nestjs/common";
-import { CommonModule } from "src/common/common.module";
+import { Module } from "@nestjs/common";
+import { ApiConfigModule } from "src/common/api-config/api.config.module";
+import { DynamicModuleUtils } from "src/utils/dynamic.module.utils";
 import { ExampleService } from "./example.service";
 
 @Module({
   imports: [
-    forwardRef(() => CommonModule),
+    ApiConfigModule,
+    DynamicModuleUtils.getCachingModule(),
   ],
   providers: [
     ExampleService,

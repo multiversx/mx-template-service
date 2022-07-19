@@ -1,22 +1,24 @@
 import { Module } from '@nestjs/common';
-import "./utils/extensions/array.extensions";
-import "./utils/extensions/date.extensions";
-import "./utils/extensions/number.extensions";
-import { CommonModule } from './common/common.module';
-import { LoggingModule } from './common/logging/logging.module';
+import '@elrondnetwork/erdnest/lib/utils/extensions/array.extensions';
+import '@elrondnetwork/erdnest/lib/utils/extensions/date.extensions';
+import '@elrondnetwork/erdnest/lib/utils/extensions/number.extensions';
+import '@elrondnetwork/erdnest/lib/utils/extensions/string.extensions';
+import { LoggingModule } from '@elrondnetwork/erdnest';
 import { EndpointsServicesModule } from './endpoints/endpoints.services.module';
-import { EndpointsControllersModule } from './endpoints/endpoints.controller';
-import { DatabaseModule } from './common/database/database.module';
-import { NoSQLDatabaseModule } from './common/database/nosql.module';
+import { EndpointsControllersModule } from './endpoints/endpoints.controllers.module';
+import { DynamicModuleUtils } from './utils/dynamic.module.utils';
 
 @Module({
   imports: [
     LoggingModule,
-    CommonModule,
-    DatabaseModule,
-    NoSQLDatabaseModule,
     EndpointsServicesModule,
     EndpointsControllersModule,
+  ],
+  providers: [
+    DynamicModuleUtils.getNestJsApiConfigService(),
+  ],
+  exports: [
+    EndpointsServicesModule,
   ],
 })
 export class PublicAppModule { }

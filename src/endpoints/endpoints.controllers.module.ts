@@ -1,5 +1,5 @@
 import { Module } from "@nestjs/common";
-import { CommonModule } from "src/common/common.module";
+import { DynamicModuleUtils } from "src/utils/dynamic.module.utils";
 import { AuthController } from "./auth/auth.controller";
 import { EndpointsServicesModule } from "./endpoints.services.module";
 import { ExampleController } from "./example/example.controller";
@@ -9,8 +9,10 @@ import { UsersController } from "./users/user.controller";
 
 @Module({
   imports: [
-    CommonModule,
     EndpointsServicesModule,
+  ],
+  providers: [
+    DynamicModuleUtils.getNestJsApiConfigService(),
   ],
   controllers: [
     AuthController, ExampleController, HealthCheckController, UsersController, TokensController,

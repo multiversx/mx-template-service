@@ -234,4 +234,32 @@ export class ApiConfigService {
     return this.configService.get<boolean>('useCachingInterceptor') ?? false;
   }
 
+  getAccessAddress(): string {
+    return this.configService.get<string>('security.accessAddress') ?? '';
+  }
+
+  getElasticUrl(): string {
+    const elasticUrls = this.configService.get<string[]>('urls.elastic');
+    if (!elasticUrls) {
+      throw new Error('No elastic urls present');
+    }
+
+    return elasticUrls[Math.floor(Math.random() * elasticUrls.length)];
+  }
+
+  getPoolLimit(): number {
+    return this.configService.get<number>('caching.poolLimit') ?? 100;
+  }
+
+  getProcessTtl(): number {
+    return this.configService.get<number>('caching.processTtl') ?? 60;
+  }
+
+  getUseKeepAliveAgentFlag(): boolean {
+    return this.configService.get<boolean>('flags.useKeepAliveAgent') ?? true;
+  }
+
+  getIsAuthActive(): boolean {
+    return this.configService.get<boolean>('api.auth') ?? false;
+  }
 }

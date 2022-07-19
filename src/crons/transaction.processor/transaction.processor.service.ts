@@ -3,9 +3,7 @@ import { TransactionProcessor } from "@elrondnetwork/transaction-processor";
 import { Injectable, Logger } from "@nestjs/common";
 import { Cron } from "@nestjs/schedule";
 import { ApiConfigService } from "src/common/api-config/api.config.service";
-import { CachingService } from "src/common/caching/caching.service";
-import { Constants } from "src/utils/constants";
-import { Locker } from "src/utils/locker";
+import { CachingService, Constants, Locker } from "@elrondnetwork/erdnest";
 
 @Injectable()
 export class TransactionProcessorService {
