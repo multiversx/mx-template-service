@@ -1,7 +1,6 @@
 import { Controller, Get, UseGuards } from "@nestjs/common";
 import { ApiResponse, ApiTags } from "@nestjs/swagger";
-import { Jwt } from "src/utils/decorators/jwt";
-import { JwtAuthenticateGuard } from "src/utils/guards/jwt.authenticate.guard";
+import { Jwt, JwtAuthenticateGuard } from "@elrondnetwork/erdnest";
 
 @Controller()
 @ApiTags('auth')

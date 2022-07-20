@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
-import { CachingService } from "src/common/caching/caching.service";
+import { CachingService } from "@elrondnetwork/erdnest";
 import { QueryPagination } from "src/common/entities/query.paginations";
-import { Constants } from "src/utils/constants";
+import { Constants } from "@elrondnetwork/erdnest";
 import { Example } from "./entities/example";
 import { ExampleFilter } from "./entities/example.filter";
 

@@ -3,22 +3,20 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { readFileSync } from 'fs';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 import { join } from 'path';
-import { CacheWarmerModule } from './crons/cache.warmer.module';
 import { ApiConfigService } from './common/api-config/api.config.service';
-import { CachingInterceptor } from './interceptors/caching.interceptor';
-import { MetricsService } from './common/metrics/metrics.service';
 import { PrivateAppModule } from './private.app.module';
 import { PublicAppModule } from './public.app.module';
-import { TransactionProcessorModule } from './crons/transaction.processor.module';
 import * as bodyParser from 'body-parser';
-import { CachingService } from './common/caching/caching.service';
-import { LoggingInterceptor } from './interceptors/logging.interceptor';
 import { Logger, NestInterceptor } from '@nestjs/common';
 import { QueueWorkerModule } from './workers/queue.worker.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
-import { PubSubModule } from './websockets/pub.sub.module';
 import { SocketAdapter } from './websockets/socket.adapter';
 import cookieParser from 'cookie-parser';
+import { CacheWarmerModule } from './crons/cache.warmer/cache.warmer.module';
+import { TransactionProcessorModule } from './crons/transaction.processor/transaction.processor.module';
+import { LoggingInterceptor, CachingInterceptor, CachingService, LoggerInitializer, MetricsService, JwtAuthenticateGlobalGuard } from '@elrondnetwork/erdnest';
+import { PubSubListenerModule } from './common/pubsub/pub.sub.listener.module';
+import { ErdnestConfigServiceImpl } from './common/api-config/erdnest.config.service.impl';
 
 async function bootstrap() {
   const publicApp = await NestFactory.create(PublicAppModule);
@@ -29,17 +27,29 @@ async function bootstrap() {
 
   const apiConfigService = publicApp.get<ApiConfigService>(ApiConfigService);
   const metricsService = publicApp.get<MetricsService>(MetricsService);
-  const cachingService = publicApp.get<CachingService>(CachingService);
   const httpAdapterHostService = publicApp.get<HttpAdapterHost>(HttpAdapterHost);
+
+  if (apiConfigService.getIsAuthActive()) {
+    publicApp.useGlobalGuards(new JwtAuthenticateGlobalGuard(new ErdnestConfigServiceImpl(apiConfigService)));
+  }
 
   const httpServer = httpAdapterHostService.httpAdapter.getHttpServer();
   httpServer.keepAliveTimeout = apiConfigService.getServerTimeout();
   httpServer.headersTimeout = apiConfigService.getHeadersTimeout(); //`keepAliveTimeout + server's expected response time`
 
-  const globalInterceptors: NestInterceptor[] = [new LoggingInterceptor(metricsService)];
+  const globalInterceptors: NestInterceptor[] = [];
+  globalInterceptors.push(new LoggingInterceptor(metricsService));
 
   if (apiConfigService.getUseCachingInterceptor()) {
-    globalInterceptors.push(new CachingInterceptor(cachingService, httpAdapterHostService, metricsService));
+    const cachingService = publicApp.get<CachingService>(CachingService);
+
+    const cachingInterceptor = new CachingInterceptor(
+      cachingService,
+      httpAdapterHostService,
+      metricsService,
+    );
+
+    globalInterceptors.push(cachingInterceptor);
   }
 
   publicApp.useGlobalInterceptors(...globalInterceptors);
@@ -86,15 +96,12 @@ async function bootstrap() {
     await queueWorkerApp.listen(8000);
   }
 
-  const logger = new Logger("Bootstrapper");
-  logger.log(`Public API active: ${apiConfigService.getIsPrivateApiFeatureActive()}`);
-  logger.log(`Private API active: ${apiConfigService.getIsPrivateApiFeatureActive()}`);
-  logger.log(`Transaction processor active: ${apiConfigService.getIsTransactionProcessorFeatureActive()}`);
-  logger.log(`Cache warmer active: ${apiConfigService.getIsCacheWarmerFeatureActive()}`);
-  logger.log(`Queue worker active: ${apiConfigService.getIsQueueWorkerFeatureActive()}`);
+  const logger = new Logger('Bootstrapper');
+
+  LoggerInitializer.initialize(logger);
 
   const pubSubApp = await NestFactory.createMicroservice<MicroserviceOptions>(
-    PubSubModule,
+    PubSubListenerModule,
     {
       transport: Transport.REDIS,
       options: {
@@ -107,9 +114,16 @@ async function bootstrap() {
       },
     },
   );
+  pubSubApp.useLogger(pubSubApp.get(WINSTON_MODULE_NEST_PROVIDER));
   pubSubApp.useWebSocketAdapter(new SocketAdapter(pubSubApp));
+  // eslint-disable-next-line @typescript-eslint/no-floating-promises
+  pubSubApp.listen();
 
-  await pubSubApp.listen();
+  logger.log(`Public API active: ${apiConfigService.getIsPrivateApiFeatureActive()}`);
+  logger.log(`Private API active: ${apiConfigService.getIsPrivateApiFeatureActive()}`);
+  logger.log(`Transaction processor active: ${apiConfigService.getIsTransactionProcessorFeatureActive()}`);
+  logger.log(`Cache warmer active: ${apiConfigService.getIsCacheWarmerFeatureActive()}`);
+  logger.log(`Queue worker active: ${apiConfigService.getIsQueueWorkerFeatureActive()}`);
 }
 
 bootstrap();
