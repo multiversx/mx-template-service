@@ -32,7 +32,7 @@
     "copy-custom-config": "cp ./config/config.custom.yaml ./config/config.yaml"
   },
   "dependencies": {
-    "@elrondnetwork/erdjs": "^10.2.5",
+    "@elrondnetwork/erdjs": "^11.0.0",
     "@elrondnetwork/erdjs-network-providers": "^0.1.5",
     "@elrondnetwork/erdnest": "^0.1.20",
     "@elrondnetwork/transaction-processor": "^0.1.26",
