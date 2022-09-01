@@ -34,7 +34,7 @@
   "dependencies": {
     "@elrondnetwork/erdjs": "^11.0.0",
     "@elrondnetwork/erdjs-network-providers": "^0.1.5",
-    "@elrondnetwork/erdnest": "^0.1.20",
+    "@elrondnetwork/erdnest": "^0.1.57",
     "@elrondnetwork/transaction-processor": "^0.1.26",
     "@nestjs/bull": "^0.5.4",
     "@nestjs/common": "^8.4.1",
