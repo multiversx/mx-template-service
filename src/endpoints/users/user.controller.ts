@@ -18,7 +18,7 @@ export class UsersController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string): Promise<User> {
+  async findOne(@Param('id') id: number): Promise<User> {
     const user = await this.usersService.findOne(id);
 
     if (!user) {
@@ -29,7 +29,7 @@ export class UsersController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string): Promise<void> {
+  remove(@Param('id') id: number): Promise<void> {
     return this.usersService.remove(id);
   }
 }
