@@ -7,6 +7,7 @@ import { ApiConfigService } from "../api-config/api.config.service";
   imports: [
     MongooseModule.forRootAsync({
       imports: [ApiConfigModule],
+      // eslint-disable-next-line require-await
       useFactory: async (configService: ApiConfigService) => ({
         uri: configService.getNoSQLDatabaseConnection(),
       }),
