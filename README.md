@@ -55,13 +55,13 @@ Redis Server is required to be installed.
 ## Running the app
 
 ```bash
-# development watch mode
-$ npm run start:watch
+# development watch mode on devnet
+$ npm run start:devnet:watch
 
-# development debug mode
-$ npm run start:debug
+# development debug mode on devnet
+$ npm run start:devnet:debug
 
-# development mode
+# development mode on devnet
 $ npm run start:devnet
 
 # production mode

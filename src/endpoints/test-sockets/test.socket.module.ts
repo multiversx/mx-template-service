@@ -16,12 +16,11 @@ import { TestSocketService } from "./test.socket.service";
         const clientOptions: ClientOptions = {
           transport: Transport.REDIS,
           options: {
-            url: `redis://${apiConfigService.getRedisUrl()}:6379`,
+            host: apiConfigService.getRedisUrl(),
+            port: 6379,
             retryDelay: 1000,
             retryAttempts: 10,
-            retry_strategy: function () {
-              return 1000;
-            },
+            retryStrategy: () => 1000,
           },
         };
 
