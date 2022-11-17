@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ScheduleModule } from '@nestjs/schedule';
 import { ApiConfigModule } from 'src/common/api-config/api.config.module';
+import { ApiMetricsModule } from 'src/common/metrics/api.metrics.module';
 import { DynamicModuleUtils } from 'src/utils/dynamic.module.utils';
 import { TransactionProcessorService } from './transaction.processor.service';
 
@@ -8,6 +9,7 @@ import { TransactionProcessorService } from './transaction.processor.service';
   imports: [
     ScheduleModule.forRoot(),
     ApiConfigModule,
+    ApiMetricsModule,
     DynamicModuleUtils.getCachingModule(),
   ],
   providers: [
