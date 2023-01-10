@@ -5,8 +5,8 @@ import { TestSocketModule } from './endpoints/test-sockets/test.socket.module';
 import { CacheController } from './endpoints/caching/cache.controller';
 import { ApiMetricsController } from './common/metrics/api.metrics.controller';
 import { DynamicModuleUtils } from './utils/dynamic.module.utils';
-import { LoggingModule } from '@elrondnetwork/erdnest';
 import { ApiMetricsModule } from './common/metrics/api.metrics.module';
+import { LoggingModule } from '@multiversx/erdnest';
 
 @Module({
   imports: [

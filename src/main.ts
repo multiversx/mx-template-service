@@ -14,9 +14,9 @@ import { SocketAdapter } from './websockets/socket.adapter';
 import cookieParser from 'cookie-parser';
 import { CacheWarmerModule } from './crons/cache.warmer/cache.warmer.module';
 import { TransactionProcessorModule } from './crons/transaction.processor/transaction.processor.module';
-import { LoggingInterceptor, CachingInterceptor, CachingService, LoggerInitializer, MetricsService, JwtAuthenticateGlobalGuard } from '@elrondnetwork/erdnest';
 import { PubSubListenerModule } from './common/pubsub/pub.sub.listener.module';
 import { ErdnestConfigServiceImpl } from './common/api-config/erdnest.config.service.impl';
+import { MetricsService, JwtAuthenticateGlobalGuard, LoggingInterceptor, CachingService, CachingInterceptor, LoggerInitializer } from '@multiversx/erdnest';
 
 async function bootstrap() {
   const publicApp = await NestFactory.create(PublicAppModule);
@@ -57,10 +57,10 @@ async function bootstrap() {
   const description = readFileSync(join(__dirname, '..', 'docs', 'swagger.md'), 'utf8');
 
   let documentBuilder = new DocumentBuilder()
-    .setTitle('Elrond Microservice API')
+    .setTitle('MultiversX Microservice API')
     .setDescription(description)
     .setVersion('1.0.0')
-    .setExternalDoc('Elrond Docs', 'https://docs.elrond.com');
+    .setExternalDoc('MultiversX Docs', 'https://docs.multiversx.com');
 
   const apiUrls = apiConfigService.getSwaggerUrls();
   for (const apiUrl of apiUrls) {

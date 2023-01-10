@@ -1,6 +1,6 @@
+import { CachingService } from "@multiversx/erdnest";
 import { Controller, Logger } from "@nestjs/common";
 import { EventPattern } from "@nestjs/microservices";
-import { CachingService } from "@elrondnetwork/erdnest";
 
 @Controller()
 export class PubSubListenerController {

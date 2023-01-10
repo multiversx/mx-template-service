@@ -1,6 +1,6 @@
+import { MetricsService } from "@multiversx/erdnest";
 import { Injectable } from "@nestjs/common";
 import { register, Gauge } from 'prom-client';
-import { MetricsService } from "@elrondnetwork/erdnest";
 
 @Injectable()
 export class ApiMetricsService {

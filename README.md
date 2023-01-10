@@ -1,4 +1,4 @@
-REST API facade template for microservices that interacts with the Elrond blockchain.
+REST API facade template for microservices that interacts with the MultiversX blockchain.
 
 ## Quick start
 
@@ -34,7 +34,7 @@ This is used to keep the application cache in sync with new updates.
 
 ### `Transaction Processor`
 
-This is used for scanning the transactions from Elrond Blockchain.
+This is used for scanning the transactions from MultiversX Blockchain.
 
 ### `Queue Worker`
 
@@ -42,7 +42,7 @@ This is used for concurrently processing heavy jobs.
 
 ## Available Scripts
 
-This is an Elrond project built on Nest.js framework.
+This is a MultiversX project built on Nest.js framework.
 
 ### `npm run start:mainnet`
 
