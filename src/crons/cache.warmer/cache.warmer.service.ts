@@ -2,8 +2,7 @@ import { Inject, Injectable } from "@nestjs/common";
 import { Cron } from "@nestjs/schedule";
 import { ClientProxy } from "@nestjs/microservices";
 import { ExampleService } from "src/endpoints/example/example.service";
-import { Constants, Locker } from "@elrondnetwork/erdnest";
-import { CachingService } from "@elrondnetwork/erdnest";
+import { CachingService, Locker, Constants } from "@multiversx/erdnest";
 
 @Injectable()
 export class CacheWarmerService {

@@ -1,4 +1,4 @@
-import { AbiRegistry, Address, SmartContract, SmartContractAbi } from "@elrondnetwork/erdjs/out";
+import { SmartContract, AbiRegistry, SmartContractAbi, Address } from "@multiversx/erdjs/out";
 import { Logger } from "@nestjs/common";
 import * as fs from "fs";
 

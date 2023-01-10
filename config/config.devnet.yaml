@@ -1,9 +1,9 @@
 urls:
-  api: 'https://devnet-api.elrond.com'
+  api: 'https://devnet-api.multiversx.com'
   swagger:
-    - 'https://devnet-microservice.elrond.com'
-    - 'https://testnet-microservice.elrond.com'
-    - 'https://microservice.elrond.com'
+    - 'https://devnet-microservice.multiversx.com'
+    - 'https://testnet-microservice.multiversx.com'
+    - 'https://microservice.multiversx.com'
   redis: '127.0.0.1'
 database:
   host: 'localhost'
