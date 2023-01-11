@@ -1,4 +1,4 @@
-import { CachingService, Constants } from "@multiversx/erdnest";
+import { CachingService, Constants } from "@multiversx/sdk-nestjs";
 import { Injectable } from "@nestjs/common";
 import { QueryPagination } from "src/common/entities/query.paginations";
 import { Example } from "./entities/example";

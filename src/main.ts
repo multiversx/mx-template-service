@@ -16,7 +16,7 @@ import { CacheWarmerModule } from './crons/cache.warmer/cache.warmer.module';
 import { TransactionProcessorModule } from './crons/transaction.processor/transaction.processor.module';
 import { PubSubListenerModule } from './common/pubsub/pub.sub.listener.module';
 import { ErdnestConfigServiceImpl } from './common/api-config/erdnest.config.service.impl';
-import { MetricsService, JwtAuthenticateGlobalGuard, LoggingInterceptor, CachingService, CachingInterceptor, LoggerInitializer } from '@multiversx/erdnest';
+import { MetricsService, JwtAuthenticateGlobalGuard, LoggingInterceptor, CachingService, CachingInterceptor, LoggerInitializer } from '@multiversx/sdk-nestjs';
 
 async function bootstrap() {
   const publicApp = await NestFactory.create(PublicAppModule);

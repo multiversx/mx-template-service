@@ -1,6 +1,6 @@
 
-import { TransactionProcessor } from "@elrondnetwork/transaction-processor";
-import { CachingService, Constants, Locker } from "@multiversx/erdnest";
+import { TransactionProcessor } from "@multiversx/sdk-transaction-processor";
+import { CachingService, Constants, Locker } from "@multiversx/sdk-nestjs";
 import { Injectable, Logger } from "@nestjs/common";
 import { Cron } from "@nestjs/schedule";
 import { ApiConfigService } from "src/common/api-config/api.config.service";

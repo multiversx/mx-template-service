@@ -1,4 +1,4 @@
-import { SmartContract, AbiRegistry, SmartContractAbi, Address } from "@multiversx/erdjs/out";
+import { SmartContract, AbiRegistry, SmartContractAbi, Address } from "@multiversx/sdk-core";
 import { Logger } from "@nestjs/common";
 import * as fs from "fs";
 

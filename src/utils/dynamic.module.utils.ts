@@ -1,4 +1,4 @@
-import { ElasticModule, ElasticModuleOptions, CachingModule, CachingModuleOptions, ApiModule, ApiModuleOptions, ERDNEST_CONFIG_SERVICE } from "@multiversx/erdnest";
+import { ElasticModule, ElasticModuleOptions, CachingModule, CachingModuleOptions, ApiModule, ApiModuleOptions, ERDNEST_CONFIG_SERVICE } from "@multiversx/sdk-nestjs";
 import { DynamicModule, Provider } from "@nestjs/common";
 import { ClientOptions, ClientProxyFactory, Transport } from "@nestjs/microservices";
 import { ApiConfigModule } from "src/common/api-config/api.config.module";

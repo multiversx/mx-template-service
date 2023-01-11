@@ -1,6 +1,6 @@
-import { ContractQueryResponse } from "@multiversx/erdjs-network-providers";
-import { INetworkProvider } from "@multiversx/erdjs-network-providers/out/interface";
-import { ResultsParser, SmartContract, Interaction, TypedOutcomeBundle } from "@multiversx/erdjs";
+import { ContractQueryResponse } from "@multiversx/sdk-network-providers";
+import { INetworkProvider } from "@multiversx/sdk-network-providers/out/interface";
+import { ResultsParser, SmartContract, Interaction, TypedOutcomeBundle } from "@multiversx/sdk-core";
 import { Logger } from "@nestjs/common";
 
 export class ContractQueryRunner {
