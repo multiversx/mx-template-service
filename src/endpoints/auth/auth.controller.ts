@@ -1,4 +1,4 @@
-import { Jwt, JwtAuthenticateGuard } from "@multiversx/erdnest";
+import { Jwt, JwtAuthenticateGuard } from "@multiversx/sdk-nestjs";
 import { Controller, Get, UseGuards } from "@nestjs/common";
 import { ApiResponse, ApiTags } from "@nestjs/swagger";
 

@@ -1,4 +1,4 @@
-import { MetricsService } from "@multiversx/erdnest";
+import { MetricsService } from "@multiversx/sdk-nestjs";
 import { Injectable } from "@nestjs/common";
 import { register, Gauge } from 'prom-client';
 

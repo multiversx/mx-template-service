@@ -1,4 +1,4 @@
-import { CachingService } from "@multiversx/erdnest";
+import { CachingService } from "@multiversx/sdk-nestjs";
 import { Controller, Logger } from "@nestjs/common";
 import { EventPattern } from "@nestjs/microservices";
 

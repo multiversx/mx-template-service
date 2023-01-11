@@ -6,7 +6,7 @@ import { CacheController } from './endpoints/caching/cache.controller';
 import { ApiMetricsController } from './common/metrics/api.metrics.controller';
 import { DynamicModuleUtils } from './utils/dynamic.module.utils';
 import { ApiMetricsModule } from './common/metrics/api.metrics.module';
-import { LoggingModule } from '@multiversx/erdnest';
+import { LoggingModule } from '@multiversx/sdk-nestjs';
 
 @Module({
   imports: [
