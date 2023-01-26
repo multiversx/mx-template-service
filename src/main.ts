@@ -118,7 +118,7 @@ async function bootstrap() {
   // eslint-disable-next-line @typescript-eslint/no-floating-promises
   pubSubApp.listen();
 
-  logger.log(`Public API active: ${apiConfigService.getIsPrivateApiFeatureActive()}`);
+  logger.log(`Public API active: ${apiConfigService.getIsPublicApiFeatureActive()}`);
   logger.log(`Private API active: ${apiConfigService.getIsPrivateApiFeatureActive()}`);
   logger.log(`Transaction processor active: ${apiConfigService.getIsTransactionProcessorFeatureActive()}`);
   logger.log(`Cache warmer active: ${apiConfigService.getIsCacheWarmerFeatureActive()}`);
