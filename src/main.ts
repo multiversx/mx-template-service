@@ -15,7 +15,7 @@ import cookieParser from 'cookie-parser';
 import { CacheWarmerModule } from './crons/cache.warmer/cache.warmer.module';
 import { TransactionProcessorModule } from './crons/transaction.processor/transaction.processor.module';
 import { PubSubListenerModule } from './common/pubsub/pub.sub.listener.module';
-import { ErdnestConfigServiceImpl } from './common/api-config/erdnest.config.service.impl';
+import { SdkNestjsConfigServiceImpl } from './common/api-config/sdk.nestjs.config.service.impl';
 import { MetricsService, JwtAuthenticateGlobalGuard, LoggingInterceptor, CachingService, CachingInterceptor, LoggerInitializer } from '@multiversx/sdk-nestjs';
 
 async function bootstrap() {
@@ -30,7 +30,7 @@ async function bootstrap() {
   const httpAdapterHostService = publicApp.get<HttpAdapterHost>(HttpAdapterHost);
 
   if (apiConfigService.getIsAuthActive()) {
-    publicApp.useGlobalGuards(new JwtAuthenticateGlobalGuard(new ErdnestConfigServiceImpl(apiConfigService)));
+    publicApp.useGlobalGuards(new JwtAuthenticateGlobalGuard(new SdkNestjsConfigServiceImpl(apiConfigService)));
   }
 
   const httpServer = httpAdapterHostService.httpAdapter.getHttpServer();

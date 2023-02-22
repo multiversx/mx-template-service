@@ -3,7 +3,7 @@ import { Injectable } from "@nestjs/common";
 import { ApiConfigService } from "./api.config.service";
 
 @Injectable()
-export class ErdnestConfigServiceImpl implements ErdnestConfigService {
+export class SdkNestjsConfigServiceImpl implements ErdnestConfigService {
   constructor(
     private readonly apiConfigService: ApiConfigService,
   ) { }
@@ -16,7 +16,15 @@ export class ErdnestConfigServiceImpl implements ErdnestConfigService {
     return this.apiConfigService.getJwtSecret();
   }
 
-  getAccessAddress(): string {
-    return this.apiConfigService.getAccessAddress();
+  getApiUrl(): string {
+    return this.apiConfigService.getApiUrl();
+  }
+
+  getNativeAuthMaxExpirySeconds(): number {
+    return this.apiConfigService.getNativeAuthMaxExpirySeconds();
+  }
+
+  getNativeAuthAcceptedOrigins(): string[] {
+    return this.apiConfigService.getNativeAuthAcceptedOrigins();
   }
 }

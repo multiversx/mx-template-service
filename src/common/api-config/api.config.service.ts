@@ -234,10 +234,6 @@ export class ApiConfigService {
     return this.configService.get<boolean>('useCachingInterceptor') ?? false;
   }
 
-  getAccessAddress(): string {
-    return this.configService.get<string>('security.accessAddress') ?? '';
-  }
-
   getElasticUrl(): string {
     const elasticUrls = this.configService.get<string[]>('urls.elastic');
     if (!elasticUrls) {
@@ -261,5 +257,13 @@ export class ApiConfigService {
 
   getIsAuthActive(): boolean {
     return this.configService.get<boolean>('api.auth') ?? false;
+  }
+
+  getNativeAuthMaxExpirySeconds(): number {
+    return this.configService.get<number>('nativeAuth.maxExpirySeconds') ?? 86400;
+  }
+
+  getNativeAuthAcceptedOrigins(): string[] {
+    return this.configService.get<string[]>('nativeAuth.acceptedOrigins') ?? [];
   }
 }

@@ -30,6 +30,9 @@ features:
     port: 8000
   keepAliveAgent:
     enabled: true
+nativeAuth:
+  maxExpirySeconds:
+  acceptedOrigins:
 security:
   jwtSecret: ''
   admins:
