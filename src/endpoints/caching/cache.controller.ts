@@ -1,4 +1,4 @@
-import { CachingService, JwtAuthenticateGuard, JwtAdminGuard } from "@multiversx/sdk-nestjs";
+import { CachingService, NativeAuthAdminGuard, NativeAuthGuard } from "@multiversx/sdk-nestjs";
 import { Body, Controller, Delete, Get, HttpException, HttpStatus, Inject, Param, Put, Query, UseGuards } from "@nestjs/common";
 import { ClientProxy } from "@nestjs/microservices";
 import { ApiResponse } from "@nestjs/swagger";
@@ -11,7 +11,7 @@ export class CacheController {
     @Inject('PUBSUB_SERVICE') private clientProxy: ClientProxy,
   ) { }
 
-  @UseGuards(JwtAuthenticateGuard, JwtAdminGuard)
+  @UseGuards(NativeAuthGuard, NativeAuthAdminGuard) // TODO native auth admin guard
   @Get("/caching/:key")
   @ApiResponse({
     status: 200,
@@ -30,7 +30,7 @@ export class CacheController {
     return JSON.stringify(value);
   }
 
-  @UseGuards(JwtAuthenticateGuard, JwtAdminGuard)
+  @UseGuards(NativeAuthGuard, NativeAuthAdminGuard)
   @Put("/caching/:key")
   @ApiResponse({
     status: 200,
@@ -41,7 +41,7 @@ export class CacheController {
     this.clientProxy.emit('deleteCacheKeys', [key]);
   }
 
-  @UseGuards(JwtAuthenticateGuard, JwtAdminGuard)
+  @UseGuards(NativeAuthGuard, NativeAuthAdminGuard)
   @Delete("/caching/:key")
   @ApiResponse({
     status: 200,
@@ -56,7 +56,7 @@ export class CacheController {
     this.clientProxy.emit('deleteCacheKeys', keys);
   }
 
-  @UseGuards(JwtAuthenticateGuard, JwtAdminGuard)
+  @UseGuards(NativeAuthGuard, NativeAuthAdminGuard)
   @Get("/caching")
   async getKeys(
     @Query('keys') keys: string | undefined,
