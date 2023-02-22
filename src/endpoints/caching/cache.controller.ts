@@ -11,7 +11,7 @@ export class CacheController {
     @Inject('PUBSUB_SERVICE') private clientProxy: ClientProxy,
   ) { }
 
-  @UseGuards(NativeAuthGuard, NativeAuthAdminGuard) // TODO native auth admin guard
+  @UseGuards(NativeAuthGuard, NativeAuthAdminGuard)
   @Get("/caching/:key")
   @ApiResponse({
     status: 200,

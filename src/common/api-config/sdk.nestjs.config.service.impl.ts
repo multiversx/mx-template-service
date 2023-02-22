@@ -13,7 +13,7 @@ export class SdkNestjsConfigServiceImpl implements ErdnestConfigService {
   }
 
   getJwtSecret(): string {
-    return this.apiConfigService.getJwtSecret();
+    return ''; // We use only NativeAuth in this template, so we don't need a JWT secret
   }
 
   getApiUrl(): string {
