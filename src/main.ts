@@ -15,8 +15,8 @@ import cookieParser from 'cookie-parser';
 import { CacheWarmerModule } from './crons/cache.warmer/cache.warmer.module';
 import { TransactionProcessorModule } from './crons/transaction.processor/transaction.processor.module';
 import { PubSubListenerModule } from './common/pubsub/pub.sub.listener.module';
-import { ErdnestConfigServiceImpl } from './common/api-config/erdnest.config.service.impl';
-import { MetricsService, JwtAuthenticateGlobalGuard, LoggingInterceptor, CachingService, CachingInterceptor, LoggerInitializer } from '@multiversx/sdk-nestjs';
+import { SdkNestjsConfigServiceImpl } from './common/api-config/sdk.nestjs.config.service.impl';
+import { MetricsService, NativeAuthGuard, LoggingInterceptor, CachingService, CachingInterceptor, LoggerInitializer } from '@multiversx/sdk-nestjs';
 
 async function bootstrap() {
   const publicApp = await NestFactory.create(PublicAppModule);
@@ -26,11 +26,12 @@ async function bootstrap() {
   publicApp.use(cookieParser());
 
   const apiConfigService = publicApp.get<ApiConfigService>(ApiConfigService);
+  const cachingService = publicApp.get<CachingService>(CachingService);
   const metricsService = publicApp.get<MetricsService>(MetricsService);
   const httpAdapterHostService = publicApp.get<HttpAdapterHost>(HttpAdapterHost);
 
   if (apiConfigService.getIsAuthActive()) {
-    publicApp.useGlobalGuards(new JwtAuthenticateGlobalGuard(new ErdnestConfigServiceImpl(apiConfigService)));
+    publicApp.useGlobalGuards(new NativeAuthGuard(new SdkNestjsConfigServiceImpl(apiConfigService), cachingService));
   }
 
   const httpServer = httpAdapterHostService.httpAdapter.getHttpServer();
@@ -41,8 +42,6 @@ async function bootstrap() {
   globalInterceptors.push(new LoggingInterceptor(metricsService));
 
   if (apiConfigService.getUseCachingInterceptor()) {
-    const cachingService = publicApp.get<CachingService>(CachingService);
-
     const cachingInterceptor = new CachingInterceptor(
       cachingService,
       httpAdapterHostService,

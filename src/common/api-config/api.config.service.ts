@@ -192,15 +192,6 @@ export class ApiConfigService {
     return featurePort;
   }
 
-  getJwtSecret(): string {
-    const jwtSecret = this.configService.get<string>('security.jwtSecret');
-    if (!jwtSecret) {
-      throw new Error('No jwtSecret present');
-    }
-
-    return jwtSecret;
-  }
-
   getSecurityAdmins(): string[] {
     const admins = this.configService.get<string[]>('security.admins');
     if (admins === undefined) {
@@ -234,10 +225,6 @@ export class ApiConfigService {
     return this.configService.get<boolean>('useCachingInterceptor') ?? false;
   }
 
-  getAccessAddress(): string {
-    return this.configService.get<string>('security.accessAddress') ?? '';
-  }
-
   getElasticUrl(): string {
     const elasticUrls = this.configService.get<string[]>('urls.elastic');
     if (!elasticUrls) {
@@ -261,5 +248,13 @@ export class ApiConfigService {
 
   getIsAuthActive(): boolean {
     return this.configService.get<boolean>('api.auth') ?? false;
+  }
+
+  getNativeAuthMaxExpirySeconds(): number {
+    return this.configService.get<number>('nativeAuth.maxExpirySeconds') ?? 86400;
+  }
+
+  getNativeAuthAcceptedOrigins(): string[] {
+    return this.configService.get<string[]>('nativeAuth.acceptedOrigins') ?? [];
   }
 }

@@ -1,4 +1,4 @@
-import { Jwt, JwtAuthenticateGuard } from "@multiversx/sdk-nestjs";
+import { NativeAuth, NativeAuthGuard } from "@multiversx/sdk-nestjs";
 import { Controller, Get, UseGuards } from "@nestjs/common";
 import { ApiResponse, ApiTags } from "@nestjs/swagger";
 
@@ -6,12 +6,12 @@ import { ApiResponse, ApiTags } from "@nestjs/swagger";
 @ApiTags('auth')
 export class AuthController {
 	@Get("/auth")
-	@UseGuards(JwtAuthenticateGuard)
+	@UseGuards(NativeAuthGuard)
 	@ApiResponse({
 		status: 200,
 		description: 'Authorizes the user and returns the encoded address',
 	})
-	async authorize(@Jwt('address') address: string
+	async authorize(@NativeAuth('address') address: string
 	): Promise<string> {
 		return address;
 	}

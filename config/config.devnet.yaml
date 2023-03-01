@@ -30,8 +30,11 @@ features:
     port: 8000
   keepAliveAgent:
     enabled: true
+nativeAuth:
+  maxExpirySeconds:
+  acceptedOrigins:
+    - utils.multiversx.com
 security:
-  jwtSecret: ''
   admins:
 rateLimiterSecret:
 keepAliveTimeout:
