@@ -124,4 +124,5 @@ async function bootstrap() {
   logger.log(`Queue worker active: ${apiConfigService.getIsQueueWorkerFeatureActive()}`);
 }
 
+// eslint-disable-next-line @typescript-eslint/no-floating-promises
 bootstrap();

@@ -15,6 +15,6 @@ export class TokenService {
   }
 
   async findAll(): Promise<Token[]> {
-    return this.tokenModel.find().exec();
+    return await this.tokenModel.find().exec();
   }
 }

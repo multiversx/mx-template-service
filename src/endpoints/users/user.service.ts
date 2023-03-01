@@ -20,11 +20,11 @@ export class UsersService {
   }
 
   async findAll(): Promise<User[]> {
-    return this.usersRepository.find();
+    return await this.usersRepository.find();
   }
 
   async findOne(id: number): Promise<User | null> {
-    return this.usersRepository.findOne({
+    return await this.usersRepository.findOne({
       where: {
         id,
       },
