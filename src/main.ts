@@ -31,7 +31,7 @@ async function bootstrap() {
   const httpAdapterHostService = publicApp.get<HttpAdapterHost>(HttpAdapterHost);
 
   if (apiConfigService.getIsAuthActive()) {
-    publicApp.useGlobalGuards(new NativeAuthGuard(cachingService, new SdkNestjsConfigServiceImpl(apiConfigService)));
+    publicApp.useGlobalGuards(new NativeAuthGuard(new SdkNestjsConfigServiceImpl(apiConfigService), cachingService));
   }
 
   const httpServer = httpAdapterHostService.httpAdapter.getHttpServer();
