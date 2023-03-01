@@ -13,6 +13,6 @@ export class TokensController {
 
   @Get()
   async findAll(): Promise<Token[]> {
-    return this.tokenService.findAll();
+    return await this.tokenService.findAll();
   }
 }

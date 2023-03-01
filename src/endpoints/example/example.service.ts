@@ -29,7 +29,7 @@ export class ExampleService {
   }
 
   async getAllExamples(): Promise<Example[]> {
-    return this.cachingService.getOrSetCache(
+    return await this.cachingService.getOrSetCache(
       'examples',
       async () => await this.getAllExamplesRaw(),
       Constants.oneHour()
@@ -37,7 +37,7 @@ export class ExampleService {
   }
 
   async getAllExamplesRaw(): Promise<Example[]> {
-    return new Promise(resolve => {
+    return await new Promise(resolve => {
       resolve([
         {
           "id": "magna",

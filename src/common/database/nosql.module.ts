@@ -7,7 +7,7 @@ import { ApiConfigService } from "../api-config/api.config.service";
   imports: [
     MongooseModule.forRootAsync({
       imports: [ApiConfigModule],
-      useFactory: async (configService: ApiConfigService) => ({
+      useFactory: (configService: ApiConfigService) => ({
         uri: configService.getNoSQLDatabaseConnection(),
       }),
       inject: [ApiConfigService],

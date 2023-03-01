@@ -11,8 +11,8 @@ export class AuthController {
 		status: 200,
 		description: 'Authorizes the user and returns the encoded address',
 	})
-	async authorize(@NativeAuth('address') address: string
-	): Promise<string> {
+	authorize(@NativeAuth('address') address: string
+	): string {
 		return address;
 	}
 }

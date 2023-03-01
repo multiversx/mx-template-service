@@ -21,7 +21,6 @@
     "strict": true,
     // Import non-ES modules as default imports.
     "esModuleInterop": true,
-    "skipLibCheck": true,
     "alwaysStrict": true,
     "allowUnreachableCode": false,
     "noImplicitAny": true,
@@ -32,9 +31,8 @@
     "noFallthroughCasesInSwitch": true,
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
-    "typeRoots": [
-      "src/@types",
-      "node_modules/@types"
-    ]
+    "typeRoots": ["src/@types", "node_modules/@types"],
+    "skipLibCheck": true,
+    "resolveJsonModule": true
   }
 }
