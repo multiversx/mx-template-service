@@ -32,6 +32,23 @@ export class ApiConfigService {
     return redisUrl;
   }
 
+  getRedisHost(): string {
+    const url = this.getRedisUrl();
+
+    return url.split(':')[0];
+  }
+
+  getRedisPort(): number {
+    const url = this.getRedisUrl();
+    const components = url.split(':');
+
+    if (components.length > 1) {
+      return Number(components[1]);
+    }
+
+    return 6379;
+  }
+
   getDatabaseHost(): string {
     const databaseHost = this.configService.get<string>('database.host');
     if (!databaseHost) {

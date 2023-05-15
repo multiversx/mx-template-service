@@ -8,7 +8,7 @@ import { CacheInfo } from "src/utils/cache.info";
 @Injectable()
 export class ExampleService {
   constructor(
-    private readonly cachingService: CacheService
+    private readonly cacheService: CacheService
   ) { }
 
   async getExamples(pagination: QueryPagination, filter: ExampleFilter): Promise<Example[]> {
@@ -30,7 +30,7 @@ export class ExampleService {
   }
 
   async getAllExamples(): Promise<Example[]> {
-    return await this.cachingService.getOrSet(
+    return await this.cacheService.getOrSet(
       CacheInfo.Examples.key,
       async () => await this.getAllExamplesRaw(),
       CacheInfo.Examples.ttl,

@@ -7,7 +7,7 @@ export class PubSubListenerController {
   private logger: Logger;
 
   constructor(
-    private readonly cachingService: CacheService,
+    private readonly cacheService: CacheService,
   ) {
     this.logger = new Logger(PubSubListenerController.name);
   }
@@ -16,7 +16,7 @@ export class PubSubListenerController {
   async deleteCacheKey(keys: string[]) {
     for (const key of keys) {
       this.logger.log(`Deleting local cache key ${key}`);
-      await this.cachingService.deleteLocal(key);
+      await this.cacheService.deleteLocal(key);
     }
   }
 }

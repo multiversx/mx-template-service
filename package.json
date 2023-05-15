@@ -40,6 +40,8 @@
     "@multiversx/sdk-nestjs-http": "^1.0.0",
     "@multiversx/sdk-nestjs-monitoring": "^1.0.0",
     "@multiversx/sdk-network-providers": "^1.4.0",
+    "@multiversx/sdk-nestjs-rabbitmq": "^1.0.0",
+    "@multiversx/sdk-nestjs-redis": "^1.0.0",
     "@multiversx/sdk-transaction-processor": "^0.1.29",
     "@nestjs/bull": "^0.6.3",
     "@nestjs/common": "^9.4.0",

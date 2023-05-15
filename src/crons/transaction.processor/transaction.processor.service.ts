@@ -14,7 +14,7 @@ export class TransactionProcessorService {
 
   constructor(
     private readonly apiConfigService: ApiConfigService,
-    private readonly cachingService: CacheService
+    private readonly cacheService: CacheService
   ) {
     this.logger = new Logger(TransactionProcessorService.name);
   }
@@ -30,10 +30,10 @@ export class TransactionProcessorService {
           this.logger.log(`Received ${transactions.length} transactions on shard ${shardId} and nonce ${nonce}. Time left: ${statistics.secondsLeft}`);
         },
         getLastProcessedNonce: async (shardId) => {
-          return await this.cachingService.getRemote(CacheInfo.LastProcessedNonce(shardId).key);
+          return await this.cacheService.getRemote(CacheInfo.LastProcessedNonce(shardId).key);
         },
         setLastProcessedNonce: async (shardId, nonce) => {
-          await this.cachingService.setRemote(CacheInfo.LastProcessedNonce(shardId).key, nonce, CacheInfo.LastProcessedNonce(shardId).ttl);
+          await this.cacheService.setRemote(CacheInfo.LastProcessedNonce(shardId).key, nonce, CacheInfo.LastProcessedNonce(shardId).ttl);
         },
       });
     });
