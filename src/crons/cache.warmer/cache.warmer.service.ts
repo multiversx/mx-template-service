@@ -3,7 +3,8 @@ import { Cron } from "@nestjs/schedule";
 import { ClientProxy } from "@nestjs/microservices";
 import { ExampleService } from "src/endpoints/example/example.service";
 import { CacheService } from "@multiversx/sdk-nestjs-cache";
-import { Constants, Locker } from "@multiversx/sdk-nestjs-common";
+import { Locker } from "@multiversx/sdk-nestjs-common";
+import { CacheInfo } from "src/utils/cache.info";
 
 @Injectable()
 export class CacheWarmerService {
@@ -17,7 +18,7 @@ export class CacheWarmerService {
   async handleExampleInvalidations() {
     await Locker.lock('Example invalidations', async () => {
       const examples = await this.exampleService.getAllExamplesRaw();
-      await this.invalidateKey('examples', examples, Constants.oneHour());
+      await this.invalidateKey(CacheInfo.Examples.key, examples, CacheInfo.Examples.ttl);
     }, true);
   }
 

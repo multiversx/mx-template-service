@@ -1,10 +1,11 @@
 
 import { CacheService } from "@multiversx/sdk-nestjs-cache";
-import { Constants, Locker } from "@multiversx/sdk-nestjs-common";
+import { Locker } from "@multiversx/sdk-nestjs-common";
 import { TransactionProcessor } from "@multiversx/sdk-transaction-processor";
 import { Injectable, Logger } from "@nestjs/common";
 import { Cron } from "@nestjs/schedule";
 import { ApiConfigService } from "src/common/api-config/api.config.service";
+import { CacheInfo } from "src/utils/cache.info";
 
 @Injectable()
 export class TransactionProcessorService {
@@ -29,10 +30,10 @@ export class TransactionProcessorService {
           this.logger.log(`Received ${transactions.length} transactions on shard ${shardId} and nonce ${nonce}. Time left: ${statistics.secondsLeft}`);
         },
         getLastProcessedNonce: async (shardId) => {
-          return await this.cachingService.getRemote(`lastProcessedNonce:${shardId}`);
+          return await this.cachingService.getRemote(CacheInfo.LastProcessedNonce(shardId).key);
         },
         setLastProcessedNonce: async (shardId, nonce) => {
-          await this.cachingService.setRemote(`lastProcessedNonce:${shardId}`, nonce, Constants.oneMonth());
+          await this.cachingService.setRemote(CacheInfo.LastProcessedNonce(shardId).key, nonce, CacheInfo.LastProcessedNonce(shardId).ttl);
         },
       });
     });
