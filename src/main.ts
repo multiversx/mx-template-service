@@ -16,7 +16,15 @@ import { CacheWarmerModule } from './crons/cache.warmer/cache.warmer.module';
 import { TransactionProcessorModule } from './crons/transaction.processor/transaction.processor.module';
 import { PubSubListenerModule } from './common/pubsub/pub.sub.listener.module';
 import { SdkNestjsConfigServiceImpl } from './common/api-config/sdk.nestjs.config.service.impl';
-import { MetricsService, NativeAuthGuard, LoggingInterceptor, CachingService, CachingInterceptor, LoggerInitializer } from '@multiversx/sdk-nestjs';
+import { LoggingInterceptor, MetricsService } from '@multiversx/sdk-nestjs-monitoring';
+import { NativeAuthGuard } from '@multiversx/sdk-nestjs-auth';
+import { LoggerInitializer } from '@multiversx/sdk-nestjs-common';
+import { CacheService, CachingInterceptor } from '@multiversx/sdk-nestjs-cache';
+
+import '@multiversx/sdk-nestjs-common/lib/utils/extensions/array.extensions';
+import '@multiversx/sdk-nestjs-common/lib/utils/extensions/date.extensions';
+import '@multiversx/sdk-nestjs-common/lib/utils/extensions/number.extensions';
+import '@multiversx/sdk-nestjs-common/lib/utils/extensions/string.extensions';
 
 async function bootstrap() {
   const publicApp = await NestFactory.create(PublicAppModule);
@@ -26,7 +34,7 @@ async function bootstrap() {
   publicApp.use(cookieParser());
 
   const apiConfigService = publicApp.get<ApiConfigService>(ApiConfigService);
-  const cachingService = publicApp.get<CachingService>(CachingService);
+  const cachingService = publicApp.get<CacheService>(CacheService);
   const metricsService = publicApp.get<MetricsService>(MetricsService);
   const httpAdapterHostService = publicApp.get<HttpAdapterHost>(HttpAdapterHost);
 

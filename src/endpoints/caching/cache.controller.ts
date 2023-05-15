@@ -1,13 +1,14 @@
-import { CachingService, NativeAuthAdminGuard, NativeAuthGuard } from "@multiversx/sdk-nestjs";
 import { Body, Controller, Delete, Get, HttpException, HttpStatus, Inject, Param, Put, Query, UseGuards } from "@nestjs/common";
 import { ClientProxy } from "@nestjs/microservices";
 import { ApiResponse } from "@nestjs/swagger";
 import { CacheValue } from "./entities/cache.value";
+import { NativeAuthAdminGuard, NativeAuthGuard } from "@multiversx/sdk-nestjs-auth";
+import { CacheService } from "@multiversx/sdk-nestjs-cache";
 
 @Controller()
 export class CacheController {
   constructor(
-    private readonly cachingService: CachingService,
+    private readonly cachingService: CacheService,
     @Inject('PUBSUB_SERVICE') private clientProxy: ClientProxy,
   ) { }
 
@@ -23,7 +24,7 @@ export class CacheController {
     description: 'Key not found',
   })
   async getCache(@Param('key') key: string): Promise<unknown> {
-    const value = await this.cachingService.getCacheRemote(key);
+    const value = await this.cachingService.getRemote(key);
     if (!value) {
       throw new HttpException('Key not found', HttpStatus.NOT_FOUND);
     }
@@ -37,7 +38,7 @@ export class CacheController {
     description: 'Key has been updated',
   })
   async setCache(@Param('key') key: string, @Body() cacheValue: CacheValue) {
-    await this.cachingService.setCacheRemote(key, cacheValue.value, cacheValue.ttl);
+    await this.cachingService.setRemote(key, cacheValue.value, cacheValue.ttl);
     this.clientProxy.emit('deleteCacheKeys', [key]);
   }
 
@@ -61,6 +62,6 @@ export class CacheController {
   async getKeys(
     @Query('keys') keys: string | undefined,
   ): Promise<string[]> {
-    return await this.cachingService.getKeys(keys);
+    return await this.cachingService.getKeys(keys ?? '*');
   }
 }

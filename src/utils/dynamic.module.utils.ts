@@ -1,4 +1,7 @@
-import { ElasticModule, ElasticModuleOptions, CachingModule, CachingModuleOptions, ApiModule, ApiModuleOptions, ERDNEST_CONFIG_SERVICE } from "@multiversx/sdk-nestjs";
+import { CacheModule, RedisCacheModuleOptions } from "@multiversx/sdk-nestjs-cache";
+import { ERDNEST_CONFIG_SERVICE } from "@multiversx/sdk-nestjs-common";
+import { ElasticModule, ElasticModuleOptions } from "@multiversx/sdk-nestjs-elastic";
+import { ApiModule, ApiModuleOptions } from "@multiversx/sdk-nestjs-http";
 import { DynamicModule, Provider } from "@nestjs/common";
 import { ClientOptions, ClientProxyFactory, Transport } from "@nestjs/microservices";
 import { ApiConfigModule } from "src/common/api-config/api.config.module";
@@ -18,13 +21,17 @@ export class DynamicModuleUtils {
   }
 
   static getCachingModule(): DynamicModule {
-    return CachingModule.forRootAsync({
+    return CacheModule.forRootAsync({
       imports: [ApiConfigModule],
-      useFactory: (apiConfigService: ApiConfigService) => new CachingModuleOptions({
-        url: apiConfigService.getRedisUrl(),
-        poolLimit: apiConfigService.getPoolLimit(),
-        processTtl: apiConfigService.getProcessTtl(),
-      }),
+      useFactory: (apiConfigService: ApiConfigService) => new RedisCacheModuleOptions(
+        {
+          host: apiConfigService.getRedisUrl(),
+        },
+        {
+          poolLimit: apiConfigService.getPoolLimit(),
+          processTtl: apiConfigService.getProcessTtl(),
+        }
+      ),
       inject: [ApiConfigService],
     });
   }

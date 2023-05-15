@@ -1,13 +1,14 @@
-import { CachingService, Constants } from "@multiversx/sdk-nestjs";
 import { Injectable } from "@nestjs/common";
 import { QueryPagination } from "src/common/entities/query.paginations";
 import { Example } from "./entities/example";
 import { ExampleFilter } from "./entities/example.filter";
+import { Constants } from "@multiversx/sdk-nestjs-common";
+import { CacheService } from "@multiversx/sdk-nestjs-cache";
 
 @Injectable()
 export class ExampleService {
   constructor(
-    private readonly cachingService: CachingService
+    private readonly cachingService: CacheService
   ) { }
 
   async getExamples(pagination: QueryPagination, filter: ExampleFilter): Promise<Example[]> {
@@ -29,7 +30,7 @@ export class ExampleService {
   }
 
   async getAllExamples(): Promise<Example[]> {
-    return await this.cachingService.getOrSetCache(
+    return await this.cachingService.getOrSet(
       'examples',
       async () => await this.getAllExamplesRaw(),
       Constants.oneHour()
