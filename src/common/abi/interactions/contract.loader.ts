@@ -1,16 +1,14 @@
-import { SmartContract, AbiRegistry, SmartContractAbi, Address } from "@multiversx/sdk-core";
+import { SmartContract, AbiRegistry, Address } from "@multiversx/sdk-core";
 import { Logger } from "@nestjs/common";
 import * as fs from "fs";
 
 export class ContractLoader {
   private readonly logger: Logger;
   private readonly abiPath: string;
-  private readonly contractInterface: string;
   private contract: SmartContract | undefined = undefined;
 
-  constructor(abiPath: string, contractInterface: string) {
+  constructor(abiPath: string) {
     this.abiPath = abiPath;
-    this.contractInterface = contractInterface;
 
     this.logger = new Logger(ContractLoader.name);
   }
@@ -22,11 +20,9 @@ export class ContractLoader {
 
       const abiRegistry = AbiRegistry.create(json);
 
-      const abi = new SmartContractAbi(abiRegistry, [this.contractInterface]);
-
       return new SmartContract({
         address: new Address(contractAddress),
-        abi: abi,
+        abi: abiRegistry,
       });
     } catch (error) {
       this.logger.log(`Unexpected error when trying to create smart contract from abi`);

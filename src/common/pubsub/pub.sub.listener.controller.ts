@@ -1,4 +1,4 @@
-import { CachingService } from "@multiversx/sdk-nestjs";
+import { CacheService } from "@multiversx/sdk-nestjs-cache";
 import { Controller, Logger } from "@nestjs/common";
 import { EventPattern } from "@nestjs/microservices";
 
@@ -7,7 +7,7 @@ export class PubSubListenerController {
   private logger: Logger;
 
   constructor(
-    private readonly cachingService: CachingService,
+    private readonly cacheService: CacheService,
   ) {
     this.logger = new Logger(PubSubListenerController.name);
   }
@@ -16,7 +16,7 @@ export class PubSubListenerController {
   async deleteCacheKey(keys: string[]) {
     for (const key of keys) {
       this.logger.log(`Deleting local cache key ${key}`);
-      await this.cachingService.deleteInCacheLocal(key);
+      await this.cacheService.deleteLocal(key);
     }
   }
 }
