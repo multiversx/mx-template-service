@@ -1,5 +1,4 @@
-import { NativeAuthGuard } from "@multiversx/sdk-nestjs-auth";
-import { NativeAuth } from "@multiversx/sdk-nestjs-common";
+import { NativeAuthGuard, NativeAuth } from "@multiversx/sdk-nestjs-auth";
 import { Controller, Get, UseGuards } from "@nestjs/common";
 import { ApiResponse, ApiTags } from "@nestjs/swagger";
 
