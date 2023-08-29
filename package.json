@@ -1,5 +1,5 @@
 {
-  "name": "starter-microservice",
+  "name": "starter-monorepo-microservices",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -8,28 +8,57 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
+    "build:all": "nest build api && nest build transactions-processor && nest build queue-worker && nest build common",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start:devnet": "npm run copy-devnet-config & nest start",
-    "start:devnet:watch": "npm run copy-devnet-config & nest start --watch",
-    "start:devnet:debug": "npm run copy-devnet-config & nest start --watch --debug",
-    "start:testnet": "npm run copy-testnet-config & nest start",
-    "start:testnet:watch": "npm run copy-testnet-config & nest start --watch",
-    "start:testnet:debug": "npm run copy-testnet-config & nest start --watch --debug",
-    "start:mainnet": "npm run copy-mainnet-config & nest start",
-    "start:custom": "npm run copy-custom-config & nest start",
-    "start:custom:watch": "npm run copy-custom-config & nest start --watch",
-    "start:custom:debug": "npm run copy-custom-config & nest start --watch --debug",
+    "start:devnet": "npm run copy-devnet-config & nest build api & nest start",
+    "start:devnet:watch": "npm run copy-devnet-config & nest build api & nest start --watch",
+    "start:devnet:debug": "npm run copy-devnet-config & nest build api & nest start --watch --debug",
+    "start:testnet": "npm run copy-testnet-config & nest build api &  nest start",
+    "start:testnet:watch": "npm run copy-testnet-config & nest build api & nest start --watch",
+    "start:testnet:debug": "npm run copy-testnet-config & nest build api & nest start --watch --debug",
+    "start:mainnet": "npm run copy-mainnet-config & nest build api & nest start",
+    "start:custom": "npm run copy-custom-config & nest build api & nest start",
+    "start:custom:watch": "npm run copy-custom-config & nest build api & nest start --watch",
+    "start:custom:debug": "npm run copy-custom-config & nest build api & nest start --watch --debug",
+    "start:transactions-processor:devnet": "npm run copy-devnet-config-transactions & nest build transactions-processor & nest start transactions-processor",
+    "start:transactions-processor:devnet:watch": "npm run copy-devnet-config-transactions & nest build transactions-processor & nest start transactions-processor --watch",
+    "start:transactions-processor:devnet:debug": "npm run copy-devnet-config-transactions & nest build transactions-processor & nest start transactions-processor --watch --debug",
+    "start:transactions-processor:testnet": "npm run copy-testnet-config-transactions & nest build transactions-processor & nest start transactions-processor",
+    "start:transactions-processor:testnet:watch": "npm run copy-testnet-config-transactions & nest build transactions-processor & nest start transactions-processor --watch",
+    "start:transactions-processor:testnet:debug": "npm run copy-testnet-config-transactions & nest build transactions-processor & nest start transactions-processor --watch --debug",
+    "start:transactions-processor:mainnet": "npm run copy-mainnet-config-transactions & nest build transactions-processor & nest start transactions-processor",
+    "start:transactions-processor:custom": "npm run copy-custom-config-transactions &  nest build transactions-processor &nest start transactions-processor",
+    "start:transactions-processor:custom:watch": "npm run copy-custom-config-transactions & nest build transactions-processor & nest start transactions-processor --watch",
+    "start:transactions-processor:custom:debug": "npm run copy-custom-config-transactions & nest build transactions-processor & nest start transactions-processor --watch --debug",
+    "start:queue-worker:devnet": "npm run copy-devnet-config-queue-worker & nest build queue-worker & nest start queue-worker",
+    "start:queue-worker:devnet:watch": "npm run copy-devnet-config-queue-worker & nest build queue-worker &  nest start queue-worker --watch",
+    "start:queue-worker:devnet:debug": "npm run copy-devnet-config-queue-worker & nest build queue-worker & nest start queue-worker --watch --debug",
+    "start:queue-worker:testnet": "npm run copy-testnet-config-queue-worker & nest build queue-worker &  nest start queue-worker",
+    "start:queue-worker:testnet:watch": "npm run copy-testnet-config-queue-worker & nest build queue-worker & nest start queue-worker --watch",
+    "start:queue-worker:testnet:debug": "npm run copy-testnet-config-queue-worker & nest build queue-worker & nest start queue-worker --watch --debug",
+    "start:queue-worker:mainnet": "npm run copy-mainnet-config-queue-worker & nest build queue-worker & nest start queue-worker",
+    "start:queue-worker:custom": "npm run copy-custom-config-queue-worker & nest build queue-worker & nest start queue-worker",
+    "start:queue-worker:custom:watch": "npm run copy-custom-config-queue-worker & nest build queue-worker & nest start queue-worker --watch",
+    "start:queue-worker:custom:debug": "npm run copy-custom-config-queue-worker & nest build queue-worker & nest start queue-worker --watch --debug",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\"",
     "lint:fix": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json",
-    "copy-devnet-config": "cp ./config/config.devnet.yaml ./config/config.yaml",
-    "copy-testnet-config": "cp ./config/config.testnet.yaml ./config/config.yaml",
-    "copy-mainnet-config": "cp ./config/config.mainnet.yaml ./config/config.yaml",
-    "copy-custom-config": "cp ./config/config.custom.yaml ./config/config.yaml"
+    "test:e2e": "jest --config ./apps/api/test/jest-e2e.json",
+    "copy-devnet-config": "cp ./apps/api/config/config.devnet.yaml ./apps/api/config/config.yaml",
+    "copy-testnet-config": "cp ./apps/api/config/config.testnet.yaml ./apps/api/config/config.yaml",
+    "copy-mainnet-config": "cp ./apps/api/config/config.mainnet.yaml ./apps/api/config/config.yaml",
+    "copy-custom-config": "cp ./apps/api/config/config.custom.yaml ./apps/api/config/config.yaml",
+    "copy-devnet-config-transactions": "cp ./apps/transactions-processor/config/config.devnet.yaml ./apps/transactions-processor/config/config.yaml",
+    "copy-testnet-config-transactions": "cp ./apps/transactions-processor/config/config.testnet.yaml ./apps/transactions-processor/config/config.yaml",
+    "copy-mainnet-config-transactions": "cp ./apps/transactions-processor/config/config.mainnet.yaml ./apps/transactions-processor/config/config.yaml",
+    "copy-custom-config-transactions": "cp ./apps/transactions-processor/config/config.custom.yaml ./apps/transactions-processor/config/config.yaml",
+    "copy-devnet-config-queue-worker": "cp ./apps/queue-worker/config/config.devnet.yaml ./apps/queue-worker/config/config.yaml",
+    "copy-testnet-config-queue-worker": "cp ./apps/queue-worker/config/config.testnet.yaml ./apps/queue-worker/config/config.yaml",
+    "copy-mainnet-config-queue-worker": "cp ./apps/queue-worker/config/config.mainnet.yaml ./apps/queue-worker/config/config.yaml",
+    "copy-custom-config-queue-worker": "cp ./apps/queue-worker/config/config.custom.yaml ./apps/queue-worker/config/config.yaml"
   },
   "dependencies": {
     "@multiversx/sdk-core": "^12.2.1",
@@ -39,9 +68,9 @@
     "@multiversx/sdk-nestjs-elastic": "^1.1.1",
     "@multiversx/sdk-nestjs-http": "^1.1.1",
     "@multiversx/sdk-nestjs-monitoring": "^1.1.1",
-    "@multiversx/sdk-network-providers": "^1.4.0",
     "@multiversx/sdk-nestjs-rabbitmq": "^1.0.0",
     "@multiversx/sdk-nestjs-redis": "^1.0.0",
+    "@multiversx/sdk-network-providers": "^1.4.0",
     "@multiversx/sdk-transaction-processor": "^0.1.29",
     "@nestjs/bull": "^0.6.3",
     "@nestjs/common": "^9.4.0",
@@ -61,6 +90,7 @@
     "cookie-parser": "^1.4.6",
     "ioredis": "^5.3.2",
     "jsonwebtoken": "^9.0.0",
+    "module-alias": "^2.2.3",
     "mongodb": "^5.5.0",
     "mongoose": "^7.1.1",
     "mysql2": "^3.3.1",
@@ -103,13 +133,16 @@
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.0.4"
   },
+  "_moduleAliases": {
+    "@mvx-monorepo/common": "dist/libs/common"
+  },
   "jest": {
     "moduleFileExtensions": [
       "js",
       "json",
       "ts"
     ],
-    "rootDir": "src",
+    "rootDir": "apps",
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
@@ -118,6 +151,10 @@
       "**/*.(t|j)s"
     ],
     "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "^@mvx-monorepo/common(|/.*)$": "<rootDir>/libs/common/src/$1",
+      "^@mvx-monorepo/common": "<rootDir>/libs/common"
+    }
   }
 }
