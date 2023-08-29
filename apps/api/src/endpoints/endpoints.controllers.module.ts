@@ -1,5 +1,5 @@
 import { Module } from "@nestjs/common";
-import { DynamicModuleUtils } from "../../../../libs/common/src/utils/dynamic.module.utils";
+import { DynamicModuleUtils } from "@mvx-monorepo/common";
 import { AuthController } from "./auth/auth.controller";
 import { EndpointsServicesModule } from "./endpoints.services.module";
 import { ExampleController } from "./example/example.controller";

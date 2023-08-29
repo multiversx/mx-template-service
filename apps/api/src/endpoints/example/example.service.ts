@@ -3,7 +3,7 @@ import { QueryPagination } from "@mvx-monorepo/common";
 import { Example } from "./entities/example";
 import { ExampleFilter } from "./entities/example.filter";
 import { CacheService } from "@multiversx/sdk-nestjs-cache";
-import { CacheInfo } from "../../../../../libs/common/src/utils/cache.info";
+import { CacheInfo } from "@mvx-monorepo/common";
 
 @Injectable()
 export class ExampleService {

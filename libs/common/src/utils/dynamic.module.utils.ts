@@ -3,7 +3,7 @@ import { ElasticModule, ElasticModuleOptions } from "@multiversx/sdk-nestjs-elas
 import { CacheModule, RedisCacheModuleOptions } from "@multiversx/sdk-nestjs-cache";
 import { DynamicModule, Provider } from "@nestjs/common";
 import { ClientOptions, ClientProxyFactory, Transport } from "@nestjs/microservices";
-import { ApiConfigModule, ApiConfigService, SdkNestjsConfigServiceImpl } from "@mvx-monorepo/common/config";
+import { ApiConfigModule, ApiConfigService, SdkNestjsConfigServiceImpl } from "../config";
 import { ApiModule, ApiModuleOptions } from "@multiversx/sdk-nestjs-http";
 
 export class DynamicModuleUtils {

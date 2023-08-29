@@ -1,7 +1,7 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { Cron } from "@nestjs/schedule";
 import { ClientProxy } from "@nestjs/microservices";
-import { ExampleService } from "apps/api/src/endpoints/example/example.service";
+import { ExampleService } from "../../endpoints/example/example.service";
 import { CacheService } from "@multiversx/sdk-nestjs-cache";
 import { Locker } from "@multiversx/sdk-nestjs-common";
 import { CacheInfo } from "@mvx-monorepo/common/utils/cache.info";
