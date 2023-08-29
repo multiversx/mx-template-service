@@ -1,7 +1,6 @@
 urls:
   api: 'https://devnet-api.multiversx.com'
   swagger:
-    - 'http://localhost:3000'
     - 'https://devnet-microservice.multiversx.com'
     - 'https://testnet-microservice.multiversx.com'
     - 'https://microservice.multiversx.com'
