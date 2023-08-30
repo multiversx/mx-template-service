@@ -18,9 +18,6 @@ features:
   privateApi:
     enabled: true
     port: 4000
-  cacheWarmer:
-    enabled: true
-    port: 5201
   keepAliveAgent:
     enabled: true
 nativeAuth:

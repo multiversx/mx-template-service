@@ -8,7 +8,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
-    "build:all": "nest build api && nest build transactions-processor && nest build queue-worker && nest build common",
+    "build:all": "nest build api && nest build transactions-processor && nest build cache-warmer && nest build queue-worker && nest build common",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start:devnet": "npm run copy-devnet-config & nest build api & nest start",
     "start:devnet:watch": "npm run copy-devnet-config & nest build api & nest start --watch",
@@ -40,6 +40,16 @@
     "start:queue-worker:custom": "npm run copy-custom-config-queue-worker & nest build queue-worker & nest start queue-worker",
     "start:queue-worker:custom:watch": "npm run copy-custom-config-queue-worker & nest build queue-worker & nest start queue-worker --watch",
     "start:queue-worker:custom:debug": "npm run copy-custom-config-queue-worker & nest build queue-worker & nest start queue-worker --watch --debug",
+    "start:cache-warmer:devnet": "npm run copy-devnet-config-cache-warmer & nest build cache-warmer & nest start cache-warmer",
+    "start:cache-warmer:devnet:watch": "npm run copy-devnet-config-cache-warmer & nest build cache-warmer &  nest start cache-warmer --watch",
+    "start:cache-warmer:devnet:debug": "npm run copy-devnet-config-cache-warmer & nest build cache-warmer & nest start cache-warmer --watch --debug",
+    "start:cache-warmer:testnet": "npm run copy-testnet-config-cache-warmer & nest build cache-warmer &  nest start cache-warmer",
+    "start:cache-warmer:testnet:watch": "npm run copy-testnet-config-cache-warmer & nest build cache-warmer & nest start cache-warmer --watch",
+    "start:cache-warmer:testnet:debug": "npm run copy-testnet-config-cache-warmer & nest build cache-warmer & nest start cache-warmer --watch --debug",
+    "start:cache-warmer:mainnet": "npm run copy-mainnet-config-cache-warmer & nest build cache-warmer & nest start cache-warmer",
+    "start:cache-warmer:custom": "npm run copy-custom-config-cache-warmer & nest build cache-warmer & nest start cache-warmer",
+    "start:cache-warmer:custom:watch": "npm run copy-custom-config-cache-warmer & nest build cache-warmer & nest start cache-warmer --watch",
+    "start:cache-warmer:custom:debug": "npm run copy-custom-config-cache-warmer & nest build cache-warmer & nest start cache-warmer --watch --debug",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\"",
     "lint:fix": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
@@ -58,7 +68,11 @@
     "copy-devnet-config-queue-worker": "cp ./apps/queue-worker/config/config.devnet.yaml ./apps/queue-worker/config/config.yaml",
     "copy-testnet-config-queue-worker": "cp ./apps/queue-worker/config/config.testnet.yaml ./apps/queue-worker/config/config.yaml",
     "copy-mainnet-config-queue-worker": "cp ./apps/queue-worker/config/config.mainnet.yaml ./apps/queue-worker/config/config.yaml",
-    "copy-custom-config-queue-worker": "cp ./apps/queue-worker/config/config.custom.yaml ./apps/queue-worker/config/config.yaml"
+    "copy-custom-config-queue-worker": "cp ./apps/queue-worker/config/config.custom.yaml ./apps/queue-worker/config/config.yaml",
+    "copy-devnet-config-cache-warmer": "cp ./apps/cache-warmer/config/config.devnet.yaml ./apps/cache-warmer/config/config.yaml",
+    "copy-testnet-config-cache-warmer": "cp ./apps/cache-warmer/config/config.testnet.yaml ./apps/cache-warmer/config/config.yaml",
+    "copy-mainnet-config-cache-warmer": "cp ./apps/cache-warmer/config/config.mainnet.yaml ./apps/cache-warmer/config/config.yaml",
+    "copy-custom-config-cache-warmer": "cp ./apps/cache-warmer/config/config.custom.yaml ./apps/cache-warmer/config/config.yaml"
   },
   "dependencies": {
     "@multiversx/sdk-core": "^12.2.1",

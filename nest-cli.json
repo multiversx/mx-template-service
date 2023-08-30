@@ -61,6 +61,21 @@
         ]
       }
     },
+    "cache-warmer": {
+      "type": "application",
+      "root": "apps/cache-warmer",
+      "entryFile": "main",
+      "sourceRoot": "apps/cache-warmer/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/cache-warmer/tsconfig.app.json",
+        "assets": [
+          {
+            "include": "../config/config.yaml",
+            "outDir": "./dist/apps/cache-warmer/config"
+          }
+        ]
+      }
+    },
     "common": {
       "type": "library",
       "root": "libs/common",

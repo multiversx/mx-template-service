@@ -12,7 +12,6 @@ import { Logger, NestInterceptor } from '@nestjs/common';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { SocketAdapter } from './websockets/socket.adapter';
 import cookieParser from 'cookie-parser';
-import { CacheWarmerModule } from './crons/cache.warmer/cache.warmer.module';
 import { PubSubListenerModule } from '@mvx-monorepo/common';
 import { LoggingInterceptor, MetricsService } from '@multiversx/sdk-nestjs-monitoring';
 import { NativeAuthGuard } from '@multiversx/sdk-nestjs-auth';
@@ -87,11 +86,6 @@ async function bootstrap() {
     await privateApp.listen(apiConfigService.getPrivateApiFeaturePort());
   }
 
-  if (apiConfigService.getIsCacheWarmerFeatureActive()) {
-    const cacheWarmerApp = await NestFactory.create(CacheWarmerModule);
-    await cacheWarmerApp.listen(apiConfigService.getCacheWarmerFeaturePort());
-  }
-
   const logger = new Logger('Bootstrapper');
 
   LoggerInitializer.initialize(logger);
@@ -116,7 +110,6 @@ async function bootstrap() {
 
   logger.log(`Public API active: ${apiConfigService.getIsPublicApiFeatureActive()}`);
   logger.log(`Private API active: ${apiConfigService.getIsPrivateApiFeatureActive()}`);
-  logger.log(`Cache warmer active: ${apiConfigService.getIsCacheWarmerFeatureActive()}`);
 }
 
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
