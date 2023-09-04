@@ -5,3 +5,6 @@ features:
   transactionProcessor:
     port: 5202
     maxLookBehind: 100
+  privateApi:
+    enabled: true
+    port: 4000

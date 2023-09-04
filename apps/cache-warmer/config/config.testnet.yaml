@@ -5,3 +5,6 @@ features:
   cacheWarmer:
     enabled: true
     port: 5201
+  privateApi:
+    enabled: true
+    port: 4000

@@ -5,4 +5,6 @@ features:
   queueWorker:
     enabled: true
     port: 8000
- 
+  privateApi:
+    enabled: true
+    port: 4000
