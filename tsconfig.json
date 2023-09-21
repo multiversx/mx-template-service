@@ -31,8 +31,19 @@
     "noFallthroughCasesInSwitch": true,
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
-    "typeRoots": ["src/@types", "node_modules/@types"],
+    "typeRoots": [
+      "apps/api/src/@types",
+      "node_modules/@types"
+    ],
     "skipLibCheck": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "paths": {
+      "@mvx-monorepo/common": [
+        "libs/common/src"
+      ],
+      "@mvx-monorepo/common/*": [
+        "libs/common/src/*"
+      ],
+    }
   }
 }

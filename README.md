@@ -3,7 +3,7 @@ REST API facade template for microservices that interacts with the MultiversX bl
 ## Quick start
 
 1. Run `npm install` in the project directory
-2. Optionally make edits to `config.yaml` or create `config.custom.yaml`
+2. Optionally make edits to `config.yaml` or create `config.custom.yaml` for each microservice
 
 ## Dependencies
 
@@ -52,7 +52,7 @@ Make requests to [http://localhost:3001](http://localhost:3001).
 
 Redis Server is required to be installed.
 
-## Running the app
+## Running the api
 
 ```bash
 # development watch mode on devnet
@@ -68,7 +68,39 @@ $ npm run start:devnet
 $ npm run start:mainnet
 ```
 
-Requests can be made to http://localhost:3001. The app will reload when you'll make edits (if opened in watch mode). You will also see any lint errors in the console.​
+## Running the transactions-processor
+
+```bash
+# development watch mode on devnet
+$ npm run start:transactions-processor:devnet:watch
+
+# development debug mode on devnet
+$ npm run start:transactions-processor:devnet:debug
+
+# development mode on devnet
+$ npm run start:transactions-processor:devnet
+
+# production mode
+$ npm run start:transactions-processor:mainnet
+```
+
+## Running the queue-worker
+
+```bash
+# development watch mode on devnet
+$ npm run start:queue-worker:devnet:watch
+
+# development debug mode on devnet
+$ npm run start:queue-worker:devnet:debug
+
+# development mode on devnet
+$ npm run start:queue-worker:devnet
+
+# production mode
+$ npm run start:queue-worker:mainnet
+```
+
+Requests can be made to http://localhost:3001 for the api. The app will reload when you'll make edits (if opened in watch mode). You will also see any lint errors in the console.​
 
 ### `npm run test`
 

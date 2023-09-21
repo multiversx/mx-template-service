@@ -1,0 +1,10 @@
+urls:
+  api: 'https://api.multiversx.com'
+  redis: '127.0.0.1'
+features:
+  cacheWarmer:
+    enabled: true
+    port: 5201
+  privateApi:
+    enabled: true
+    port: 4000

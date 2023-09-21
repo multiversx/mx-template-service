@@ -1,0 +1,33 @@
+urls:
+  api: 'https://testnet-api.multiversx.com'
+  swagger:
+    - 'https://testnet-microservice.multiversx.com'
+    - 'https://devnet-microservice.multiversx.com'
+    - 'https://microservice.multiversx.com'
+  redis: '127.0.0.1'
+database:
+  host: 'localhost'
+  port: 3306
+  username: 'root'
+  password: 'root'
+  name: 'example'
+features:
+  publicApi:
+    enabled: true
+    port: 3000
+  privateApi:
+    enabled: true
+    port: 4000
+  keepAliveAgent:
+    enabled: true
+nativeAuth:
+  maxExpirySeconds:
+  acceptedOrigins:
+    - utils.multiversx.com
+security:
+  admins:
+rateLimiterSecret:
+keepAliveTimeout:
+  downstream: 61000
+  upstream: 60000
+useCachingInterceptor: false

@@ -1,0 +1,10 @@
+urls:
+  api: 'https://testnet-api.multiversx.com'
+  redis: '127.0.0.1'
+features:
+  transactionProcessor:
+    port: 5202
+    maxLookBehind: 100
+  privateApi:
+    enabled: true
+    port: 4000
