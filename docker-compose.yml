@@ -23,3 +23,21 @@ services:
     ports:
       - 27017:27017
 
+  prometheus:
+    image: prom/prometheus:latest
+    command: '--config.file=/etc/prometheus/prometheus.yml'
+    volumes:
+      - ./monitoring/prometheus:/etc/prometheus
+    ports:
+      - 9090:9090
+    extra_hosts:
+      - host.docker.internal:host-gateway
+  
+  grafana:
+    depends_on:
+      - prometheus
+    image: grafana/grafana:latest
+    volumes:
+      - ./monitoring/grafana:/etc/grafana/provisioning
+    ports:
+      - 3010:3000
