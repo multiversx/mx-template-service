@@ -112,3 +112,4 @@ const targetMetricsPath = process.argv[5];
 const outputPath = process.argv[6];
 
 generateComparisonTable(baseCommitHash, baseMetricsPath, targetCommitHash, targetMetricsPath, outputPath);
+
