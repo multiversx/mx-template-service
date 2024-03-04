@@ -22,9 +22,11 @@ jobs:
     - name: Build
       run: npm run build
 
-    - name: Start Node.js API
+    - name: Start containers
+      run: docker-compose -f "docker-compose.yml" up -d --build
 
-      run: node ./dist/apps/api/src/main.js &
+    - name: Start Node.js API
+      run: npm run start:devnet
       # TODO: export environment config variables when base config is implemented into the template
       # env:
       #  SELF_URL: 'http://localhost:3000/assets-cdn'
@@ -79,7 +81,7 @@ jobs:
       run: npm run build
 
     - name: Start Node.js API
-      run: node ./dist/apps/api/src/main.js &
+      run: npm run start:devnet
       # TODO: export environment config variables when base config is implemented into the template
       # env:
       #  SELF_URL: 'http://localhost:3000/assets-cdn'
