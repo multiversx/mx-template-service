@@ -86,12 +86,11 @@ function generateTable(baseCommitHash, baseData, targetCommitHash, targetData) {
 }
 
 function getColor(baseValue, targetValue) {
-  if (baseValue > targetValue) {
-    return '✅'; // Green emoji for improvement
-  } else if (baseValue > targetValue) {
+  if (baseValue >= targetValue) {
+    return '✅'; // Green emoji for improvement or equivalence
+  } else {
     return '🔴'; // Red emoji for degradation
   }
-  return '';
 }
 
 function getDifferencePercentage(baseValue, targetValue) {
