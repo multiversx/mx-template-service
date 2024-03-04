@@ -72,10 +72,10 @@ function generateTable(baseCommitHash, baseData, targetCommitHash, targetData) {
     const p95Color = getColor(baseP95, targetP95);
 
     table += `| **${key}** | | |\n`;
-    table += `| - Average Response Time | ${baseAvg} ms | ${targetAvg} ms | ${avgDiff} ${avgColor} |\n`;
-    table += `| - Max Response Time | ${baseMax} ms | ${targetMax} ms | ${maxDiff} ${maxColor} |\n`;
-    table += `| - 90th Percentile | ${baseP90} ms | ${targetP90} ms | ${p90Diff} ${p90Color} |\n`;
-    table += `| - 95th Percentile | ${baseP95} ms | ${targetP95} ms | ${p95Diff} ${p95Color} |\n`;
+    table += `| - Average Response Time | ${baseAvg.toFixed(2)} ms | ${targetAvg.toFixed(2)} ms | ${avgDiff} ${avgColor} |\n`;
+    table += `| - Max Response Time | ${baseMax.toFixed(2)} ms | ${targetMax.toFixed(2)} ms | ${maxDiff} ${maxColor} |\n`;
+    table += `| - 90th Percentile | ${baseP90.toFixed(2)} ms | ${targetP90.toFixed(2)} ms | ${p90Diff} ${p90Color} |\n`;
+    table += `| - 95th Percentile | ${baseP95.toFixed(2)} ms | ${targetP95.toFixed(2)} ms | ${p95Diff} ${p95Color} |\n`;
   }
 
   const baseDuration = baseData['Test Run Duration'].toFixed(2);
