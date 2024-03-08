@@ -72,7 +72,8 @@
     "copy-devnet-config-cache-warmer": "cp ./apps/cache-warmer/config/config.devnet.yaml ./apps/cache-warmer/config/config.yaml",
     "copy-testnet-config-cache-warmer": "cp ./apps/cache-warmer/config/config.testnet.yaml ./apps/cache-warmer/config/config.yaml",
     "copy-mainnet-config-cache-warmer": "cp ./apps/cache-warmer/config/config.mainnet.yaml ./apps/cache-warmer/config/config.yaml",
-    "copy-custom-config-cache-warmer": "cp ./apps/cache-warmer/config/config.custom.yaml ./apps/cache-warmer/config/config.yaml"
+    "copy-custom-config-cache-warmer": "cp ./apps/cache-warmer/config/config.custom.yaml ./apps/cache-warmer/config/config.yaml",
+    "load-test": "k6 run ./k6/script.js"
   },
   "dependencies": {
     "@multiversx/sdk-core": "^12.15.0",
