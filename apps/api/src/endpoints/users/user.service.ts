@@ -20,6 +20,7 @@ export class UsersService {
   }
 
   async findAll(): Promise<User[]> {
+    await new Promise((resolve) => setTimeout(resolve, 500)); // introduced a delay so we can see performance degradation
     return await this.usersRepository.find();
   }
 
