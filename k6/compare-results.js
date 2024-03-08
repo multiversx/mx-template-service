@@ -45,9 +45,9 @@ function extractMetrics(metrics) {
 
 function generateTable(baseCommitHash, baseData, targetCommitHash, targetData) {
   let table = `k6 load testing comparison.\nBase Commit Hash: ${baseCommitHash}\nTarget Commit Hash: ${targetCommitHash}\n`;
-  table += `Test duration: ${baseData['Test Run Duration'].toFixed(2)} ms (base)| targetData['Test Run Duration'].toFixed(2) ms (target) \n\n`;
-  table += '| Endpoint \ Metric | Average | Max | p(90) | p(95) |\n';
-  table += '| ----------------- | ---- | ------ | ----- | ----- |\n';
+  table += `Test duration: ${baseData['Test Run Duration'].toFixed(2)} ms (base) | ${targetData['Test Run Duration'].toFixed(2)} ms (target) \n\n`;
+  table += '| Endpoint \\ Metric | Average | Max | p(90) | p(95) |\n';
+  table += '| ------------------ | ---- | ------ | ----- | ----- |\n';
 
   for (const key of Object.keys(baseData)) {
     if (key === 'Test Run Duration') {
@@ -66,14 +66,6 @@ function generateTable(baseCommitHash, baseData, targetCommitHash, targetData) {
   }
 
   return table;
-}
-
-function getColor(baseValue, targetValue) {
-  if (baseValue >= targetValue) {
-    return '✅'; // Green emoji for improvement or equivalence
-  } else {
-    return '🔴'; // Red emoji for degradation
-  }
 }
 
 function computeCell(baseDuration, targetDuration) {
