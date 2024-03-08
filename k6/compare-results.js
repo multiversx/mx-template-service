@@ -44,9 +44,10 @@ function extractMetrics(metrics) {
 }
 
 function generateTable(baseCommitHash, baseData, targetCommitHash, targetData) {
-  let table = `k6 load testing comparison.\nBase Commit Hash: ${baseCommitHash}\nTarget Commit Hash: ${targetCommitHash}\n\n`;
-  table += '| Metric | Base | Target | Diff |\n';
-  table += '| ------ | ---- | ------ | ---- |\n';
+  let table = `k6 load testing comparison.\nBase Commit Hash: ${baseCommitHash}\nTarget Commit Hash: ${targetCommitHash}\n`;
+  table += `Test duration: ${baseData['Test Run Duration'].toFixed(2)} ms (base)| targetData['Test Run Duration'].toFixed(2) ms (target) \n\n`;
+  table += '| Endpoint \ Metric | Average | Max | p(90) | p(95) |\n';
+  table += '| ----------------- | ---- | ------ | ----- | ----- |\n';
 
   for (const key of Object.keys(baseData)) {
     if (key === 'Test Run Duration') {
@@ -61,26 +62,8 @@ function generateTable(baseCommitHash, baseData, targetCommitHash, targetData) {
     const baseP95 = baseData[key].p95;
     const targetP95 = targetData[key].p95;
 
-    const avgDiff = getDifferencePercentage(baseAvg, targetAvg);
-    const maxDiff = getDifferencePercentage(baseMax, targetMax);
-    const p90Diff = getDifferencePercentage(baseP90, targetP90);
-    const p95Diff = getDifferencePercentage(baseP95, targetP95);
-
-    const avgColor = getColor(baseAvg, targetAvg);
-    const maxColor = getColor(baseMax, targetMax);
-    const p90Color = getColor(baseP90, targetP90);
-    const p95Color = getColor(baseP95, targetP95);
-
-    table += `| **${key}** | | |\n`;
-    table += `| - Average Response Time | ${baseAvg.toFixed(2)} ms | ${targetAvg.toFixed(2)} ms | ${avgDiff} ${avgColor} |\n`;
-    table += `| - Max Response Time | ${baseMax.toFixed(2)} ms | ${targetMax.toFixed(2)} ms | ${maxDiff} ${maxColor} |\n`;
-    table += `| - 90th Percentile | ${baseP90.toFixed(2)} ms | ${targetP90.toFixed(2)} ms | ${p90Diff} ${p90Color} |\n`;
-    table += `| - 95th Percentile | ${baseP95.toFixed(2)} ms | ${targetP95.toFixed(2)} ms | ${p95Diff} ${p95Color} |\n`;
+    table += `| **${key}** | ${computeCell(baseAvg, targetAvg)} | ${computeCell(baseMax, targetMax)} | ${computeCell(baseP90, targetP90)} | ${computeCell(baseP95, targetP95)} | \n`;
   }
-
-  const baseDuration = baseData['Test Run Duration'].toFixed(2);
-  const targetDuration = targetData['Test Run Duration'].toFixed(2);
-  table += `| **Test Run Duration**     | ${baseDuration} ms | ${targetDuration} ms | |\n`;
 
   return table;
 }
@@ -93,10 +76,21 @@ function getColor(baseValue, targetValue) {
   }
 }
 
+function computeCell(baseDuration, targetDuration) {
+  return `${baseDuration.toFixed(2)} ms -> ${targetDuration.toFixed(2)} ms (${getDifferencePercentage(baseDuration, targetDuration)})`;
+}
+
 function getDifferencePercentage(baseValue, targetValue) {
   const difference = ((targetValue - baseValue) / baseValue) * 100;
   const sign = difference >= 0 ? '+' : '';
-  return `${sign}${difference.toFixed(2)}%`;
+  let output = `${sign}${difference.toFixed(2)}%`;
+  if (difference > 20.0) {
+    output += ' ⚠️';
+  } else if (difference < -20) {
+    output += ' 🟢';
+  }
+
+  return `${output}`;
 }
 
 if (process.argv.length !== 7) {
