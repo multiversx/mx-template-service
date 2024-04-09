@@ -13,7 +13,7 @@ import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { SocketAdapter } from './websockets/socket.adapter';
 import cookieParser from 'cookie-parser';
 import { PubSubListenerModule } from '@mvx-monorepo/common';
-import { LoggingInterceptor, MetricsService } from '@multiversx/sdk-nestjs-monitoring';
+import { LoggingInterceptor, MetricsService, RequestCpuTimeInterceptor } from '@multiversx/sdk-nestjs-monitoring';
 import { NativeAuthGuard } from '@multiversx/sdk-nestjs-auth';
 import { LoggerInitializer } from '@multiversx/sdk-nestjs-common';
 import { CacheService, CachingInterceptor } from '@multiversx/sdk-nestjs-cache';
@@ -46,6 +46,7 @@ async function bootstrap() {
 
   const globalInterceptors: NestInterceptor[] = [];
   globalInterceptors.push(new LoggingInterceptor(metricsService));
+  globalInterceptors.push(new RequestCpuTimeInterceptor(metricsService));
 
   if (apiConfigService.getUseCachingInterceptor()) {
     const cachingInterceptor = new CachingInterceptor(

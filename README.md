@@ -40,6 +40,12 @@ This is used for scanning the transactions from MultiversX Blockchain.
 
 This is used for concurrently processing heavy jobs.
 
+### `Grafana dashboard`
+
+You can find a predefined Grafana dashboard with basic metrics at [http://localhost:3010](http://localhost:3010)
+
+Use `admin` for user and password fields. Then navigate to `Dashboards` -> `Template Service`
+
 ## Available Scripts
 
 This is a MultiversX project built on Nest.js framework.
