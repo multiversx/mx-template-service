@@ -1,0 +1,63 @@
+title: config
+apps:
+  api:
+    features:
+      publicApi:
+        enabled: boolean
+        port: integer
+      privateApi:
+        enabled: boolean
+        port: integer
+    useCachingInterceptor: boolean
+  cacheWarmer:
+    features:
+      cacheWarmer:
+        enabled: boolean
+        port: integer
+      privateApi:
+        enabled: boolean
+        port: integer
+  queueWorker:
+    features:
+      queueWorker:
+        enabled: boolean
+        port: integer
+      privateApi:
+        enabled: boolean
+        port: integer
+  transactionsProcessor:
+    features:
+      transactionsProcessor:
+        port: integer
+      privateApi:
+        enabled: boolean
+        port: integer
+    maxLookBehind: integer
+libs:
+  common:
+    urls:
+      api: string
+    database:
+      host: string
+      port: integer
+      username: string
+      password: string
+      name: string
+    redis:
+      host: string
+      port: integer
+    nativeAuth:
+      maxExpirySeconds:
+        type: integer
+        required: false
+      acceptedOrigins:
+        type: array
+        items: string
+    security:
+      admins:
+        type: array
+        items: string
+        default: []
+    rateLimiterSecret:
+      type: string
+      required: false

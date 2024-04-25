@@ -1,0 +1,54 @@
+apps:
+  api:
+    features:
+      publicApi:
+        enabled: true
+        port: 3000
+      privateApi:
+        enabled: true
+        port: 4000
+    useCachingInterceptor: true
+  cacheWarmer:
+    features:
+      cacheWarmer:
+        enabled: true
+        port: 3001
+      privateApi:
+        enabled: true
+        port: 4001
+  queueWorker:
+    features:
+      queueWorker:
+        enabled: true
+        port: 3002
+      privateApi:
+        enabled: true
+        port: 4002
+  transactionsProcessor:
+    features:
+      transactionsProcessor:
+        port: 3003
+      privateApi:
+        enabled: true
+        port: 4003
+    maxLookBehind: 100
+libs:
+  common:
+    urls:
+      api: 'https://api.multiversx.com'
+    database:
+      host: 'localhost'
+      port: 3306
+      username: 'root'
+      password: 'root'
+      name: 'example'
+    redis:
+      host: '127.0.0.1'
+      port: 6379
+    nativeAuth:
+      maxExpirySeconds:
+      acceptedOrigins:
+        - utils.multiversx.com
+    security:
+      admins:
+    rateLimiterSecret:
