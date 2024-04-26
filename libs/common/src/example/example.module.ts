@@ -1,6 +1,7 @@
 import { Module } from "@nestjs/common";
-import { CommonConfigModule, DynamicModuleUtils } from "@libs/common";
 import { ExampleService } from "./example.service";
+import { DynamicModuleUtils } from "../utils";
+import { CommonConfigModule } from "../config";
 
 @Module({})
 export class ExampleModule {

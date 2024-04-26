@@ -1,9 +1,9 @@
 import { Injectable } from "@nestjs/common";
-import { QueryPagination } from "@libs/common";
 import { Example } from "./entities/example";
 import { ExampleFilter } from "./entities/example.filter";
 import { CacheService } from "@multiversx/sdk-nestjs-cache";
-import { CacheInfo } from "@libs/common";
+import { QueryPagination } from "../entities";
+import { CacheInfo } from "../utils";
 
 @Injectable()
 export class ExampleService {
