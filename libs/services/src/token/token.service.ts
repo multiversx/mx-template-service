@@ -1,6 +1,8 @@
 import { TokenRepository } from "@libs/database";
 import { Token } from "@libs/entities";
+import { Injectable } from "@nestjs/common";
 
+@Injectable()
 export class TokenService {
   constructor(
     private readonly tokenRepository: TokenRepository,
