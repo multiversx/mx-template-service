@@ -1,14 +1,16 @@
 import { Module } from '@nestjs/common';
 import { ScheduleModule } from '@nestjs/schedule';
-import { ExampleModule } from '@mvx-monorepo/common';
+import { CommonConfigModule, ExampleModule } from '@mvx-monorepo/common';
 import { DynamicModuleUtils } from '@mvx-monorepo/common/utils/dynamic.module.utils';
 import { CacheWarmerService } from './cache.warmer.service';
-import configuration from '../../config/configuration';
+import { CacheWarmerConfigModule } from '../config/cache-warmer-config.module';
 
 @Module({
   imports: [
     ScheduleModule.forRoot(),
-    ExampleModule.forRoot(configuration),
+    ExampleModule.forRoot(),
+    CacheWarmerConfigModule,
+    CommonConfigModule,
   ],
   providers: [
     DynamicModuleUtils.getPubSubService(),

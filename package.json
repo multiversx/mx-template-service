@@ -11,6 +11,7 @@
     "build:all": "nest build api && nest build transactions-processor && nest build cache-warmer && nest build queue-worker && nest build common",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start:api": "cross-env NODE_APP=api npm run start",
+    "start:cache-warmer": "cross-env NODE_APP=cache-warmer npm run start",
     "start": "npm run copy-config && npm run nest-start",
     "copy-config": "mkdir -p ./apps/$NODE_APP/config && cp ./config/config.yaml ./apps/$NODE_APP/config/config.yaml && cp ./config/schema.yaml ./apps/$NODE_APP/config/schema.yaml",
     "nest-start": "sh -c 'nest start $NODE_APP $( [ \"$NODE_WATCH\" = \"true\" ] && echo \"--watch\" ) $( [ \"$NODE_DEBUG\" = \"true\" ] && echo \"--debug\" )'",

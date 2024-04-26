@@ -1,29 +1,30 @@
 import 'module-alias/register';
 import { NestFactory } from '@nestjs/core';
-import { ApiConfigService, PubSubListenerModule } from '@mvx-monorepo/common';
+import { CommonConfigService, PubSubListenerModule } from '@mvx-monorepo/common';
 import { CacheWarmerModule } from './cache-warmer';
 import { PrivateAppModule } from './private.app.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
-import configuration from '../config/configuration';
+import { CacheWarmerConfigService } from './config/cache-warmer-config.service';
 
 async function bootstrap() {
   const cacheWarmerApp = await NestFactory.create(CacheWarmerModule);
-  const apiConfigService = cacheWarmerApp.get<ApiConfigService>(ApiConfigService);
-  await cacheWarmerApp.listen(apiConfigService.getCacheWarmerFeaturePort());
+  const commonConfigService = cacheWarmerApp.get<CommonConfigService>(CommonConfigService);
+  const cacheWarmerConfigService = cacheWarmerApp.get<CacheWarmerConfigService>(CacheWarmerConfigService);
+  await cacheWarmerApp.listen(cacheWarmerConfigService.config.features.cacheWarmer.port);
 
-  if (apiConfigService.getIsPrivateApiFeatureActive()) {
+  if (cacheWarmerConfigService.config.features.privateApi.enabled) {
     const privateApp = await NestFactory.create(PrivateAppModule);
-    await privateApp.listen(apiConfigService.getPrivateApiFeaturePort());
+    await privateApp.listen(cacheWarmerConfigService.config.features.privateApi.port);
   }
 
   const pubSubApp = await NestFactory.createMicroservice<MicroserviceOptions>(
-    PubSubListenerModule.forRoot(configuration),
+    PubSubListenerModule.forRoot(),
     {
       transport: Transport.REDIS,
       options: {
-        host: apiConfigService.getRedisUrl(),
-        port: 6379,
+        host: commonConfigService.config.redis.host,
+        port: commonConfigService.config.redis.port,
         retryAttempts: 100,
         retryDelay: 1000,
         retryStrategy: () => 1000,
