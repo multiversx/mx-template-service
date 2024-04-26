@@ -18,8 +18,12 @@ libs:
     database:
       host: string
       port: integer
-      username: string
-      password: string
+      username:
+        type: string
+        required: false
+      password:
+        type: string
+        required: false
       name: string
       tlsAllowInvalidCertificates:
         type: boolean

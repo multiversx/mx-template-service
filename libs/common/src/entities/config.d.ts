@@ -26,8 +26,8 @@ export interface Config {
       database: {
         host: string;
         port: number;
-        username: string;
-        password: string;
+        username?: string;
+        password?: string;
         name: string;
         tlsAllowInvalidCertificates: boolean;
       };

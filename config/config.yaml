@@ -17,8 +17,8 @@ libs:
     database:
       host: 'localhost'
       port: 3306
-      username: 'root'
-      password: 'root'
+      # username: 'root'
+      # password: 'root'
       name: 'example'
       # tlsAllowInvalidCertificates: false
     redis:
