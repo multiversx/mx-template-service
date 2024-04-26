@@ -45,7 +45,11 @@
         "assets": [
           {
             "include": "../config/config.yaml",
-            "outDir": "./dist/apps/transactions-processor/config"
+            "outDir": "./dist/config"
+          },
+          {
+            "include": "../config/schema.yaml",
+            "outDir": "./dist/config"
           }
         ]
       }
@@ -60,7 +64,11 @@
         "assets": [
           {
             "include": "../config/config.yaml",
-            "outDir": "./dist/apps/queue-worker/config"
+            "outDir": "./dist/config"
+          },
+          {
+            "include": "../config/schema.yaml",
+            "outDir": "./dist/config"
           }
         ]
       }
@@ -75,7 +83,11 @@
         "assets": [
           {
             "include": "../config/config.yaml",
-            "outDir": "./dist/apps/cache-warmer/config"
+            "outDir": "./dist/config"
+          },
+          {
+            "include": "../config/schema.yaml",
+            "outDir": "./dist/config"
           }
         ]
       }

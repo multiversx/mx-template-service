@@ -1,23 +1,17 @@
 import 'module-alias/register';
 import { NestFactory } from '@nestjs/core';
-import { TransactionProcessorModule } from './processor';
 import { CommonConfigService, PubSubListenerModule } from '@mvx-monorepo/common';
-import { PrivateAppModule } from './private.app.module';
+import { AppModule } from './app.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
-import { TransactionsProcessorConfigService } from './config/transactions-processor-config.service';
+import { AppConfigService } from './config/app-config.service';
 
 async function bootstrap() {
-  const transactionProcessorApp = await NestFactory.create(TransactionProcessorModule);
-  const transactionsProcessorConfigService = transactionProcessorApp.get<TransactionsProcessorConfigService>(TransactionsProcessorConfigService);
+  const transactionProcessorApp = await NestFactory.create(AppModule);
+  const transactionsProcessorConfigService = transactionProcessorApp.get<AppConfigService>(AppConfigService);
   const commonConfigService = transactionProcessorApp.get<CommonConfigService>(CommonConfigService);
 
-  await transactionProcessorApp.listen(transactionsProcessorConfigService.config.features.transactionsProcessor.port);
-
-  if (transactionsProcessorConfigService.config.features.privateApi.enabled) {
-    const privateApp = await NestFactory.create(PrivateAppModule);
-    await privateApp.listen(transactionsProcessorConfigService.config.features.privateApi.port);
-  }
+  await transactionProcessorApp.listen(transactionsProcessorConfigService.config.port);
 
   const pubSubApp = await NestFactory.createMicroservice<MicroserviceOptions>(
     PubSubListenerModule.forRoot(),

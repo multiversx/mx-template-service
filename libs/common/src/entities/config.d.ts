@@ -40,15 +40,7 @@ export interface Config {
       };
     };
     transactionsProcessor: {
-      features: {
-        transactionsProcessor: {
-          port: number;
-        };
-        privateApi: {
-          enabled: boolean;
-          port: number;
-        };
-      };
+      port: number;
       maxLookBehind: number;
     };
   };

@@ -26,12 +26,7 @@ apps:
         enabled: boolean
         port: integer
   transactionsProcessor:
-    features:
-      transactionsProcessor:
-        port: integer
-      privateApi:
-        enabled: boolean
-        port: integer
+    port: integer
     maxLookBehind: integer
 libs:
   common:

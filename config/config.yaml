@@ -25,12 +25,7 @@ apps:
         enabled: true
         port: 4002
   transactionsProcessor:
-    features:
-      transactionsProcessor:
-        port: 3003
-      privateApi:
-        enabled: true
-        port: 4003
+    port: 4003
     maxLookBehind: 100
 libs:
   common:
