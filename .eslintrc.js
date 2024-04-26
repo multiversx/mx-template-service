@@ -29,31 +29,31 @@ module.exports = {
       },
       {
         type: 'apps/cache-warmer',
-        pattern: 'apps/cache-warmer/*',
+        pattern: 'apps/cache-warmer',
       },
       {
         type: 'apps/queue-worker',
-        pattern: 'apps/queue-worker/*',
+        pattern: 'apps/queue-worker',
       },
       {
         type: 'apps/transactions-processor',
-        pattern: 'apps/transactions-processor/*',
+        pattern: 'apps/transactions-processor',
       },
       {
         type: 'libs/common',
-        pattern: 'libs/common/*'
+        pattern: 'libs/common'
       },
       {
         type: 'libs/database',
-        pattern: 'libs/database/*'
+        pattern: 'libs/database'
       },
       {
         type: 'libs/entities',
-        pattern: 'libs/entities/*'
+        pattern: 'libs/entities'
       },
       {
         type: 'libs/services',
-        pattern: 'libs/services/*'
+        pattern: 'libs/services'
       },
     ]
   },

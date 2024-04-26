@@ -5,11 +5,12 @@ import { UserService } from '@libs/services';
 
 @Controller('users')
 export class UserController {
-  constructor(private readonly userService: UserService) { }
+  constructor(
+    private readonly userService: UserService,
+  ) { }
 
   @Post()
   async create(@Body() createUserDto: CreateUserDto): Promise<User> {
-
     const user = new User();
     user.firstName = createUserDto.firstName;
     user.lastName = createUserDto.lastName;

@@ -4,7 +4,9 @@ import { Body, Controller, Get, Post } from '@nestjs/common';
 
 @Controller('tokens')
 export class TokenController {
-  constructor(private readonly tokenService: TokenService) { }
+  constructor(
+    private readonly tokenService: TokenService,
+  ) { }
 
   @Post()
   async create(@Body() token: Token) {
