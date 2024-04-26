@@ -1,29 +1,31 @@
 import 'module-alias/register';
 import { NestFactory } from '@nestjs/core';
 import { TransactionProcessorModule } from './processor';
-import { ApiConfigService, PubSubListenerModule } from '@mvx-monorepo/common';
+import { CommonConfigService, PubSubListenerModule } from '@mvx-monorepo/common';
 import { PrivateAppModule } from './private.app.module';
-import configuration from '../config/configuration';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
+import { TransactionsProcessorConfigService } from './config/transactions-processor-config.service';
 
 async function bootstrap() {
   const transactionProcessorApp = await NestFactory.create(TransactionProcessorModule);
-  const apiConfigService = transactionProcessorApp.get<ApiConfigService>(ApiConfigService);
-  await transactionProcessorApp.listen(apiConfigService.getTransactionProcessorFeaturePort());
+  const transactionsProcessorConfigService = transactionProcessorApp.get<TransactionsProcessorConfigService>(TransactionsProcessorConfigService);
+  const commonConfigService = transactionProcessorApp.get<CommonConfigService>(CommonConfigService);
 
-  if (apiConfigService.getIsPrivateApiFeatureActive()) {
+  await transactionProcessorApp.listen(transactionsProcessorConfigService.config.features.transactionsProcessor.port);
+
+  if (transactionsProcessorConfigService.config.features.privateApi.enabled) {
     const privateApp = await NestFactory.create(PrivateAppModule);
-    await privateApp.listen(apiConfigService.getPrivateApiFeaturePort());
+    await privateApp.listen(transactionsProcessorConfigService.config.features.privateApi.port);
   }
 
   const pubSubApp = await NestFactory.createMicroservice<MicroserviceOptions>(
-    PubSubListenerModule.forRoot(configuration),
+    PubSubListenerModule.forRoot(),
     {
       transport: Transport.REDIS,
       options: {
-        host: apiConfigService.getRedisUrl(),
-        port: 6379,
+        host: commonConfigService.config.redis.host,
+        port: commonConfigService.config.redis.port,
         retryAttempts: 100,
         retryDelay: 1000,
         retryStrategy: () => 1000,

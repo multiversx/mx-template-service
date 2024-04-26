@@ -1,14 +1,15 @@
 import { Module } from '@nestjs/common';
-import { ApiConfigModule, ApiMetricsController, HealthCheckController } from '@mvx-monorepo/common';
+import { ApiMetricsController, CommonConfigModule, HealthCheckController } from '@mvx-monorepo/common';
 import { ApiMetricsModule } from '@mvx-monorepo/common';
 import { LoggingModule } from '@multiversx/sdk-nestjs-common';
-import configuration from '../config/configuration';
+import { TransactionsProcessorConfigModule } from './config/transactions-processor-config.module';
 
 @Module({
   imports: [
     LoggingModule,
     ApiMetricsModule,
-    ApiConfigModule.forRoot(configuration),
+    TransactionsProcessorConfigModule,
+    CommonConfigModule,
   ],
   providers: [],
   controllers: [

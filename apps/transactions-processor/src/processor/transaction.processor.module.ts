@@ -1,14 +1,15 @@
 import { Module } from '@nestjs/common';
 import { ScheduleModule } from '@nestjs/schedule';
-import { ApiConfigModule, DynamicModuleUtils } from '@mvx-monorepo/common';
+import { CommonConfigModule, DynamicModuleUtils } from '@mvx-monorepo/common';
 import { TransactionProcessorService } from './transaction.processor.service';
-import configuration from '../../config/configuration';
+import { TransactionsProcessorConfigModule } from '../config/transactions-processor-config.module';
 
 @Module({
   imports: [
     ScheduleModule.forRoot(),
-    ApiConfigModule.forRoot(configuration),
-    DynamicModuleUtils.getCachingModule(configuration),
+    DynamicModuleUtils.getCachingModule(),
+    TransactionsProcessorConfigModule,
+    CommonConfigModule,
   ],
   providers: [
     TransactionProcessorService,

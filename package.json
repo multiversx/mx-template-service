@@ -13,6 +13,7 @@
     "start:api": "cross-env NODE_APP=api npm run start",
     "start:cache-warmer": "cross-env NODE_APP=cache-warmer npm run start",
     "start:queue-worker": "cross-env NODE_APP=queue-worker npm run start",
+    "start:transactions-processor": "cross-env NODE_APP=transactions-processor npm run start",
     "start": "npm run copy-config && npm run nest-start",
     "copy-config": "mkdir -p ./apps/$NODE_APP/config && cp ./config/config.yaml ./apps/$NODE_APP/config/config.yaml && cp ./config/schema.yaml ./apps/$NODE_APP/config/schema.yaml",
     "nest-start": "sh -c 'nest start $NODE_APP $( [ \"$NODE_WATCH\" = \"true\" ] && echo \"--watch\" ) $( [ \"$NODE_DEBUG\" = \"true\" ] && echo \"--debug\" )'",
