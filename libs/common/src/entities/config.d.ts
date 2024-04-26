@@ -3,16 +3,8 @@
 export interface Config {
   apps: {
     api: {
-      features: {
-        publicApi: {
-          enabled: boolean;
-          port: number;
-        };
-        privateApi: {
-          enabled: boolean;
-          port: number;
-        };
-      };
+      port: number;
+      privatePort: number;
       useCachingInterceptor: boolean;
     };
     cacheWarmer: {

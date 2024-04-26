@@ -1,13 +1,8 @@
 title: config
 apps:
   api:
-    features:
-      publicApi:
-        enabled: boolean
-        port: integer
-      privateApi:
-        enabled: boolean
-        port: integer
+    port: integer
+    privatePort: integer
     useCachingInterceptor: boolean
   cacheWarmer:
     port: integer

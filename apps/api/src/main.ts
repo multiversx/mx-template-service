@@ -19,7 +19,7 @@ import '@multiversx/sdk-nestjs-common/lib/utils/extensions/array.extensions';
 import '@multiversx/sdk-nestjs-common/lib/utils/extensions/date.extensions';
 import '@multiversx/sdk-nestjs-common/lib/utils/extensions/number.extensions';
 import '@multiversx/sdk-nestjs-common/lib/utils/extensions/string.extensions';
-import { ApiConfigService } from './config/api-config.service';
+import { AppConfigService } from './config/app-config.service';
 import { CommonConfigService } from '@mvx-monorepo/common/config/common.config.service';
 
 async function bootstrap() {
@@ -29,7 +29,7 @@ async function bootstrap() {
   publicApp.useLogger(publicApp.get(WINSTON_MODULE_NEST_PROVIDER));
   publicApp.use(cookieParser());
 
-  const apiConfigService = publicApp.get<ApiConfigService>(ApiConfigService);
+  const appConfigService = publicApp.get<AppConfigService>(AppConfigService);
   const commonConfigService = publicApp.get<CommonConfigService>(CommonConfigService);
   const metricsService = publicApp.get<MetricsService>(MetricsService);
 
@@ -51,14 +51,10 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(publicApp, config);
   SwaggerModule.setup('', publicApp, document);
 
-  if (apiConfigService.config.features.publicApi.enabled) {
-    await publicApp.listen(apiConfigService.config.features.publicApi.port);
-  }
+  await publicApp.listen(appConfigService.config.port);
 
-  if (apiConfigService.config.features.privateApi.enabled) {
-    const privateApp = await NestFactory.create(PrivateAppModule);
-    await privateApp.listen(apiConfigService.config.features.privateApi.port);
-  }
+  const privateApp = await NestFactory.create(PrivateAppModule);
+  await privateApp.listen(appConfigService.config.privatePort);
 
   const logger = new Logger('Bootstrapper');
 
@@ -82,8 +78,8 @@ async function bootstrap() {
   // eslint-disable-next-line @typescript-eslint/no-floating-promises
   pubSubApp.listen();
 
-  logger.log(`Public API active: ${apiConfigService.config.features.publicApi.enabled}`);
-  logger.log(`Private API active: ${apiConfigService.config.features.privateApi.enabled}`);
+  logger.log(`Public API active: ${appConfigService.config.port}`);
+  logger.log(`Private API active: ${appConfigService.config.privatePort}`);
 }
 
 // eslint-disable-next-line @typescript-eslint/no-floating-promises

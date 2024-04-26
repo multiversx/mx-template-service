@@ -6,7 +6,7 @@ import { ApiMetricsController, HealthCheckController } from '@mvx-monorepo/commo
 import { ApiMetricsModule, DynamicModuleUtils } from '@mvx-monorepo/common';
 import { LoggingModule } from '@multiversx/sdk-nestjs-common';
 import { CommonConfigModule } from '@mvx-monorepo/common/config/common.config.module';
-import { ApiConfigModule } from './config/api-config.module';
+import { AppConfigModule } from './config/app-config.module';
 
 @Module({
   imports: [
@@ -15,7 +15,7 @@ import { ApiConfigModule } from './config/api-config.module';
     DynamicModuleUtils.getCachingModule(),
     TestSocketModule,
     CommonConfigModule,
-    ApiConfigModule,
+    AppConfigModule,
   ],
   providers: [
     DynamicModuleUtils.getNestJsApiConfigService(),

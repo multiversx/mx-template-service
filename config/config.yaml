@@ -1,12 +1,7 @@
 apps:
   api:
-    features:
-      publicApi:
-        enabled: true
-        port: 3000
-      privateApi:
-        enabled: true
-        port: 4000
+    port: 3000
+    privatePort: 4000
     useCachingInterceptor: true
   cacheWarmer:
     port: 4001
