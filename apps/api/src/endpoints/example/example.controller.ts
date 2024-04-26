@@ -1,13 +1,13 @@
+import { Example } from "@libs/entities";
+import { ExampleService } from "@libs/services";
 import { Controller, DefaultValuePipe, Get, NotFoundException, Param, ParseIntPipe, Query } from "@nestjs/common";
 import { ApiQuery, ApiResponse, ApiTags } from "@nestjs/swagger";
-import { Example } from "./entities/example";
-import { ExampleService } from "./example.service";
 
 @Controller()
 @ApiTags('example')
 export class ExampleController {
 	constructor(
-		private readonly exampleService: ExampleService
+		private readonly exampleService: ExampleService,
 	) { }
 
 	@Get("/examples")

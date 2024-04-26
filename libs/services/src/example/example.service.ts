@@ -1,14 +1,13 @@
-import { Injectable } from "@nestjs/common";
-import { Example } from "./entities/example";
-import { ExampleFilter } from "./entities/example.filter";
+
+import { CacheInfo, QueryPagination } from "@libs/common";
+import { Example, ExampleFilter } from "@libs/entities";
 import { CacheService } from "@multiversx/sdk-nestjs-cache";
-import { QueryPagination } from "../entities";
-import { CacheInfo } from "../utils";
+import { Injectable } from "@nestjs/common";
 
 @Injectable()
 export class ExampleService {
   constructor(
-    private readonly cacheService: CacheService
+    private readonly cacheService: CacheService,
   ) { }
 
   async getExamples(pagination: QueryPagination, filter: ExampleFilter): Promise<Example[]> {
