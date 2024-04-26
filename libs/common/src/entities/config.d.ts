@@ -29,6 +29,7 @@ export interface Config {
         username: string;
         password: string;
         name: string;
+        tlsAllowInvalidCertificates: boolean;
       };
       redis: {
         host: string;

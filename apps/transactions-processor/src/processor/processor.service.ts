@@ -4,7 +4,7 @@ import { Locker } from "@multiversx/sdk-nestjs-common";
 import { TransactionProcessor } from "@multiversx/sdk-transaction-processor";
 import { Injectable, Logger } from "@nestjs/common";
 import { Cron } from "@nestjs/schedule";
-import { CacheInfo, CommonConfigService } from "@mvx-monorepo/common";
+import { CacheInfo, CommonConfigService } from "@libs/common";
 import { AppConfigService } from "../config/app-config.service";
 
 @Injectable()

@@ -1,4 +1,7 @@
+import { SchemaFactory } from '@nestjs/mongoose';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+
+export type UserDocument = User & Document;
 
 @Entity('users')
 export class User {
@@ -14,3 +17,5 @@ export class User {
   @Column({ default: true })
   isActive?: boolean;
 }
+
+export const UserSchema = SchemaFactory.createForClass(User);

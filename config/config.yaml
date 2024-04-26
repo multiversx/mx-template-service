@@ -20,6 +20,7 @@ libs:
       username: 'root'
       password: 'root'
       name: 'example'
+      # tlsAllowInvalidCertificates: false
     redis:
       host: '127.0.0.1'
       port: 6379

@@ -21,6 +21,9 @@ libs:
       username: string
       password: string
       name: string
+      tlsAllowInvalidCertificates:
+        type: boolean
+        default: false
     redis:
       host: string
       port: integer

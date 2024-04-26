@@ -1,9 +1,9 @@
+import { Token } from '@libs/entities';
+import { TokenService } from '@libs/services';
 import { Body, Controller, Get, Post } from '@nestjs/common';
-import { Token } from './schemas/token.schema';
-import { TokenService } from './token.service';
 
 @Controller('tokens')
-export class TokensController {
+export class TokenController {
   constructor(private readonly tokenService: TokenService) { }
 
   @Post()

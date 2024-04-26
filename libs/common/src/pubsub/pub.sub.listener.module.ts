@@ -1,5 +1,5 @@
 import { DynamicModule, Module } from '@nestjs/common';
-import { DynamicModuleUtils } from '@mvx-monorepo/common/utils/dynamic.module.utils';
+import { DynamicModuleUtils } from '@libs/common/utils/dynamic.module.utils';
 import { PubSubListenerController } from './pub.sub.listener.controller';
 import { LoggingModule } from '@multiversx/sdk-nestjs-common';
 import { CommonConfigModule } from '../config';

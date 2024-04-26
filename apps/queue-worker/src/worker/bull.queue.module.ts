@@ -1,6 +1,6 @@
 import { BullModule } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
-import { CommonConfigModule, CommonConfigService } from '@mvx-monorepo/common';
+import { CommonConfigModule, CommonConfigService } from '@libs/common';
 
 @Module({
   imports: [

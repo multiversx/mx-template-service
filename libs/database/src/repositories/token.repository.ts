@@ -1,10 +1,10 @@
-import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import { Token, TokenDocument } from './schemas/token.schema';
+import { Token, TokenDocument } from "@libs/entities";
+import { Injectable } from "@nestjs/common";
+import { InjectModel } from "@nestjs/mongoose";
+import { Model } from "mongoose";
 
 @Injectable()
-export class TokenService {
+export class TokenRepository {
   constructor(
     @InjectModel(Token.name) private readonly tokenModel: Model<TokenDocument>,
   ) { }

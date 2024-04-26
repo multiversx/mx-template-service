@@ -1,4 +1,4 @@
-import { configuration } from "@mvx-monorepo/common/config/configuration";
+import { configuration } from "@libs/common/config/configuration";
 import { Injectable } from "@nestjs/common";
 
 @Injectable()
