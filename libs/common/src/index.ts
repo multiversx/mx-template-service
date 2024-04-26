@@ -1,5 +1,4 @@
 export * from './abi';
-export * from './database';
 export * from './entities';
 export * from './metrics';
 export * from './pubsub';

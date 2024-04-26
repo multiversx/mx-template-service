@@ -16,11 +16,11 @@ libs:
       api: 'https://api.multiversx.com'
     database:
       host: 'localhost'
-      port: 3306
+      port: 27017
       # username: 'root'
       # password: 'root'
       name: 'example'
-      # tlsAllowInvalidCertificates: false
+      tlsAllowInvalidCertificates: true
     redis:
       host: '127.0.0.1'
       port: 6379
