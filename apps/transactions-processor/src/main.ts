@@ -8,10 +8,10 @@ import { AppConfigService } from './config/app-config.service';
 
 async function bootstrap() {
   const transactionProcessorApp = await NestFactory.create(AppModule);
-  const transactionsProcessorConfigService = transactionProcessorApp.get<AppConfigService>(AppConfigService);
+  const appConfigService = transactionProcessorApp.get<AppConfigService>(AppConfigService);
   const commonConfigService = transactionProcessorApp.get<CommonConfigService>(CommonConfigService);
 
-  await transactionProcessorApp.listen(transactionsProcessorConfigService.config.port);
+  await transactionProcessorApp.listen(appConfigService.config.port);
 
   const pubSubApp = await NestFactory.createMicroservice<MicroserviceOptions>(
     PubSubListenerModule.forRoot(),

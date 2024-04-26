@@ -5,19 +5,19 @@ import { TransactionProcessor } from "@multiversx/sdk-transaction-processor";
 import { Injectable, Logger } from "@nestjs/common";
 import { Cron } from "@nestjs/schedule";
 import { CacheInfo, CommonConfigService } from "@mvx-monorepo/common";
-import { AppConfigService } from "../config/app-config.service";
+import { AppConfigService } from "./config/app-config.service";
 
 @Injectable()
-export class TransactionProcessorService {
+export class TransactionsProcessorService {
   private transactionProcessor: TransactionProcessor = new TransactionProcessor();
   private readonly logger: Logger;
 
   constructor(
     private readonly cacheService: CacheService,
     private readonly commonConfigService: CommonConfigService,
-    private readonly transactionsProcessorConfigService: AppConfigService,
+    private readonly appConfigService: AppConfigService,
   ) {
-    this.logger = new Logger(TransactionProcessorService.name);
+    this.logger = new Logger(TransactionsProcessorService.name);
   }
 
   @Cron('*/1 * * * * *')
@@ -25,7 +25,7 @@ export class TransactionProcessorService {
     await Locker.lock('newTransactions', async () => {
       await this.transactionProcessor.start({
         gatewayUrl: this.commonConfigService.config.urls.api,
-        maxLookBehind: this.transactionsProcessorConfigService.config.maxLookBehind,
+        maxLookBehind: this.appConfigService.config.maxLookBehind,
         // eslint-disable-next-line require-await
         onTransactionsReceived: async (shardId, nonce, transactions, statistics) => {
           this.logger.log(`Received ${transactions.length} transactions on shard ${shardId} and nonce ${nonce}. Time left: ${statistics.secondsLeft}`);
