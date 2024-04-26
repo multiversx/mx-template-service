@@ -79,19 +79,19 @@ module.exports = {
       rules: [
         {
           from: 'apps/api',
-          allow: ['libs/common', 'libs/entities', 'libs/database', 'libs/services']
+          allow: ['libs/common', 'libs/entities', 'libs/services']
         },
         {
           from: 'apps/cache-warmer',
-          allow: ['libs/common', 'libs/entities', 'libs/database', 'libs/services']
+          allow: ['libs/common', 'libs/entities', 'libs/services']
         },
         {
           from: 'apps/queue-worker',
-          allow: ['libs/common', 'libs/entities', 'libs/database', 'libs/services']
+          allow: ['libs/common', 'libs/entities', 'libs/services']
         },
         {
           from: 'apps/transactions-processor',
-          allow: ['libs/common', 'libs/entities', 'libs/database', 'libs/services']
+          allow: ['libs/common', 'libs/entities', 'libs/services']
         },
         {
           from: 'libs/database',
