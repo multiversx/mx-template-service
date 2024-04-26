@@ -28,9 +28,11 @@ async function bootstrap() {
   publicApp.useLogger(publicApp.get(WINSTON_MODULE_NEST_PROVIDER));
   publicApp.use(cookieParser());
 
+  const privateApp = await NestFactory.create(PrivateAppModule);
+
   const appConfigService = publicApp.get<AppConfigService>(AppConfigService);
   const commonConfigService = publicApp.get<CommonConfigService>(CommonConfigService);
-  const metricsService = publicApp.get<MetricsService>(MetricsService);
+  const metricsService = privateApp.get<MetricsService>(MetricsService);
 
   const globalInterceptors: NestInterceptor[] = [];
   globalInterceptors.push(new LoggingInterceptor(metricsService));
@@ -52,7 +54,6 @@ async function bootstrap() {
 
   await publicApp.listen(appConfigService.config.port);
 
-  const privateApp = await NestFactory.create(PrivateAppModule);
   await privateApp.listen(appConfigService.config.privatePort);
 
   const logger = new Logger('Bootstrapper');
