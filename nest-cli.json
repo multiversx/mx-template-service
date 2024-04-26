@@ -22,7 +22,11 @@
         "assets": [
           {
             "include": "../config/config.yaml",
-            "outDir": "./dist/apps/api/config"
+            "outDir": "./dist/config"
+          },
+          {
+            "include": "../config/schema.yaml",
+            "outDir": "./dist/config"
           },
           {
             "include": "../docs/swagger.md",

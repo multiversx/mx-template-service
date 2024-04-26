@@ -19,7 +19,7 @@ import '@multiversx/sdk-nestjs-common/lib/utils/extensions/array.extensions';
 import '@multiversx/sdk-nestjs-common/lib/utils/extensions/date.extensions';
 import '@multiversx/sdk-nestjs-common/lib/utils/extensions/number.extensions';
 import '@multiversx/sdk-nestjs-common/lib/utils/extensions/string.extensions';
-import { ApiConfigService } from './config/api.config.service';
+import { ApiConfigService } from './config/api-config.service';
 import { CommonConfigService } from '@mvx-monorepo/common/config/common.config.service';
 
 async function bootstrap() {
