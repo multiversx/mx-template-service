@@ -1,3 +1,12 @@
+import * as dotenv from 'dotenv';
+import { resolve } from 'path';
+
+// Determine which .env file to load based on NODE_ENV
+const envPath = `.env.${process.env.NODE_ENV ?? 'mainnet'}`;
+dotenv.config({
+  path: resolve(process.cwd(), envPath),
+});
+
 import 'module-alias/register';
 import { NestFactory } from '@nestjs/core';
 import { CommonConfigService, PubSubListenerModule } from '@libs/common';

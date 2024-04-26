@@ -13,7 +13,7 @@ apps:
 libs:
   common:
     urls:
-      api: 'https://api.multiversx.com'
+      api: ${API_URL}
     database:
       host: 'localhost'
       port: 27017

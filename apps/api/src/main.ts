@@ -1,3 +1,12 @@
+import * as dotenv from 'dotenv';
+import { resolve } from 'path';
+
+// Determine which .env file to load based on NODE_ENV
+const envPath = `.env.${process.env.NODE_ENV ?? 'mainnet'}`;
+dotenv.config({
+  path: resolve(process.cwd(), envPath),
+});
+
 import 'module-alias/register';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
@@ -33,6 +42,8 @@ async function bootstrap() {
   const appConfigService = publicApp.get<AppConfigService>(AppConfigService);
   const commonConfigService = publicApp.get<CommonConfigService>(CommonConfigService);
   const metricsService = privateApp.get<MetricsService>(MetricsService);
+
+  console.log({ apiUrl: commonConfigService.config.urls.api });
 
   const globalInterceptors: NestInterceptor[] = [];
   globalInterceptors.push(new LoggingInterceptor(metricsService));
