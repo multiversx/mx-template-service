@@ -16,16 +16,7 @@ export interface Config {
       useCachingInterceptor: boolean;
     };
     cacheWarmer: {
-      features: {
-        cacheWarmer: {
-          enabled: boolean;
-          port: number;
-        };
-        privateApi: {
-          enabled: boolean;
-          port: number;
-        };
-      };
+      port: number;
     };
     queueWorker: {
       port: number;

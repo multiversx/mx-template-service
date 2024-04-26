@@ -1,22 +1,17 @@
 import 'module-alias/register';
 import { NestFactory } from '@nestjs/core';
 import { CommonConfigService, PubSubListenerModule } from '@mvx-monorepo/common';
-import { CacheWarmerModule } from './cache-warmer';
-import { PrivateAppModule } from './private.app.module';
+import { AppModule } from './app.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
-import { CacheWarmerConfigService } from './config/cache-warmer-config.service';
+import { AppConfigService } from './config/app-config.service';
 
 async function bootstrap() {
-  const cacheWarmerApp = await NestFactory.create(CacheWarmerModule);
-  const commonConfigService = cacheWarmerApp.get<CommonConfigService>(CommonConfigService);
-  const cacheWarmerConfigService = cacheWarmerApp.get<CacheWarmerConfigService>(CacheWarmerConfigService);
-  await cacheWarmerApp.listen(cacheWarmerConfigService.config.features.cacheWarmer.port);
+  const app = await NestFactory.create(AppModule);
+  const commonConfigService = app.get<CommonConfigService>(CommonConfigService);
+  const appConfigService = app.get<AppConfigService>(AppConfigService);
 
-  if (cacheWarmerConfigService.config.features.privateApi.enabled) {
-    const privateApp = await NestFactory.create(PrivateAppModule);
-    await privateApp.listen(cacheWarmerConfigService.config.features.privateApi.port);
-  }
+  await app.listen(appConfigService.config.port);
 
   const pubSubApp = await NestFactory.createMicroservice<MicroserviceOptions>(
     PubSubListenerModule.forRoot(),

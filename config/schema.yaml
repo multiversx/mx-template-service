@@ -10,13 +10,7 @@ apps:
         port: integer
     useCachingInterceptor: boolean
   cacheWarmer:
-    features:
-      cacheWarmer:
-        enabled: boolean
-        port: integer
-      privateApi:
-        enabled: boolean
-        port: integer
+    port: integer
   queueWorker:
     port: integer
   transactionsProcessor:

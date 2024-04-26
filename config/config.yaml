@@ -9,13 +9,7 @@ apps:
         port: 4000
     useCachingInterceptor: true
   cacheWarmer:
-    features:
-      cacheWarmer:
-        enabled: true
-        port: 3001
-      privateApi:
-        enabled: true
-        port: 4001
+    port: 4001
   queueWorker:
     port: 4002
   transactionsProcessor:

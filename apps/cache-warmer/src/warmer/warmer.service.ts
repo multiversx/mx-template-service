@@ -7,7 +7,7 @@ import { Locker } from "@multiversx/sdk-nestjs-common";
 import { CacheInfo } from "@mvx-monorepo/common/utils/cache.info";
 
 @Injectable()
-export class CacheWarmerService {
+export class WarmerService {
   constructor(
     private readonly cachingService: CacheService,
     @Inject('PUBSUB_SERVICE') private clientProxy: ClientProxy,
