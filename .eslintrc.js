@@ -24,12 +24,8 @@ module.exports = {
     },
     'boundaries/elements': [
       {
-        type: 'apps/api/test',
-        pattern: 'apps/api/test',
-      },
-      {
         type: 'apps/api',
-        pattern: 'apps/api/src',
+        pattern: 'apps/api',
       },
       {
         type: 'apps/cache-warmer',
@@ -81,10 +77,6 @@ module.exports = {
     "boundaries/element-types": ["error", {
       default: 'disallow',
       rules: [
-        {
-          from: 'apps/api/test',
-          allow: ['apps/api']
-        },
         {
           from: 'apps/api',
           allow: ['libs/common', 'libs/entities', 'libs/database', 'libs/services']
