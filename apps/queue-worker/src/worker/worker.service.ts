@@ -4,13 +4,13 @@ import { Cron, CronExpression } from "@nestjs/schedule";
 import { Queue } from "bull";
 
 @Injectable()
-export class QueueWorkerService {
+export class WorkerService {
   private readonly logger: Logger;
 
   constructor(
     @InjectQueue('exampleQueue') private exampleQueue: Queue
   ) {
-    this.logger = new Logger(QueueWorkerService.name);
+    this.logger = new Logger(WorkerService.name);
   }
 
   @Cron(CronExpression.EVERY_MINUTE)

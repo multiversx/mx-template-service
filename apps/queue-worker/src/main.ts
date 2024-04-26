@@ -1,22 +1,17 @@
 import 'module-alias/register';
 import { NestFactory } from '@nestjs/core';
 import { CommonConfigService, PubSubListenerModule } from '@mvx-monorepo/common';
-import { QueueWorkerModule } from './worker';
-import { PrivateAppModule } from './private.app.module';
+import { AppModule } from './app.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
-import { QueueWorkerConfigService } from './config/queue-worker-config.service';
+import { AppConfigService } from './config/app-config.service';
 
 async function bootstrap() {
-  const queueWorkerApp = await NestFactory.create(QueueWorkerModule);
-  const queueWorkerConfigService = queueWorkerApp.get<QueueWorkerConfigService>(QueueWorkerConfigService);
-  const commonConfigService = queueWorkerApp.get<CommonConfigService>(CommonConfigService);
-  await queueWorkerApp.listen(queueWorkerConfigService.config.features.queueWorker.port);
+  const app = await NestFactory.create(AppModule);
+  const appConfigService = app.get<AppConfigService>(AppConfigService);
+  const commonConfigService = app.get<CommonConfigService>(CommonConfigService);
 
-  if (queueWorkerConfigService.config.features.privateApi.enabled) {
-    const privateApp = await NestFactory.create(PrivateAppModule);
-    await privateApp.listen(queueWorkerConfigService.config.features.privateApi.port);
-  }
+  await app.listen(appConfigService.config.port);
 
   const pubSubApp = await NestFactory.createMicroservice<MicroserviceOptions>(
     PubSubListenerModule.forRoot(),

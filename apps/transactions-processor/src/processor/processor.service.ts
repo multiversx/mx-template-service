@@ -5,10 +5,10 @@ import { TransactionProcessor } from "@multiversx/sdk-transaction-processor";
 import { Injectable, Logger } from "@nestjs/common";
 import { Cron } from "@nestjs/schedule";
 import { CacheInfo, CommonConfigService } from "@mvx-monorepo/common";
-import { AppConfigService } from "./config/app-config.service";
+import { AppConfigService } from "../config/app-config.service";
 
 @Injectable()
-export class TransactionsProcessorService {
+export class ProcessorService {
   private transactionProcessor: TransactionProcessor = new TransactionProcessor();
   private readonly logger: Logger;
 
@@ -17,7 +17,7 @@ export class TransactionsProcessorService {
     private readonly commonConfigService: CommonConfigService,
     private readonly appConfigService: AppConfigService,
   ) {
-    this.logger = new Logger(TransactionsProcessorService.name);
+    this.logger = new Logger(ProcessorService.name);
   }
 
   @Cron('*/1 * * * * *')

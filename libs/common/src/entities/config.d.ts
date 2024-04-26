@@ -28,16 +28,7 @@ export interface Config {
       };
     };
     queueWorker: {
-      features: {
-        queueWorker: {
-          enabled: boolean;
-          port: number;
-        };
-        privateApi: {
-          enabled: boolean;
-          port: number;
-        };
-      };
+      port: number;
     };
     transactionsProcessor: {
       port: number;

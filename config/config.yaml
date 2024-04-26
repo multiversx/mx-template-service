@@ -17,13 +17,7 @@ apps:
         enabled: true
         port: 4001
   queueWorker:
-    features:
-      queueWorker:
-        enabled: true
-        port: 3002
-      privateApi:
-        enabled: true
-        port: 4002
+    port: 4002
   transactionsProcessor:
     port: 4003
     maxLookBehind: 100

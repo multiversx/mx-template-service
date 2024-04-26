@@ -18,13 +18,7 @@ apps:
         enabled: boolean
         port: integer
   queueWorker:
-    features:
-      queueWorker:
-        enabled: boolean
-        port: integer
-      privateApi:
-        enabled: boolean
-        port: integer
+    port: integer
   transactionsProcessor:
     port: integer
     maxLookBehind: integer

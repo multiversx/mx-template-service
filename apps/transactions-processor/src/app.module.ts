@@ -4,7 +4,7 @@ import { ApiMetricsModule } from '@mvx-monorepo/common';
 import { LoggingModule } from '@multiversx/sdk-nestjs-common';
 import { AppConfigModule } from './config/app-config.module';
 import { ScheduleModule } from '@nestjs/schedule';
-import { TransactionsProcessorService } from './transactions-processor.service';
+import { ProcessorService } from './processor/processor.service';
 
 @Module({
   imports: [
@@ -16,7 +16,7 @@ import { TransactionsProcessorService } from './transactions-processor.service';
     DynamicModuleUtils.getCachingModule(),
   ],
   providers: [
-    TransactionsProcessorService,
+    ProcessorService,
   ],
   controllers: [
     ApiMetricsController,
