@@ -69,7 +69,7 @@ export interface Config {
         port: number;
       };
       nativeAuth: {
-        maxExpirySeconds?: number;
+        maxExpirySeconds: number;
         acceptedOrigins: string[];
       };
       security: {

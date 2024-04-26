@@ -1,15 +1,15 @@
 import { Module } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
-import { ApiConfigModule, ApiConfigService } from "../config";
+import { CommonConfigModule, CommonConfigService } from "../config";
 
 @Module({
   imports: [
     MongooseModule.forRootAsync({
-      imports: [ApiConfigModule],
-      useFactory: (configService: ApiConfigService) => ({
-        uri: configService.getNoSQLDatabaseConnection(),
+      imports: [CommonConfigModule],
+      useFactory: (configService: CommonConfigService) => ({
+        uri: `mongodb://${configService.config.database.host}:27017/${configService.config.database.name}`,
       }),
-      inject: [ApiConfigService],
+      inject: [CommonConfigService],
     }),
   ],
   exports: [

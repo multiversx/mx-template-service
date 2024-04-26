@@ -1,23 +1,23 @@
 import { Module } from "@nestjs/common";
 import { ClientOptions, ClientProxyFactory, Transport } from "@nestjs/microservices";
-import { ApiConfigModule, ApiConfigService } from "@mvx-monorepo/common";
 import { TestSocketService } from "./test.socket.service";
-import configuration from "../../../config/configuration";
+import { CommonConfigModule } from "@mvx-monorepo/common/config/common.config.module";
+import { CommonConfigService } from "@mvx-monorepo/common/config/common.config.service";
 
 @Module({
   imports: [
-    ApiConfigModule.forRoot(configuration),
+    CommonConfigModule,
   ],
   providers: [
     TestSocketService,
     {
       provide: 'PUBSUB_SERVICE',
-      useFactory: (apiConfigService: ApiConfigService) => {
+      useFactory: (commonConfigService: CommonConfigService) => {
         const clientOptions: ClientOptions = {
           transport: Transport.REDIS,
           options: {
-            host: apiConfigService.getRedisUrl(),
-            port: 6379,
+            host: commonConfigService.config.redis.host,
+            port: commonConfigService.config.redis.port,
             retryDelay: 1000,
             retryAttempts: 10,
             retryStrategy: () => 1000,
@@ -26,7 +26,7 @@ import configuration from "../../../config/configuration";
 
         return ClientProxyFactory.create(clientOptions);
       },
-      inject: [ApiConfigService],
+      inject: [CommonConfigService],
     },
   ],
   exports: [

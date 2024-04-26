@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { ApiConfigService, ApiConfigModule } from "../config";
 import { EntityClassOrSchema } from "@nestjs/typeorm/dist/interfaces/entity-class-or-schema.type";
+import { CommonConfigModule, CommonConfigService } from "../config";
 
 @Module({})
 export class DatabaseModule {
@@ -10,15 +10,19 @@ export class DatabaseModule {
       module: DatabaseModule,
       imports: [
         TypeOrmModule.forRootAsync({
-          imports: [ApiConfigModule],
-          useFactory: (apiConfigService: ApiConfigService) => ({
+          imports: [CommonConfigModule],
+          useFactory: (apiConfigService: CommonConfigService) => ({
             type: 'mysql',
-            ...apiConfigService.getDatabaseConnection(),
+            host: apiConfigService.config.database.host,
+            port: apiConfigService.config.database.port,
+            username: apiConfigService.config.database.username,
+            password: apiConfigService.config.database.password,
+            database: apiConfigService.config.database.name,
             entities: entities,
             keepConnectionAlive: true,
             synchronize: true,
           }),
-          inject: [ApiConfigService],
+          inject: [CommonConfigService],
         }),
         TypeOrmModule.forFeature(entities),
       ],

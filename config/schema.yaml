@@ -49,7 +49,7 @@ libs:
     nativeAuth:
       maxExpirySeconds:
         type: integer
-        required: false
+        default: 86400
       acceptedOrigins:
         type: array
         items: string
