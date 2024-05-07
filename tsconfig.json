@@ -38,11 +38,29 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "paths": {
-      "@mvx-monorepo/common": [
+      "@libs/common": [
         "libs/common/src"
       ],
-      "@mvx-monorepo/common/*": [
+      "@libs/common/*": [
         "libs/common/src/*"
+      ],
+      "@libs/entities": [
+        "libs/entities/src"
+      ],
+      "@libs/entities/*": [
+        "libs/entities/src/*"
+      ],
+      "@libs/database": [
+        "libs/database/src"
+      ],
+      "@libs/database/*": [
+        "libs/database/src/*"
+      ],
+      "@libs/services": [
+        "libs/services/src"
+      ],
+      "@libs/services/*": [
+        "libs/services/src/*"
       ],
     }
   }

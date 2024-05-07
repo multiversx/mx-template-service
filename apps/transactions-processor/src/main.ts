@@ -1,29 +1,34 @@
+import * as dotenv from 'dotenv';
+import { resolve } from 'path';
+
+// Determine which .env file to load based on NODE_ENV
+const envPath = `.env.${process.env.NODE_ENV ?? 'mainnet'}`;
+dotenv.config({
+  path: resolve(process.cwd(), envPath),
+});
+
 import 'module-alias/register';
 import { NestFactory } from '@nestjs/core';
-import { TransactionProcessorModule } from './processor';
-import { ApiConfigService, PubSubListenerModule } from '@mvx-monorepo/common';
-import { PrivateAppModule } from './private.app.module';
-import configuration from '../config/configuration';
+import { CommonConfigService, PubSubListenerModule } from '@libs/common';
+import { AppModule } from './app.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
+import { AppConfigService } from './config/app-config.service';
 
 async function bootstrap() {
-  const transactionProcessorApp = await NestFactory.create(TransactionProcessorModule);
-  const apiConfigService = transactionProcessorApp.get<ApiConfigService>(ApiConfigService);
-  await transactionProcessorApp.listen(apiConfigService.getTransactionProcessorFeaturePort());
+  const transactionProcessorApp = await NestFactory.create(AppModule);
+  const appConfigService = transactionProcessorApp.get<AppConfigService>(AppConfigService);
+  const commonConfigService = transactionProcessorApp.get<CommonConfigService>(CommonConfigService);
 
-  if (apiConfigService.getIsPrivateApiFeatureActive()) {
-    const privateApp = await NestFactory.create(PrivateAppModule);
-    await privateApp.listen(apiConfigService.getPrivateApiFeaturePort());
-  }
+  await transactionProcessorApp.listen(appConfigService.config.port);
 
   const pubSubApp = await NestFactory.createMicroservice<MicroserviceOptions>(
-    PubSubListenerModule.forRoot(configuration),
+    PubSubListenerModule.forRoot(),
     {
       transport: Transport.REDIS,
       options: {
-        host: apiConfigService.getRedisUrl(),
-        port: 6379,
+        host: commonConfigService.config.redis.host,
+        port: commonConfigService.config.redis.port,
         retryAttempts: 100,
         retryDelay: 1000,
         retryStrategy: () => 1000,

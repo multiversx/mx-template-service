@@ -1,0 +1,48 @@
+title: config
+apps:
+  api:
+    port: integer
+    privatePort: integer
+    useCachingInterceptor: boolean
+  cacheWarmer:
+    port: integer
+  queueWorker:
+    port: integer
+  transactionsProcessor:
+    port: integer
+    maxLookBehind: integer
+libs:
+  common:
+    urls:
+      api: string
+    database:
+      host: string
+      port: integer
+      username:
+        type: string
+        required: false
+      password:
+        type: string
+        required: false
+      name: string
+      tlsAllowInvalidCertificates:
+        type: boolean
+        default: false
+    redis:
+      host: string
+      port: integer
+    nativeAuth:
+      maxExpirySeconds:
+        type: integer
+        default: 86400
+      acceptedOrigins:
+        type: array
+        items: string
+    security:
+      admins:
+        type: array
+        items: string
+        default: []
+    rateLimiterSecret:
+      type: string
+      required: false

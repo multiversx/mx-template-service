@@ -11,7 +11,7 @@
     "^.+\\.(t|j)s$": "ts-jest"
   },
   "moduleNameMapper": {
-    "^@mvx-monorepo/common(|/.*)$": "<rootDir>/../../../libs/common/src/$1",
-    "^@mvx-monorepo/common": "<rootDir>/../../../libs/common"
+    "^@libs/common(|/.*)$": "<rootDir>/../../../libs/common/src/$1",
+    "^@libs/common": "<rootDir>/../../../libs/common"
   }
 }

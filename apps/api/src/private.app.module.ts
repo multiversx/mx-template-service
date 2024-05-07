@@ -1,18 +1,17 @@
 import { Module } from '@nestjs/common';
-import { TestSocketController } from './endpoints/test-sockets/test.socket.controller';
-import { TestSocketModule } from './endpoints/test-sockets/test.socket.module';
-import { CacheController } from './endpoints/caching/cache.controller';
-import { ApiMetricsController, HealthCheckController } from '@mvx-monorepo/common';
-import { ApiMetricsModule, DynamicModuleUtils } from '@mvx-monorepo/common';
+import { ApiMetricsController, HealthCheckController } from '@libs/common';
+import { ApiMetricsModule, DynamicModuleUtils } from '@libs/common';
 import { LoggingModule } from '@multiversx/sdk-nestjs-common';
-import configuration from '../config/configuration';
+import { CommonConfigModule } from '@libs/common/config/common.config.module';
+import { AppConfigModule } from './config/app-config.module';
 
 @Module({
   imports: [
     LoggingModule,
     ApiMetricsModule,
-    DynamicModuleUtils.getCachingModule(configuration),
-    TestSocketModule,
+    DynamicModuleUtils.getCachingModule(),
+    CommonConfigModule,
+    AppConfigModule,
   ],
   providers: [
     DynamicModuleUtils.getNestJsApiConfigService(),
@@ -20,9 +19,7 @@ import configuration from '../config/configuration';
   ],
   controllers: [
     ApiMetricsController,
-    CacheController,
     HealthCheckController,
-    TestSocketController,
   ],
 })
 export class PrivateAppModule { }

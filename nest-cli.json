@@ -22,7 +22,11 @@
         "assets": [
           {
             "include": "../config/config.yaml",
-            "outDir": "./dist/apps/api/config"
+            "outDir": "./dist/config"
+          },
+          {
+            "include": "../config/schema.yaml",
+            "outDir": "./dist/config"
           },
           {
             "include": "../docs/swagger.md",
@@ -41,7 +45,11 @@
         "assets": [
           {
             "include": "../config/config.yaml",
-            "outDir": "./dist/apps/transactions-processor/config"
+            "outDir": "./dist/config"
+          },
+          {
+            "include": "../config/schema.yaml",
+            "outDir": "./dist/config"
           }
         ]
       }
@@ -56,7 +64,11 @@
         "assets": [
           {
             "include": "../config/config.yaml",
-            "outDir": "./dist/apps/queue-worker/config"
+            "outDir": "./dist/config"
+          },
+          {
+            "include": "../config/schema.yaml",
+            "outDir": "./dist/config"
           }
         ]
       }
@@ -71,7 +83,11 @@
         "assets": [
           {
             "include": "../config/config.yaml",
-            "outDir": "./dist/apps/cache-warmer/config"
+            "outDir": "./dist/config"
+          },
+          {
+            "include": "../config/schema.yaml",
+            "outDir": "./dist/config"
           }
         ]
       }
@@ -83,6 +99,33 @@
       "sourceRoot": "libs/common/src",
       "compilerOptions": {
         "tsConfigPath": "libs/common/tsconfig.lib.json"
+      }
+    },
+    "entities": {
+      "type": "library",
+      "root": "libs/entities",
+      "entryFile": "index",
+      "sourceRoot": "libs/entities/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/entities/tsconfig.lib.json"
+      }
+    },
+    "database": {
+      "type": "library",
+      "root": "libs/database",
+      "entryFile": "index",
+      "sourceRoot": "libs/database/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/database/tsconfig.lib.json"
+      }
+    },
+    "services": {
+      "type": "library",
+      "root": "libs/services",
+      "entryFile": "index",
+      "sourceRoot": "libs/services/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/services/tsconfig.lib.json"
       }
     }
   }
