@@ -41,3 +41,7 @@ lerna-debug.log*
 **/*/config/schema.json
 **/*/config/config.yaml
 **/*/config/schema.yaml
+
+# Environment
+.env
+.env.custom
