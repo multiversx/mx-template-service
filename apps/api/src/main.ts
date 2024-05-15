@@ -43,8 +43,6 @@ async function bootstrap() {
   const commonConfigService = publicApp.get<CommonConfigService>(CommonConfigService);
   const metricsService = privateApp.get<MetricsService>(MetricsService);
 
-  console.log({ apiUrl: commonConfigService.config.urls.api });
-
   const globalInterceptors: NestInterceptor[] = [];
   globalInterceptors.push(new LoggingInterceptor(metricsService));
   globalInterceptors.push(new RequestCpuTimeInterceptor(metricsService));
