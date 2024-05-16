@@ -17,7 +17,7 @@ export class ExampleController {
 		type: Example,
 		isArray: true,
 	})
-	@ApiQuery({ name: 'from', description: 'Numer of items to skip for the result set', required: false })
+	@ApiQuery({ name: 'from', description: 'Number of items to skip for the result set', required: false })
 	@ApiQuery({ name: 'size', description: 'Number of items to retrieve', required: false })
 	@ApiQuery({ name: 'search', description: 'Search by example description', required: false })
 	async getExamples(
