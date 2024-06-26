@@ -2,7 +2,7 @@ import * as dotenv from 'dotenv';
 import { resolve } from 'path';
 
 // Determine which .env file to load based on NODE_ENV
-const envPath = `.env.${process.env.NODE_ENV ?? 'mainnet'}`;
+const envPath = process.env.NODE_ENV === 'infra' ? '.env' : `.env.${process.env.NODE_ENV ?? 'mainnet'}`;
 dotenv.config({
   path: resolve(process.cwd(), envPath),
 });
@@ -16,7 +16,7 @@ import { join } from 'path';
 import { PrivateAppModule } from './private.app.module';
 import { PublicAppModule } from './public.app.module';
 import * as bodyParser from 'body-parser';
-import { Logger, NestInterceptor } from '@nestjs/common';
+import { Logger, NestInterceptor, ValidationPipe } from '@nestjs/common';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import cookieParser from 'cookie-parser';
 import { PubSubListenerModule } from '@libs/common';
@@ -48,6 +48,7 @@ async function bootstrap() {
   globalInterceptors.push(new RequestCpuTimeInterceptor(metricsService));
 
   publicApp.useGlobalInterceptors(...globalInterceptors);
+  publicApp.useGlobalPipes(new ValidationPipe());
 
   const description = readFileSync(join(__dirname, '..', 'docs', 'swagger.md'), 'utf8');
 

@@ -13,6 +13,9 @@ apps:
     maxLookBehind: integer
 libs:
   common:
+    network:
+      type: string
+      enum: [devnet, testnet, mainnet]
     urls:
       api: string
     database:

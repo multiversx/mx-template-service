@@ -12,6 +12,7 @@ apps:
     maxLookBehind: 100
 libs:
   common:
+    network: ${NETWORK}
     urls:
       api: ${API_URL}
     database:
