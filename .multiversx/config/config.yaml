@@ -1,0 +1,34 @@
+apps:
+  api:
+    port: 3000
+    privatePort: 4000
+    useCachingInterceptor: true
+  cacheWarmer:
+    port: 4001
+  queueWorker:
+    port: 4002
+  transactionsProcessor:
+    port: 4003
+    maxLookBehind: 100
+libs:
+  common:
+    network: ${NETWORK}
+    urls:
+      api: ${API_URL}
+    database:
+      host: 'localhost'
+      port: 27017
+      # username: 'root'
+      # password: 'root'
+      name: 'example'
+      tlsAllowInvalidCertificates: true
+    redis:
+      host: '127.0.0.1'
+      port: 6379
+    nativeAuth:
+      # maxExpirySeconds:
+      acceptedOrigins:
+        - utils.multiversx.com
+    security:
+      admins: []
+    # rateLimiterSecret:
