@@ -40,6 +40,7 @@
     "@multiversx/sdk-nestjs-redis": "3.7.1",
     "@multiversx/sdk-network-providers": "^2.4.3",
     "@multiversx/sdk-transaction-processor": "^0.1.33",
+    "@multiversx/sdk-nestjs-cli": "^1.0.2",
     "@nestjs/bull": "^10.0.1",
     "@nestjs/common": "10.2.0",
     "@nestjs/config": "3.0.1",
