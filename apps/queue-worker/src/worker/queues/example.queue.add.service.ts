@@ -1,8 +1,7 @@
 import { Process, Processor } from "@nestjs/bull";
-import { Injectable, Logger } from "@nestjs/common";
+import { Logger } from "@nestjs/common";
 import { Job } from "bull";
 
-@Injectable()
 @Processor('exampleQueueAdd')
 export class ExampleQueueAddService {
   private readonly logger: Logger;
