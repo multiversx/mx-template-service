@@ -1,5 +1,6 @@
-import { Controller, Get } from "@nestjs/common";
+import { Controller, Get, Header } from '@nestjs/common';
 import { ApiMetricsService } from "./api.metrics.service";
+import { register } from 'prom-client';
 
 @Controller()
 export class ApiMetricsController {
@@ -8,6 +9,7 @@ export class ApiMetricsController {
   ) { }
 
   @Get("/metrics")
+  @Header("Content-Type", register.contentType)
   async getMetrics(): Promise<string> {
     return await this.metricsService.getMetrics();
   }
