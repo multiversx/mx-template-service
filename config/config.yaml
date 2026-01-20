@@ -16,15 +16,14 @@ libs:
     urls:
       api: ${API_URL}
     database:
-      host: 'localhost'
-      port: 27017
-      # username: 'root'
-      # password: 'root'
-      name: 'example'
+      host: ${DATABASE_HOST}
+      username: ${DATABASE_USERNAME}
+      password: ${DATABASE_PASSWORD}
+      name: ${DATABASE_NAME}
       tlsAllowInvalidCertificates: true
     redis:
-      host: '127.0.0.1'
-      port: 6379
+      host: ${REDIS_HOST}
+      port: ${num:REDIS_PORT}
     nativeAuth:
       # maxExpirySeconds:
       acceptedOrigins:
