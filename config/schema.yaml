@@ -20,7 +20,6 @@ libs:
       api: string
     database:
       host: string
-      port: integer
       username:
         type: string
         required: false

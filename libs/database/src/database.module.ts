@@ -10,7 +10,7 @@ import { UserRepository } from './repositories';
     MongooseModule.forRootAsync({
       imports: [CommonConfigModule],
       useFactory: (configService: CommonConfigService) => ({
-        uri: `mongodb://${configService.config.database.host}:${configService.config.database.port}`,
+        uri: configService.config.database.host,
         dbName: configService.config.database.name,
         user: configService.config.database.username,
         pass: configService.config.database.password,
